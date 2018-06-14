@@ -1,0 +1,101 @@
+@media only screen and (max-width: 1200px) {
+    #main .offers {
+        grid-template-columns: auto auto auto;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    header #menu {
+        position: fixed;
+        height: 100%;
+        background: var(--primaryWhite);
+        top: 0;
+        left: 0;
+        z-index: 7;
+        width: 200px;
+        transform: translateX(-210px);
+        transition: .5s ease-in-out;
+        border: 1px solid #eee;
+        box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.103);
+    }
+
+    header #menu.active {
+        transform: translateX(-5px);
+    }
+
+    header #burger {
+        display: inline-block !important;
+    }
+
+
+    header #menu .menu {
+        padding: 15px 0;
+    }
+
+    header #menu .menu li {
+        display: block;
+        border: none !important;
+        height: auto;
+        padding: 10px 15px;
+    }
+
+    #main .offers {
+        grid-template-columns: auto auto;
+    }
+}
+
+@media only screen and (max-width: 940px) {
+    .columns {
+        flex-wrap: wrap;
+    }
+    .column {
+        width: 48.5% !important;
+    }
+}
+
+@media only screen and (min-width: 600px) and (max-width: 705px) {
+    .column.stat-info {
+        width: 48% !important;
+    }
+}
+
+@media only screen and (max-width: 599px) {
+    .columns {
+        flex-direction: column;
+    }
+    
+    .column {
+        width: 98% !important;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    #main .offers {
+        grid-template-columns: auto;
+        grid-gap: 20px;
+    }
+}
+ 
+@media only screen and (max-width: 400px) {
+    header #logo h2 span:last-child {
+        display: none !important;
+    }
+
+    header #logo h2 span:first-child {
+        display: block !important;
+        border: 1px solid var(--primaryBlack);
+        width: 35px;
+        height: 35px;
+        position: relative;
+        text-align: center;
+        position: relative;
+        border-radius: 50%;
+    }
+
+    header #logo h2 span:first-child i {
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}

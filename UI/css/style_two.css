@@ -59,6 +59,12 @@ header #burger, header #logout {
     padding: 10px 5px;
 }
 
+header #menu .trigger-menu {
+    position: absolute;
+    top: 2px;
+    right: 5px;
+}
+
 header #burger {
     display: none !important;
 }

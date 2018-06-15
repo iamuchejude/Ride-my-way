@@ -1,0 +1,218 @@
+@import "general.css";
+
+html, body {
+    padding: 0;
+    margin: 0;
+}
+
+/* Header Styles */
+header {
+    background: var(--primaryWhite);
+    height: 55px;
+    /* border: 1px solid #000; */
+    overflow: hidden;
+    padding: 0 40px;
+    border-bottom: 1px solid #eee;
+    box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.103);
+}
+
+header div {
+    height: 100%;
+    /* border: 1px solid #000; */
+    display: inline-block !important;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+header div.right > div {
+    margin: 0 5px;
+}
+
+header #logo {
+    padding: 10px 0;
+}
+
+header #logo h2 {
+    padding: 0;
+    margin: 0;
+    font-size: 22px;
+}
+
+header #menu .menu {
+    height: 100%;
+    overflow: hidden;
+}
+
+header #menu .menu li {
+    display: inline-block;
+    height: 100%;
+    padding: 14px 15px;
+    overflow: hidden;
+}
+
+header #menu .menu li.active {
+    border-top: 3px solid var(--primaryBlack);
+}
+
+header #burger, header #logout {
+    padding: 10px 5px;
+}
+
+header #burger {
+    display: none !important;
+}
+
+header .icon {
+    font-size: 1.5em;
+}
+
+/* Footer Styles */
+footer {
+    padding: 15px 10px;
+    text-align: center;
+}
+
+/* All rides Section Styles */
+#main {
+    padding: 10px 20px;
+}
+
+#main .offers {
+    width: 100%;
+    padding: 5px;
+    display: inline-grid;
+    grid-template-columns: auto auto auto auto;
+    grid-gap: 20px;
+}
+
+#main .offers .offer {
+    border: 1px solid #eee;
+    box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.103);
+    position: relative;
+    padding: 10px;
+}
+
+#main .offers .offer .price {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-weight: 500;
+}
+
+#main .offers .offer .date_time {
+    padding: 0;
+    margin: 0;
+    font-size: small;
+}
+
+#main .offers .offer .action {
+    margin-top: 8px;
+}
+
+.item-label {
+    display: block;
+}
+
+.item-content {
+    display: block;
+    padding: 0 5px;
+}
+
+/* Section Header */
+.section-header {
+    padding: 20px;
+}
+
+.section-header h3 {
+    padding: 0;
+    margin: 0;
+}
+
+/* Profile Styles */
+.stats-info {
+    padding: 5px 0;
+}
+
+.stats-info .stat-info {
+    border: 1px solid #eee;
+    box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.103);
+    padding: 10px 15px;
+    position: relative;
+}
+
+.stats-info .stat-info ul {
+    padding: 0;
+    margin: 0;
+}
+
+.stats-info .stat-info .stat h3, .stats-info .stat-info .stat p {
+    padding: 0;
+    margin: 0;
+}
+
+.stats-info .stat-info .count, .stats-info .stat-info .stat {
+    margin: 0 2px;
+}
+
+.stats-info .stat-info .count span {
+    font-weight: 500;
+    font-size: 2.0em;
+}
+
+.stats-info .stat-info .stats-icon {
+    position: absolute;
+    font-size: 2.1em;
+    border: 1px solid #000;
+    width: 52px;
+    border-radius: 50%;
+    height: 52px;
+    top: 15px;
+    right: 15px;
+    z-index: -3;
+}
+
+.stats-info .stat-info .stats-icon span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.rides {
+    border: 1px solid #eee;
+    box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.103);
+    position: relative;
+    padding: 10px;
+}
+
+/* .rides table thead tr th:first-child, .rides table tbody tr td:first-child, .rides table tfoot tr td:first-child {
+    
+} */
+
+.rides table thead tr th:last-child {
+    min-width: 100px;
+    width: 100px;
+}
+
+/* Updates Container */
+.updates-container > div {
+    border: 1px solid #eee;
+    padding: 10px 15px;
+    box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.103);
+    position: relative;
+}
+
+/* Notification Styles */
+.column-zone {
+    padding: 10px 0;
+}
+
+.notizone table tbody tr td:last-child {
+    min-width: 90px;
+    vertical-align: text-top;
+}
+
+.requestzone table tbody tr td:last-child {
+    min-width: 160px;
+}

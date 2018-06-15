@@ -1,0 +1,84 @@
+@import "general.css";
+
+/* End of General Styles */
+html, body {
+    width: 100vw;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    background: linear-gradient(0deg, 0deg, #f3f3f3), url();
+}
+
+#wrapper {
+    margin: 40px auto;
+    background: #fff;
+    width: 300px;
+}
+
+/* Header Style */
+#wrapper header {
+    text-align: center;
+    padding: 5px;
+}
+
+#wrapper header h1 {
+    border: 1px solid var(--primaryBlack);
+    border-radius: 50%;
+    width: 55px;
+    height: 55px;
+    display: block;
+    position: relative;
+    margin: auto;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+#wrapper header h1:hover, #wrapper header h1:hover > span {
+    background: var(--primaryBlack);
+    color: var(--primaryWhite);
+    border: 1px solid var(--primaryBlack);
+}
+
+#wrapper header h1 span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.2em;
+    color: var(--primaryWhite);
+}
+/* End of Header Style */
+
+/* Footer Style */
+#wrapper footer {
+    text-align: center;
+    padding: 10px;
+}
+
+/* End of Footer Style */
+
+/* Container Styles */
+.container {
+    padding: 10px;
+    display: none;
+}
+
+.container#index {
+    display: block;
+    text-align: center;
+}
+
+.container:target {
+    display: block;
+    -webkit-transition: 1s;
+       -moz-transition: 1s;
+        -ms-transition: 1s;
+         -o-transition: 1s;
+            transition: 1s;
+}
+
+.container p {
+    text-align: center;
+}
+

@@ -99,3 +99,35 @@
         transform: translate(-50%, -50%);
     }
 }
+
+@media only screen and (min-width: 501px) and (max-width: 720px) {
+    .modal-large {
+        width: 500px;
+    }
+
+    .modal-medium {
+        width: 400%;
+    }
+}
+
+@media only screen and (min-width: 400px) and (max-width: 500px) {
+    .modal-large, .modal-medium {
+        width: 380px;
+    }
+}
+
+@media only screen and (min-width: 321px) and (max-width: 399px) {
+    .modal-large, .modal-medium {
+        width: 315px;
+    }
+}
+
+@media only screen and (max-width: 320px) {
+    .modal-large, .modal-medium,.modal-small {
+        width: 95% !important;
+    }
+}
+
+@media only screen and (max-width: 520px) {
+    
+}

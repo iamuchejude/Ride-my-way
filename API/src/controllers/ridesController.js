@@ -18,15 +18,12 @@ module.exports = class Rides {
   }
 
   static getOneRideOffer(req, res) {
-    const { id } = parseInt(req.params, 10);
-    const rideOffer2 = RideOffers.getOneOffer(id);
-    const rideOffer = RideOffers.getOneOffer(2);
+    const rideOffer = RideOffers.getOneOffer(parseInt(req.params.id, 10));
 
     if (rideOffer === false) {
       res.status(400).json({
         status: 'error',
         message: 'Ride not found',
-        rideOffer2,
       });
     } else {
       res.status(200).json({

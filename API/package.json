@@ -1,0 +1,45 @@
+{
+  "name": "ride-my-way-api",
+  "version": "1.0.0",
+  "description": "Ride-my-way API with Data Structure for Storage",
+  "main": "dist/app.js",
+  "scripts": {
+    "start": "npm run build && nodemon dist/app.js",
+    "test": "mocha",
+    "clean": "rm -rf src",
+    "build": "mkdir dist && babel src -d dist && babel --presets es2015 src -d dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iamuchejude/Ride-my-way-API.git"
+  },
+  "keywords": [
+    "API",
+    "Restful",
+    "Data",
+    "JSON"
+  ],
+  "author": "Uche Jude",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/iamuchejude/Ride-my-way-API/issues"
+  },
+  "homepage": "https://github.com/iamuchejude/Ride-my-way-API#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-es2015": "^6.24.1",
+    "chai": "^4.1.2",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.12.0",
+    "mocha": "^5.2.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "ng-faker": "^1.0.1",
+    "pino": "^4.17.3"
+  }
+}

@@ -1,5 +1,5 @@
-import RideOffers from '../models/rideOffersModel';
-import RideRequests from '../models/rideRequestsModel';
+const RideOffers = require('../models/rideOffersModel');
+const RideRequests = require('../models/rideRequestsModel');
 
 module.exports = class Rides {
   static getAllRideOffers(req, res) {
@@ -36,18 +36,11 @@ module.exports = class Rides {
 
   static createRideOffer(req, res) {
     const {
-      userId,
-      startLocation,
-      destination,
-      price,
-      seat,
-      departureDate,
-      departureTime,
-      createdAt,
+      userId, startLocation, destination, price, seat, departureDate, departureTime,
     } = req.body;
 
     const data = {
-      id: RideOffers.getOffers.length,
+      id: RideOffers.getOffers().length + 1,
       userId,
       startLocation,
       destination,
@@ -55,54 +48,15 @@ module.exports = class Rides {
       seat,
       departureDate,
       departureTime,
-      createdAt,
+      createdAt: new Date().toISOString(),
     };
 
-    RideOffers.getOffers.push(data).then(() => {
-      res.status(200).json({
-        status: 'success',
-        message: 'Ride offer was added successfully',
-        data,
-      });
-    }).catch(() => {
-      res.status(422).json({
-        status: 'error',
-        message: 'Unable to add ride offer',
-      });
+    RideOffers.createOffer(data);
+    res.status(200).json({
+      status: 'success',
+      message: 'Ride offer was added successfully',
+      data,
     });
-  }
-
-  static getAllRideRequests(req, res) {
-    if (RideRequests.getRequests().length >= 1) {
-      res.status(200).json({
-        status: 'success',
-        message: 'Available ride requests',
-        data: RideOffers.getRequests(),
-      });
-    } else {
-      res.status(400).json({
-        status: 'error',
-        message: 'No available ride request',
-      });
-    }
-  }
-
-  static getOneRideRequest(req, res) {
-    const { id } = parseInt(req.params, 10);
-    const rideOffer = RideOffers.getOneOffer(id);
-
-    if (rideOffer === false) {
-      res.status(400).json({
-        status: 'error',
-        message: 'Ride not found',
-      });
-    } else {
-      res.status(200).json({
-        status: 'success',
-        message: 'Ride found',
-        data: rideOffer,
-      });
-    }
   }
 
   static createRideRequest(req, res) {

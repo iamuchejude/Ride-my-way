@@ -13,13 +13,24 @@ for (let i = 1; i <= 5; i += 1) {
     seat: ngfaker.random.number({ min: 1, max: 6 }),
     departureDate: '24th June, 2018',
     departureTime: '05:34:00AM',
-    createdDate: new Date(),
+    createdAt: new Date().toISOString(),
   });
 }
 
 const RideOffers = {
 
   getOffers: () => rideOffers,
+
+  getOneOffer: (rideId) => {
+    for (let i = 0; i < rideOffers.length; i += 1) {
+      if (rideOffers[i].id === rideId) {
+        return rideOffers[i];
+      }
+    }
+    return false;
+  },
+
+  createOffer: data => rideOffers.push(data),
 };
 
 module.exports = RideOffers;

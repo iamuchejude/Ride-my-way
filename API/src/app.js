@@ -1,7 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import env from 'dotenv';
-import router from './routes/rides';
+import { router as Router } from './routes/rides';
 
 env.config();
 
@@ -10,16 +10,8 @@ const port = process.env.PORT || 8080;
 
 app.use(bodyParser.json({ type: 'application/*+json' }));
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use('/api/v1', router);
 
-app.use((req, res, next) => {
-  res.status(200).json({
-    status: 'success',
-    message: 'Welcome to Ride my way API',
-    router,
-  });
-  next();
-});
+app.use('/api/v1', Router);
 
 const server = app.listen(port, () => {
   console.log(`Listening on port ${port}`);

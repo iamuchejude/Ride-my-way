@@ -1,5 +1,4 @@
-// import ngfaker from 'ng-faker';
-const ngfaker = require('ng-faker');
+import ngfaker from 'ng-faker';
 
 const rideOffers = [];
 

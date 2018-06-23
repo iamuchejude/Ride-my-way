@@ -13,5 +13,6 @@ router.get('/', (req, res) => {
 router.get('/rides', Rides.getAllRideOffers);
 router.get('/rides/:id', Rides.getOneRideOffer);
 router.post('/rides', Rides.createRideOffer);
+router.post('/rides/:id/requests', Rides.createRideOfferRequest);
 
 export default router;

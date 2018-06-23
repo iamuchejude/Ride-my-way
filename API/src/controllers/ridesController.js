@@ -59,26 +59,29 @@ module.exports = class Rides {
     });
   }
 
-  static createRideRequest(req, res) {
-    const { id } = parseInt(req.params, 10);
-    const { userId, createdAt } = req.body;
-
-    const data = {
-      id,
-      userId,
-      createdAt,
-    };
-    if (RideRequests.push(data)) {
-      res.status(200).json({
-        status: 'Success',
-        message: 'MESSAGE',
-        data,
-      });
-    } else {
-      res.status(500).json({
+  static createRideOfferRequest(req, res) {
+    // Check if Ride Offer is existing
+    const ride = RideOffers.getOneOffer(parseInt(req.params.id, 10));
+    if (ride === false) {
+      res.status(400).json({
         status: 'error',
-        message: 'Error Creating Ride Request',
+        message: 'Bad Request - ID was not found',
       });
     }
+
+    const { userId } = req.body;
+
+    const data = {
+      id: RideRequests.getOfferRequests().length + 1,
+      rideId: parseInt(req.params.id, 10),
+      userId,
+      createdAt: new Date().toISOString(),
+    };
+    RideRequests.createOfferRequest(data);
+    res.status(200).json({
+      status: 'success',
+      message: 'Ride request was created successfully',
+      data,
+    });
   }
 };

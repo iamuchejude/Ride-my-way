@@ -1,4 +1,6 @@
-# Ride-my-way  
+# Ride-my-way 
+[![Build Status](https://travis-ci.org/{user}/{repo}.png?branch=master)](https://travis-ci.org/iamuchejude/Ride-my-way)
+[![Coverage Status](https://coveralls.io/repos/github/iamuchejude/Ride-my-way/badge.svg?branch=master)](https://coveralls.io/github/iamuchejude/Ride-my-way?branch=master)
 [![Maintainability](https://api.codeclimate.com/v1/badges/93011290af245f1ba90a/maintainability)](https://codeclimate.com/github/iamuchejude/Ride-my-way/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/93011290af245f1ba90a/test_coverage)](https://codeclimate.com/github/iamuchejude/Ride-my-way/test_coverage)  
 

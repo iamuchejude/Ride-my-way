@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import env from 'dotenv';
+import pino from 'pino';
 import routes from './routes/rides';
 
 env.config();
@@ -14,8 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api/v1', routes);
 
 const server = app.listen(port, () => {
-  console.log(`Listening on port ${port}`);
+  pino().info(`Listening on port ${port}`);
 });
 
-export default app;
-exports.server = server;
+export default server;

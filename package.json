@@ -1,17 +1,20 @@
 {
-  "name": "ride-my-way-api",
+  "name": "ride-my-way",
   "version": "1.0.0",
-  "description": "Ride-my-way API with Data Structure for Storage",
+  "description": "Ride-my-way App with Data Structure for Storage",
   "main": "dist/app.js",
   "scripts": {
-    "start": "npm run build && nodemon dist/app.js",
-    "test": "mocha",
-    "clean": "rm -rf src",
-    "build": "mkdir dist && babel src -d dist && babel --presets es2015 src -d dist"
+    "serve": "nodemon dist/app.js",
+    "test": "mocha src/test",
+    "clean": "rmdir -rf dist",
+    "build": "mkdir dist && npm run build:dev",
+    "build:dev": "babel src -d dist && babel --presets es2015 src -d dist",
+    "lint": "eslint ./ --fix",
+    "start": "npm run build && npm run serve"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/iamuchejude/Ride-my-way-API.git"
+    "url": "git+https://github.com/iamuchejude/Ride-my-way.git"
   },
   "keywords": [
     "API",
@@ -22,9 +25,9 @@
   "author": "Uche Jude",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/iamuchejude/Ride-my-way-API/issues"
+    "url": "https://github.com/iamuchejude/Ride-my-way/issues"
   },
-  "homepage": "https://github.com/iamuchejude/Ride-my-way-API#readme",
+  "homepage": "https://github.com/iamuchejude/Ride-my-way#readme",
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",

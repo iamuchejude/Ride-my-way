@@ -1,4 +1,8 @@
 # Ride-my-way  
+[![Maintainability](https://api.codeclimate.com/v1/badges/93011290af245f1ba90a/maintainability)](https://codeclimate.com/github/iamuchejude/Ride-my-way/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/93011290af245f1ba90a/test_coverage)](https://codeclimate.com/github/iamuchejude/Ride-my-way/test_coverage)  
+
+  
 > Ride-my App is a carpooling application that provides drivers with the ability to create ride offers and passengers to join available ride offers.
 
 ## Project Overview  

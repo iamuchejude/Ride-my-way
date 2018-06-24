@@ -41,7 +41,7 @@ the ride leaves, where it is headed e.t.c
 2. Cd to directory `cd Ride-my-way`
 3. Run `npm install` to install dependencies
 4. Start app with `npm start`
-
+  
 ## Test
 Run `npm test`
 

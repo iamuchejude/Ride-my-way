@@ -9,7 +9,6 @@ router.get('/', (req, res) => {
     message: 'API is ready to serve',
   });
 });
-
 router.get('/rides', Rides.getAllRideOffers);
 router.get('/rides/:id', Rides.getOneRideOffer);
 router.post('/rides', Rides.createRideOffer);

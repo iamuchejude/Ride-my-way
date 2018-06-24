@@ -16,8 +16,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/api/v1', routes);
 
-const server = app.listen(port, () => {
+app.listen(port, () => {
   log.info(`Listening on port ${port}`);
 });
 
-export default server;
+export default app;

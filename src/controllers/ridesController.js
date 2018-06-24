@@ -9,12 +9,12 @@ module.exports = class Rides {
         message: 'Available ride offers',
         data: RideOffers.getOffers(),
       });
+    } else {
+      res.status(404).json({
+        status: 'error',
+        message: 'No Ride Offer available',
+      });
     }
-
-    res.status(404).json({
-      status: 'error',
-      message: 'No Ride Offer available',
-    });
   }
 
   static getOneRideOffer(req, res) {
@@ -52,7 +52,7 @@ module.exports = class Rides {
     };
 
     RideOffers.createOffer(data);
-    res.status(200).json({
+    res.status(201).json({
       status: 'success',
       message: 'Ride offer was added successfully',
       data,
@@ -78,9 +78,9 @@ module.exports = class Rides {
       createdAt: new Date().toISOString(),
     };
     RideRequests.createOfferRequest(data);
-    res.status(200).json({
+    res.status(201).json({
       status: 'success',
-      message: 'Ride request was created successfully',
+      message: 'Ride offer request was created successfully',
       data,
     });
   }

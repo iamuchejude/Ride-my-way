@@ -46,7 +46,7 @@ the ride leaves, where it is headed e.t.c
 Run `npm test`
 
 ## Live API
-API is currently live at `[https://ride-my-way-andela.herokuapp.com/api/v1](https://ride-my-way-andela.herokuapp.com/api/v1)
+API is currently live at [https://ride-my-way-andela.herokuapp.com/api/v1](https://ride-my-way-andela.herokuapp.com/api/v1)
 
 ## Discovered an issue
 Did you find anything that you think should be fixed or added? Kindly create an issue so they can be resolved as soon as possible

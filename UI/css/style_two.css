@@ -33,6 +33,24 @@ header #logo {
     padding: 10px 0;
 }
 
+header #logo h2 span:first-child {
+    display: block !important;
+    border: 1px solid var(--primaryBlack);
+    width: 35px;
+    height: 35px;
+    position: relative;
+    text-align: center;
+    position: relative;
+    border-radius: 50%;
+}
+
+header #logo h2 span:first-child i {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 header #logo h2 {
     padding: 0;
     margin: 0;
@@ -63,10 +81,15 @@ header #menu .trigger-menu {
     position: absolute;
     top: 2px;
     right: 5px;
+    display: none;
 }
 
 header #burger {
     display: none !important;
+}
+
+header #offer-ride {
+    padding: 12px 5px;
 }
 
 header .icon {

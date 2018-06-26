@@ -109,7 +109,7 @@ header #show-notification .on {
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    top: 12px;
+    top: 15px;
     right: 3px;
 }
 
@@ -145,7 +145,7 @@ footer {
 
 #main .offers .offer {
     border: 1px solid #eee;
-    box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.103);
+    box-shadow: 0px 3px 6px 0px rgba(170, 17, 17, 0.103);
     position: relative;
     padding: 10px;
 }
@@ -237,15 +237,11 @@ footer {
 }
 
 .rides {
-    border: 1px solid #eee;
-    box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.103);
     position: relative;
     padding: 10px;
+    border: 1px solid #eee;
+    box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.103) !important;
 }
-
-/* .rides table thead tr th:first-child, .rides table tbody tr td:first-child, .rides table tfoot tr td:first-child {
-    
-} */
 
 .rides table thead tr th:last-child {
     min-width: 100px;
@@ -272,6 +268,54 @@ footer {
 
 .requestzone table tbody tr td:last-child {
     min-width: 160px;
+}
+
+/* Profile Styles */
+.user-info {
+    border: 1px solid #eee;
+    margin: 20px 0;
+    box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.103);
+    padding: 20px 0;
+    position: relative;
+}
+
+.user-info .trigger-settings {
+    position: absolute;
+    top: 10px;
+}
+
+.user-info .trigger-settings.right {
+    right: 10px;
+}
+
+.user-info .trigger-settings.left {
+    left: 10px;
+}
+
+.user-info .avatar-container {
+   padding: 5px;
+   text-align: center; 
+}
+
+.user-info .avatar-container .avatar {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    margin: auto;
+}
+
+.info-container {
+    text-align: center;
+}
+
+.info-container h3 {
+    padding: 0;
+    margin: 0;
+}
+
+.info-container ul {
+    padding: 0;
+    margin: 0;
 }
 
 /* Notification Styles */

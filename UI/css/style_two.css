@@ -14,6 +14,9 @@ header {
     padding: 0 40px;
     border-bottom: 1px solid #eee;
     box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.103);
+    position: fixed;
+    z-index: 5;
+    width: 100%;
 }
 
 header div {
@@ -31,6 +34,24 @@ header div.right > div {
 
 header #logo {
     padding: 10px 0;
+}
+
+header #logo h2 span:first-child {
+    display: block !important;
+    border: 1px solid var(--primaryBlack);
+    width: 35px;
+    height: 35px;
+    position: relative;
+    text-align: center;
+    position: relative;
+    border-radius: 50%;
+}
+
+header #logo h2 span:first-child i {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 header #logo h2 {
@@ -56,17 +77,40 @@ header #menu .menu li.active {
 }
 
 header #burger, header #logout {
-    padding: 10px 5px;
+    padding: 15px 5px;
 }
 
 header #menu .trigger-menu {
     position: absolute;
     top: 2px;
     right: 5px;
+    display: none;
 }
 
 header #burger {
     display: none !important;
+}
+
+header #offer-ride {
+    padding: 14px 0;
+}
+
+header #show-notification {
+    padding: 15px 0;
+    position: relative;
+}
+
+header #show-notification .on {
+    position: absolute;
+    /* background: var(--primaryBlack);
+    border: var(--primaryBlack); */
+    background: rgb(206, 44, 44);
+    border: rgb(206, 44, 44);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    top: 12px;
+    right: 3px;
 }
 
 header .icon {
@@ -77,16 +121,25 @@ header .icon {
 footer {
     padding: 5px 10px;
     text-align: center;
+<<<<<<< HEAD
+=======
+    background: #fff;
+    border-top: 1px solid #eee;
+>>>>>>> 0314b3a59aab4cab86474d3e4af80d1b0e2df5fe
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
+<<<<<<< HEAD
     border-top: 1px solid #eee;
+=======
+>>>>>>> 0314b3a59aab4cab86474d3e4af80d1b0e2df5fe
 }
 
 /* All rides Section Styles */
 #main {
     padding: 10px 20px;
+    margin: 55px 0 110px;
 }
 
 #main .offers {
@@ -228,9 +281,81 @@ footer {
     min-width: 160px;
 }
 
+<<<<<<< HEAD
 /* Profile Styles */
 .profile-info {
     border: 1px solid #eee;
     margin: 15px 0;
     box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.103);
+=======
+/* Notification Styles */
+#notifications {
+    background: var(--primaryWhite);
+    border: 1px solid rgb(245, 245, 245);
+    position: fixed;
+    top: 55px;
+    right: 10px;
+    width: 280px;
+    height: auto;
+    z-index: 6;
+    box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.103);
+    transition: .5s ease-in-out;
+    -webkit-transition: .5s ease-in-out;
+    -moz-transition: .5s ease-in-out;
+    -o-transition: .5s ease-in-out;
+    display: none !important;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+#notifications.active {
+    display: block !important;
+}
+
+.notification-header {
+    border-bottom: 1px solid rgb(248, 248, 248);
+    position: relative;
+    padding: 8px;
+    width: 100%;
+    text-align: center;
+}
+
+.notification-header h4 {
+    padding: 3px 0;
+    margin: 0;
+}
+
+.notification-contents {
+    overflow-y: auto;
+}
+
+.notification-count {
+    border: 1px solid #000;
+    font-size: small;
+    margin: 3px 0;
+    padding: 0 5px;
+    display: inline-block;
+}
+
+.notification-list {
+    padding: 0;
+    margin: 0;
+}
+
+.notification-list .notification-item {
+    padding: 12px 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.notification-list .notification-item:nth-child(even) {
+    background: rgb(252, 250, 250);
+}
+
+.notification-list .notification-item .notification-details {
+    font-size: 95%;
+}
+
+.notification-list .notification-item .notification-actions {
+    margin-top: 3px;
+>>>>>>> 0314b3a59aab4cab86474d3e4af80d1b0e2df5fe
 }

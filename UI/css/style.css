@@ -11,7 +11,7 @@ html, body {
 }
 
 #wrapper {
-    margin: 40px auto;
+    margin: 40px auto 80px;
     background: #fff;
     width: 300px;
 }
@@ -51,9 +51,16 @@ html, body {
 /* End of Header Style */
 
 /* Footer Style */
-#wrapper footer {
+footer {
     text-align: center;
-    padding: 10px;
+    padding: 5px 15px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    border-top: 1px solid #eee;
+    box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.103);
 }
 
 /* End of Footer Style */
@@ -82,3 +89,8 @@ html, body {
     text-align: center;
 }
 
+@media only screen and (max-width: 340px) {
+    #wrapper {
+        width: 95%;
+    }
+}

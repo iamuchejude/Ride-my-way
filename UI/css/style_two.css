@@ -75,13 +75,20 @@ header .icon {
 
 /* Footer Styles */
 footer {
-    padding: 15px 10px;
+    padding: 5px 10px;
     text-align: center;
+    background: #fff;
+    border-top: 1px solid #eee;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
 }
 
 /* All rides Section Styles */
 #main {
     padding: 10px 20px;
+    margin: 0 0 110px;
 }
 
 #main .offers {

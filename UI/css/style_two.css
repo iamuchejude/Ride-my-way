@@ -295,7 +295,7 @@ footer {
 }
 
 #notifications.active {
-    display: block;
+    display: block !important;
 }
 
 .notification-header {

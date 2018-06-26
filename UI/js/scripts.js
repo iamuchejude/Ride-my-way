@@ -16,4 +16,3 @@ document.querySelector('#show-notification a').addEventListener('click', e => {
     e.preventDefault();
     document.querySelector('#notifications').classList.toggle('active');
 });
-console.log(document.querySelector('#notifications'));

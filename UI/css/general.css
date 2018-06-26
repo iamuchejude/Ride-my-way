@@ -217,8 +217,16 @@ ul.menu {
     width: 33.33%;
 }
 
+.column.two-third {
+    width: 66.67%;
+}
+
 .column.quarter {
     width: 25%;
+}
+
+.column.three-fourth {
+    width: 75%;
 }
 
 .column.full {

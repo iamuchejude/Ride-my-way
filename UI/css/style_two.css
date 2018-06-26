@@ -75,8 +75,13 @@ header .icon {
 
 /* Footer Styles */
 footer {
-    padding: 15px 10px;
+    padding: 5px 10px;
     text-align: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border-top: 1px solid #eee;
 }
 
 /* All rides Section Styles */
@@ -94,7 +99,7 @@ footer {
 
 #main .offers .offer {
     border: 1px solid #eee;
-    box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.103);
+    box-shadow: 0px 3px 6px 0px rgba(170, 17, 17, 0.103);
     position: relative;
     padding: 10px;
 }
@@ -221,4 +226,11 @@ footer {
 
 .requestzone table tbody tr td:last-child {
     min-width: 160px;
+}
+
+/* Profile Styles */
+.profile-info {
+    border: 1px solid #eee;
+    margin: 15px 0;
+    box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.103);
 }

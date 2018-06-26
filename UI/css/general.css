@@ -98,6 +98,10 @@ input, textarea {
     font-size: x-small;
 }
 
+.btn-medium {
+    padding: 4px 10px;
+}
+
 .btn-rounded {
     border-radius: 40px;
 }

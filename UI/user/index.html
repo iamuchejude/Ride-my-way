@@ -12,10 +12,9 @@
 <body>
     <header class="clear">
         <div id="logo" class="left">
-            <a href="/">
+            <a href="/UI/user/index.html">
                 <h2>
                     <span><i class="lnr lnr-car"></i></span>
-                    <span>Ride-my-way</span>
                 </h2>
             </a>
         </div>
@@ -24,10 +23,60 @@
                 <a href="javascript:void(0)" class="trigger-menu"><i class="lnr lnr-cross-circle"></i></a>
                 <ul class="menu">
                     <li class="active"><a href="index.html">Dashboard</a></li>
-                    <li><a href="#offer-a-ride">Offer a Ride</a></li>
-                    <li><a href="ride_offers.html">All Rides</a></li>
-                    <li><a href="profile.html">Profile</a></li>
+                    <li><a href="ride_offers.html">Ride Offers</a></li>
+                    <!-- <li><a href="profile.html">Profile</a></li> -->
                 </ul>
+            </div>
+            <div id="offer-ride">
+                <a href="#offer-a-ride">
+                   <button class="btn btn-secondary btn-medium btn-rounded"><i class="lnr lnr-plus-circle"></i> Ride</button>
+                </a>
+            </div>
+            <div id="show-notification">
+                <a href="javascript:void(0)">
+                    <span class="icon"><i class="lnr lnr-alarm"></i></span>
+                </a>
+                <span class="on"></span>
+                <div id="notifications">
+                    <div class="notification-header clear">
+                        <span class="left notification-count">4</span>
+                        <h4>Notifications</h4>
+                    </div>
+                    <div class="notification-content">
+                        <ul class="notification-list">
+                            <li class="notification-item">
+                                <div class="notification-details">
+                                    Uche Jude wants to ride with you to Ikeja from Iyana Ipaja on 10th March, 2018 at 10:10:00PM
+                                </div>
+                                <div class="notification-actions">
+                                    <button class="btn btn-secondary btn-small btn-rounded"><i class="lnr lnr-checkmark-circle"></i> Accept</button>
+                                    <button class="btn btn-secondary btn-small btn-rounded"><i class="lnr lnr-cross-circle"></i> Reject</button>
+                                </div>
+                            </li>
+                            <li class="notification-item">
+                                <div class="notification-details">
+                                    Uche Jude accepted your request for ride to Ikeja from Iyana Ipaja on 10th March, 2018 at 10:10:00PM
+                                </div>
+                                <div class="notification-actions">
+                                    <button class="btn btn-secondary btn-small btn-rounded"><i class="lnr lnr-phone-handset"></i> Call</button>
+                                </div>
+                            </li>
+                            <li class="notification-item">
+                                <div class="notification-details">
+                                    Uche Jude declined your request for ride to Ikeja from Iyana Ipaja on 10th March, 2018 at 10:10:00PM
+                                </div>
+                            </li>
+                            <li class="notification-item">
+                                <div class="notification-details">
+                                    Uche Jude accepted your request for ride to Ikeja from Iyana Ipaja on 10th March, 2018 at 10:10:00PM
+                                </div>
+                                <div class="notification-actions">
+                                    <button class="btn btn-secondary btn-small btn-rounded"><i class="lnr lnr-phone-handset"></i> Call</button>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
             <div id="burger">
                 <a href="javascript:void(0)" class="trigger-menu">
@@ -42,45 +91,134 @@
         </div>
     </header>
 
-    <section id="main" class="clear columns">
-        <div class="column quarter">
-            <div class="profile-info">
-                I am Profile Info
+    <section id="main" class="clear">
+        <div class="section-header clear">
+            <div class="left">
+                <h3>Dashboard</h3>
             </div>
         </div>
-        <div class="column three-fourth">
-            <div class="stats-info clear columns">
-                <div class="stat-info column one-third">
-                    <div class="count">
-                        <span>34</span>
+        <div class="clear columns">
+            <div class="column quarter">
+                <div class="user-info">
+                    <a href="#security-settings" class="trigger-settings left"><i class="lnr lnr-lock"></i></a>
+                    <a href="#profile-settings" class="trigger-settings right"><i class="lnr lnr-cog"></i></a>
+                    <div class="avatar-container">
+                        <img src="../img/avatar.png" class="avatar">
                     </div>
-                    <div class="stat">
-                        <h3>All Rides</h3>
-                    </div>
-                    <div class="stats-icon">
-                        <span><i class="lnr lnr-car"></i></span>
-                    </div>
-                </div>
-                <div class="stat-info column one-third">
-                    <div class="count">
-                        <span>19</span>
-                    </div>
-                    <div class="stat">
-                        <h3>Rides Offered</h3>
-                    </div>
-                    <div class="stats-icon">
-                        <span><i class="lnr lnr-exit-up"></i></span>
+                    <div class="info-container">
+                        <h3>Uche Jude</h3>
+                        <ul>
+                            <li>iamuchejude@gmail.com</li>
+                            <li>08135642400</li>
+                        </ul>
                     </div>
                 </div>
-                <div class="stat-info column one-third">
-                    <div class="count">
-                        <span>15</span>
+            </div>
+            <div class="stats column three-fourth">
+                <div class="stats-info clear columns">
+                    <div class="stat-info column one-third">
+                        <div class="count">
+                            <span>34</span>
+                        </div>
+                        <div class="stat">
+                            <h3>All Rides</h3>
+                        </div>
+                        <div class="stats-icon">
+                            <span><i class="lnr lnr-car"></i></span>
+                        </div>
                     </div>
-                    <div class="stat">
-                        <h3>Rides Taken</h3>
+                    <div class="stat-info column one-third">
+                        <div class="count">
+                            <span>19</span>
+                        </div>
+                        <div class="stat">
+                            <h3>Rides Offered</h3>
+                        </div>
+                        <div class="stats-icon">
+                            <span><i class="lnr lnr-exit-up"></i></span>
+                        </div>
                     </div>
-                    <div class="stats-icon">
-                        <span><i class="lnr lnr-enter-down"></i></span>
+                    <div class="stat-info column one-third">
+                        <div class="count">
+                            <span>15</span>
+                        </div>
+                        <div class="stat">
+                            <h3>Rides Taken</h3>
+                        </div>
+                        <div class="stats-icon">
+                            <span><i class="lnr lnr-enter-down"></i></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rides container clear">
+                    <div class="ridesfull table-responsive table-stripped table-hover">
+                        <div class="column-header clear">
+                            <h3>My rides</h3>
+                        </div>
+                        <div class="table-responsive table-stripped table-hover">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>SN</th>
+                                        <th>Start From</th>
+                                        <th>Destination</th>
+                                        <th>Price</th>
+                                        <th>Date</th>
+                                        <th>Time</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+            
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Iyana Ipaja</td>
+                                        <td>Ikeja Along</td>
+                                        <td>₦1000</td>
+                                        <td>24/10/2018</td>
+                                        <td>10:20:00PM</td>
+                                        <td>
+                                            <button class="btn btn-small btn-rounded btn-secondary"><i class="lnr lnr-exit-up"></i> Offered</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>Iyana Ipaja</td>
+                                        <td>Ikeja Along</td>
+                                        <td>₦1000</td>
+                                        <td>24/10/2018</td>
+                                        <td>10:20:00PM</td>
+                                        <td>
+                                            <button class="btn btn-small btn-rounded btn-secondary"><i class="lnr lnr-enter-down"></i> Taken</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>Iyana Ipaja</td>
+                                        <td>Ikeja Along</td>
+                                        <td>₦1000</td>
+                                        <td>24/10/2018</td>
+                                        <td>10:20:00PM</td>
+                                        <td>
+                                            <button class="btn btn-small btn-rounded btn-secondary"><i class="lnr lnr-exit-up"></i> Offered</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+
+                                <tfoot>
+                                    <tr>
+                                        <td>SN</td>
+                                        <td>Start From</td>
+                                        <td>Destination</td>
+                                        <td>Price</td>
+                                        <td>Date</td>
+                                        <td>Time</td>
+                                        <td></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -131,6 +269,66 @@
             </div>
         </div>
     </div> 
+
+    <div class="modal" id="profile-settings">
+        <div class="modal-area modal-small">
+            <div class="modal-header clear">
+                <div class="modal-title left">
+                    <h3>Update Profile</h3>
+                </div>
+                <div class="modal-close right">
+                    <a href="#"><i class="lnr lnr-cross-circle"></i></a>
+                </div>
+            </div>
+            <div class="modal-content">
+                <form method="POST">
+                    <div class="input-holder">
+                        <label for="price">Name</label>
+                        <input type="text" placeholder="Name" id="name" value="Uche Jude">
+                    </div>
+                    <div class="input-holder">
+                        <label for="date">Email</label>
+                        <input type="email" placeholder="Email" id="email" value="iamuchejude@gmail.com">
+                    </div>
+                    <div class="input-holder">
+                        <label for="time">Phone Number</label>
+                        <input type="number" placeholder="Phone Number" id="phoneNo" value="08135642400">
+                    </div>
+                    <button class="btn btn-primary btn-full" type="submit">Update Profile</button>
+                </form>
+            </div>
+        </div>
+    </div> 
+
+    <div class="modal" id="security-settings">
+        <div class="modal-area modal-small">
+            <div class="modal-header clear">
+                <div class="modal-title left">
+                    <h3>Update Settings</h3>
+                </div>
+                <div class="modal-close right">
+                    <a href="#"><i class="lnr lnr-cross-circle"></i></a>
+                </div>
+            </div>
+            <div class="modal-content">
+                <form method="POST">
+                    <div class="input-holder">
+                        <label for="price">Current Password</label>
+                        <input type="password" placeholder="Current Password" id="currentPassword">
+                    </div>
+                    <div class="input-holder">
+                        <label for="price">New Password</label>
+                        <input type="password" placeholder="New Password" id="newPassword">
+                    </div>
+                    <div class="input-holder">
+                        <label for="price">Re-enter New Password</label>
+                        <input type="password" placeholder="Re-enter New Password" id="reNewPassword">
+                    </div>
+                    <button class="btn btn-primary btn-full" type="submit">Update Password</button>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <script src="../js/scripts.js"></script>
 </body>

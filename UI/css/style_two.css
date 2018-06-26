@@ -109,7 +109,7 @@ header #show-notification .on {
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    top: 12px;
+    top: 15px;
     right: 3px;
 }
 
@@ -121,19 +121,12 @@ header .icon {
 footer {
     padding: 5px 10px;
     text-align: center;
-<<<<<<< HEAD
-=======
     background: #fff;
     border-top: 1px solid #eee;
->>>>>>> 0314b3a59aab4cab86474d3e4af80d1b0e2df5fe
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
-<<<<<<< HEAD
-    border-top: 1px solid #eee;
-=======
->>>>>>> 0314b3a59aab4cab86474d3e4af80d1b0e2df5fe
 }
 
 /* All rides Section Styles */
@@ -244,15 +237,11 @@ footer {
 }
 
 .rides {
-    border: 1px solid #eee;
-    box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.103);
     position: relative;
     padding: 10px;
+    border: 1px solid #eee;
+    box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.103) !important;
 }
-
-/* .rides table thead tr th:first-child, .rides table tbody tr td:first-child, .rides table tfoot tr td:first-child {
-    
-} */
 
 .rides table thead tr th:last-child {
     min-width: 100px;
@@ -281,13 +270,54 @@ footer {
     min-width: 160px;
 }
 
-<<<<<<< HEAD
 /* Profile Styles */
-.profile-info {
+.user-info {
     border: 1px solid #eee;
-    margin: 15px 0;
+    margin: 20px 0;
     box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.103);
-=======
+    padding: 20px 0;
+    position: relative;
+}
+
+.user-info .trigger-settings {
+    position: absolute;
+    top: 10px;
+}
+
+.user-info .trigger-settings.right {
+    right: 10px;
+}
+
+.user-info .trigger-settings.left {
+    left: 10px;
+}
+
+.user-info .avatar-container {
+   padding: 5px;
+   text-align: center; 
+}
+
+.user-info .avatar-container .avatar {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    margin: auto;
+}
+
+.info-container {
+    text-align: center;
+}
+
+.info-container h3 {
+    padding: 0;
+    margin: 0;
+}
+
+.info-container ul {
+    padding: 0;
+    margin: 0;
+}
+
 /* Notification Styles */
 #notifications {
     background: var(--primaryWhite);
@@ -357,5 +387,4 @@ footer {
 
 .notification-list .notification-item .notification-actions {
     margin-top: 3px;
->>>>>>> 0314b3a59aab4cab86474d3e4af80d1b0e2df5fe
 }

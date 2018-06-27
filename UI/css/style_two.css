@@ -320,11 +320,50 @@ footer {
    text-align: center; 
 }
 
-.user-info .avatar-container .avatar {
+.user-info .avatar-container div {
     border-radius: 50%;
     width: 100px;
     height: 100px;
     margin: auto;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid #eee;
+}
+
+.change-photo-container {
+    background: rgba(0, 0, 0, 0.1);
+    color: var(--primaryBlack);
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    transition: .5s ease-in-out;
+}
+
+.user-info .avatar-container div:hover > .change-photo-container {
+    display: block;
+}
+
+.upload-photo {
+    background: transparent;
+    border: none;
+    font-size: 1.4em;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.user-info .avatar-container div .avatar {
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
 }
 
 .info-container {

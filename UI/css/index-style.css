@@ -1,0 +1,107 @@
+@import "general.css";
+
+html, body {
+    padding: 0;
+    margin: 0;
+}
+
+header {
+    height: 55px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 0 40px;
+    overflow: hidden;
+}
+
+header #logo {
+    padding: 10px 0;
+}
+
+header #logo h2 span:first-child {
+    display: block !important;
+    border: 1px solid var(--primaryBlack);
+    width: 35px;
+    height: 35px;
+    position: relative;
+    text-align: center;
+    position: relative;
+    border-radius: 50%;
+}
+
+header #logo h2 span:first-child i {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+header #logo h2 {
+    padding: 0;
+    margin: 0;
+    font-size: 22px;
+}
+
+.nav > div {
+    display: inline-block;
+}
+
+.menu ul {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    padding: 15px 0;
+}
+
+.menu ul li {
+    display: inline-block;
+    padding: 0 10px;
+}
+
+/* Hero Styles */
+#hero {
+    height: 80vh;
+    width: 100vw;
+    position: relative;
+    background: linear-gradient(0deg, rgba(225, 225, 225, 0.2), rgba(225, 225, 225, 0.2)), url();
+}
+
+#hero .hero-contents {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 100%;
+    padding: 10px;
+}
+
+#hero .hero-contents h1 {
+    font-size: 2.2em;
+    padding: 0;
+    margin: 0;
+}
+
+#hero .hero-contents p {
+    padding: 0;
+    margin: 0;
+}
+
+#hero .hero-contents .actions {
+    padding: 5px;
+    overflow: hidden;
+    margin: 10px 0;
+    min-height: auto;
+}
+
+#hero .hero-contents .actions a {
+    padding-left: 20px;
+    padding-right: 20px;
+    margin: 0 5px;
+}
+
+.hero-contents:first-child {
+    display: none;
+}
+

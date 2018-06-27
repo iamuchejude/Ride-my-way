@@ -117,6 +117,17 @@
     .modal-large, .modal-medium {
         width: 380px;
     }
+
+    .search-container {
+        width: 200px;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .search-container {
+        width: 100%;
+        margin-top: 5px;
+    }
 }
 
 @media only screen and (min-width: 321px) and (max-width: 399px) {
@@ -131,17 +142,14 @@
     }
 }
 
-@media only screen and (max-width: 520px) {
-    
-}
-
-@media only screen and (max-width: 350px) {
+@media only screen and (max-width: 360px) {
     header {
         padding-right: 10px;
         padding-left: 10px;
     }
 
     #notifications {
-        width: 90vw;
+        width: 95vw;
+        right: 5px;
     }
 }

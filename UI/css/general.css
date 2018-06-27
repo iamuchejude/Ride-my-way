@@ -285,3 +285,8 @@ thead th {
     padding: 10px;
     font-weight: 500;
 }
+
+/* Visibity */
+.hidden {
+    display: none;
+}

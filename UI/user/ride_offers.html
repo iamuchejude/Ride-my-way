@@ -12,7 +12,7 @@
 <body>
     <header class="clear">
         <div id="logo" class="left">
-            <a href="/">
+            <a href="/UI/user/index.html">
                 <h2>
                     <span><i class="lnr lnr-car"></i></span>
                 </h2>
@@ -24,7 +24,7 @@
                 <ul class="menu">
                     <li class="active"><a href="index.html">Dashboard</a></li>
                     <li><a href="ride_offers.html">Ride Offers</a></li>
-                    <li><a href="profile.html">Profile</a></li>
+                    <!-- <li><a href="profile.html">Profile</a></li> -->
                 </ul>
             </div>
             <div id="offer-ride">
@@ -42,7 +42,7 @@
                         <span class="left notification-count">4</span>
                         <h4>Notifications</h4>
                     </div>
-                    <div class="notification-content">
+                    <div class="notification-contents">
                         <ul class="notification-list">
                             <li class="notification-item">
                                 <div class="notification-details">
@@ -96,12 +96,14 @@
             <div class="left">
                 <h3>Ride Offers</h3>
             </div>
-            <div class="right">
-                <input type="text" placeholder="From location one to location two" id="search" class="input-rounded">
+            <div class="right search-area">
+                <form method="post" class="search-container">
+                    <input type="text" placeholder="Search here" id="search" class="input-rounded">
+                    <button type="submit" class="btn search-btn"><i class="lnr lnr-magnifier"></i></button>
+                </form>
             </div>
         </div>
         <div class="offers clear">
-
             <div class="offer clear">
                 <div class="clear">
                     <a href="#single-offer" class="left">
@@ -284,7 +286,7 @@
 
         </div>
     </section>
-    
+
     <footer class="clear">
         <p>
             &copy; <span id="date"></span> <a href="#">Ride-my-way</a>. Made with <i class="lnr lnr-heart"></i> by <a href="https://twitter.com/iamuchejude" target="_blank">Uche Jude</a>

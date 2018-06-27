@@ -3,8 +3,7 @@
 document.querySelector("#date").innerHTML = new Date().getFullYear(); // Set year in footer copyright text
 
 // Trigge Menu on Mobile
-let menuIcon = document.querySelectorAll('a.trigger-menu');
-menuIcon.forEach(function(el) {        
+document.querySelectorAll('a.trigger-menu').forEach((el) => {        
     el.addEventListener('click', e => {
         e.preventDefault();
         document.querySelector('#menu').classList.toggle('active');
@@ -15,4 +14,12 @@ menuIcon.forEach(function(el) {
 document.querySelector('#show-notification a').addEventListener('click', e => {
     e.preventDefault();
     document.querySelector('#notifications').classList.toggle('active');
+});
+
+// Upload Profile Photo
+document.querySelectorAll('#uploadPhoto').forEach((el) => {
+    el.addEventListener('click', e => {
+        e.preventDefault();
+        document.querySelector('#photo').click();
+    })
 });

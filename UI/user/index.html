@@ -103,7 +103,15 @@
                     <a href="#security-settings" class="trigger-settings left"><i class="lnr lnr-lock"></i></a>
                     <a href="#profile-settings" class="trigger-settings right"><i class="lnr lnr-cog"></i></a>
                     <div class="avatar-container">
-                        <img src="../img/avatar.png" class="avatar">
+                       <div>
+                           <div class="change-photo-container">
+                               <button class="btn upload-photo" id="uploadPhoto"><i class="lnr lnr-camera"></i></button>
+                           </div>
+                          <img src="../img/avatar.png" class="avatar" alt="Uche Jude">
+                          <form method="post" enctype="multipart/form-data" class="hidden"  >
+                            <input type="file"  alt="Upload Image" id="photo" name="photo">
+                         </form>
+                       </div>
                     </div>
                     <div class="info-container">
                         <h3>Uche Jude</h3>

@@ -11,10 +11,13 @@ document.querySelectorAll('a.trigger-menu').forEach((el) => {
 });
 
 // Notification Trigger
-document.querySelector('#show-notification a').addEventListener('click', e => {
-    e.preventDefault();
-    document.querySelector('#notifications').classList.toggle('active');
-});
+let notificationTrigger = document.querySelector('#show-notification a');
+if(notificationTrigger != null || notificationTrigger != undefined) {
+    notificationTrigger.addEventListener('click', e => {
+        e.preventDefault();
+        document.querySelector('#notifications').classList.toggle('active');
+    });
+}
 
 // Upload Profile Photo
 document.querySelectorAll('#uploadPhoto').forEach((el) => {
@@ -22,4 +25,13 @@ document.querySelectorAll('#uploadPhoto').forEach((el) => {
         e.preventDefault();
         document.querySelector('#photo').click();
     })
+});
+
+// Scroll Trigger
+let scrollTrigger = document.querySelectorAll('.scroll-trigger');
+scrollTrigger.forEach((el) => {
+    el.addEventListener('click', e => {
+        let $el = document.querySelector(e.target.getAttribute('data-section'));
+        console.log($el.offsetTop);
+    });
 });

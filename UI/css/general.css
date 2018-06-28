@@ -102,6 +102,10 @@ input, textarea {
     padding: 4px 10px;
 }
 
+.btn-large {
+    padding: 8px 20px;
+}
+
 .btn-rounded {
     border-radius: 40px;
 }
@@ -220,7 +224,7 @@ ul.menu {
 .column.one-third {
     width: 33.33%;
 }
-
+    
 .column.two-third {
     width: 66.67%;
 }

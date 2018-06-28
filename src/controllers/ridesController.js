@@ -1,20 +1,13 @@
 const RideOffers = require('../models/rideOffersModel');
 const RideRequests = require('../models/rideRequestsModel');
+const db = require('../database/connection');
+const env = require('dotenv');
 
-module.exports = class Rides {
-  static getAllRideOffers(req, res) {
-    if (RideOffers.getOffers().length >= 1) {
-      res.status(200).json({
-        status: 'success',
-        message: 'Available ride offers',
-        data: RideOffers.getOffers(),
-      });
-    } else {
-      res.status(404).json({
-        status: 'error',
-        message: 'No Ride Offer available',
-      });
-    }
+class Rides {
+  static getAllRideOffers() {
+    db.query('SELECT * FROM ride_offers', (err, result) => {
+      console.log(err, result);
+    });
   }
 
   static getOneRideOffer(req, res) {
@@ -85,3 +78,5 @@ module.exports = class Rides {
     });
   }
 };
+
+Rides.getAllRideOffers;

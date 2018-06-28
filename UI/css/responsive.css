@@ -47,28 +47,9 @@
     }
 }
 
-@media only screen and (max-width: 940px) {
-    .columns {
-        flex-wrap: wrap;
-    }
-    .column {
-        width: 48.5% !important;
-    }
-}
-
 @media only screen and (min-width: 600px) and (max-width: 705px) {
     .column.stat-info {
         width: 48% !important;
-    }
-}
-
-@media only screen and (max-width: 599px) {
-    .columns {
-        flex-direction: column;
-    }
-    
-    .column {
-        width: 98% !important;
     }
 }
 

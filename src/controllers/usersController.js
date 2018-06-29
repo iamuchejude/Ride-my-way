@@ -1,4 +1,4 @@
-const db = require('../database/connection');
+import db from '../database/connection';
 
 export default class Users {
     static getAllUsers(req, res) {

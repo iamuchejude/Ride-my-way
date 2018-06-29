@@ -24,6 +24,6 @@ db.on('error', (err, client) => {
     log.error('Idle client error', err.message, err.stack)
 });
 
-module.exports.query = (text, callback, values='') => db.query(text, values, callback);
+module.exports.query = (text, callback, values=null) => db.query(text, values, callback);
 module.exports.end = () => db.end();
 module.exports = db;

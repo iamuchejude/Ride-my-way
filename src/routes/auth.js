@@ -1,8 +1,10 @@
 import express from 'express';
 import Auth from '../controllers/authController';
 
-const Router = express.Router();
+const router = express.Router();
 
-Router.get('/login', Auth.login);
-Router.post('/register', Auth.register);
-Router.get('/recover', Auth.recover);
+router.post('/login', Auth.login);
+router.post('/register', Auth.register);
+// router.get('/auth/recover', Auth.recover);
+
+export default router;

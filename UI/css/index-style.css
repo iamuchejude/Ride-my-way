@@ -1,0 +1,235 @@
+@import "general.css";
+
+html, body {
+    padding: 0;
+    margin: 0;
+}
+
+header {
+    height: 65px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 0 65px;
+    background: var(--primaryWhite);
+    overflow: hidden;
+    z-index: 6;
+    border-bottom: 1px solid #eee;
+    box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.103);
+}
+
+header #logo {
+    padding: 15px 0;
+}
+
+header #logo h2 span:first-child {
+    display: block !important;
+    border: 1px solid var(--primaryBlack);
+    width: 35px;
+    height: 35px;
+    position: relative;
+    text-align: center;
+    position: relative;
+    border-radius: 50%;
+}
+
+header #logo h2 span:first-child i {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+header #logo h2 {
+    padding: 0;
+    margin: 0;
+    font-size: 22px;
+}
+
+.nav > div {
+    float: left;
+    margin: 0 10px;
+}
+
+.menu ul {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    padding: 20px 0;
+}
+
+.menu ul li {
+    display: inline-block;
+    padding: 0 15px;
+}
+
+header .right {
+    height: 100%;
+    overflow: hidden;
+}
+
+#wrapper {
+    margin: 65px 0 60px;
+}
+
+#harmburger {
+    font-size: 1.5em;
+    display: none;
+    height: 100%;
+    padding: 17px 0 10px;
+}
+
+#harburger a {
+    cursor: pointer;
+}
+
+#login-btn {
+    height: 100%;
+    padding: 17px 0;
+}
+
+/* Hero Styles */
+#hero {
+    height: 89vh;
+    width: 100vw;
+    position: relative;
+    background: linear-gradient(0deg, 
+            rgba(0, 0, 0, 0.3), 
+            rgba(0, 0, 0, 0.3)), 
+            url(http://source.unsplash.com/ovrOPhu8vSw/1600x700);
+}
+
+#hero .hero-contents {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 100%;
+    padding: 10px;
+}
+
+#hero .hero-contents h1 {
+    font-size: 2.4em;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    color: var(--primaryWhite);
+    text-shadow: 1px 1px 1px var(--primaryBlack);
+}
+
+#hero .hero-contents p {
+    padding: 0;
+    margin: 0;
+    font-size: 1.2em;
+    color: var(--primaryWhite);
+    text-shadow: 1px 1px 1px var(--primaryBlack);
+}
+
+#hero .hero-contents .actions {
+    padding: 15px 5px;
+    overflow: hidden;
+    margin: 5px 0;
+    min-height: auto;
+}
+
+#hero .hero-contents .actions a {
+    padding: 8px 25px;
+    margin: 0 10px;
+}
+
+.hero-contents:first-child {
+    display: none;
+}
+
+/* Footer Style */
+footer {
+    padding: 7px 10px;
+    text-align: center;
+    border: 1px solid #eee;
+    background: var(--primaryWhite);
+}
+
+/* Section Styles */
+.section {
+    padding: 30px 0;
+}
+
+.section-header {
+    padding: 10px 5px;
+    text-align: center;
+}
+
+.section-header h1 {
+    font-size: 2.1em;
+    padding: 0;
+    margin: 0;
+}
+
+.section-contents {
+    padding: 0 20px;
+}
+
+/* How it works */
+#how-it-works {
+    background: rgb(248, 248, 248);
+    padding: 40px;
+}
+
+#how-it-works .section-contents .column {
+    padding: 20px 10px;
+}
+
+#how-it-works .section-contents .column h1 {
+    font-size: 3.5em;
+    padding: 0;
+    margin: 0;
+}
+
+#how-it-works .section-contents .column h3 {
+    padding: 5px 0;
+    margin: 0;
+    font-size: 1.3em;
+}
+
+#how-it-works .section-contents .column p {
+    padding: 5px 0;
+    margin: 0;
+}
+
+/* Contact */
+#contact {
+    padding: 40px 50px;
+}
+
+#contact .section-contents > div {
+    padding: 10px;
+}
+
+#contact textarea {
+    min-height: 100px;
+}
+
+ul.socials {
+    padding: 0;
+    margin: 0;
+}
+
+ul.socials li {
+    padding: 3px 0;
+}
+
+/* About Section */
+section#about {
+    padding: 50px;
+}
+
+#about .section-contents > div {
+    margin: auto;
+    text-align: center;
+}
+
+.about-image {
+    width: 100%;
+}

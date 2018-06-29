@@ -3,7 +3,9 @@ import bodyParser from 'body-parser';
 import logger from 'morgan';
 import env from 'dotenv';
 import log from 'fancy-log';
-import routes from './routes/rides';
+import rideRoutes from './routes/rides';
+import authRoutes from './routes/auth';
+import userRoutes from './routes/users';
 
 env.config();
 
@@ -14,7 +16,9 @@ app.use(logger('dev'));
 app.use(bodyParser.json({ type: 'application/*+json' }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use('/api/v1', routes);
+app.use('/rides', rideRoutes);
+app.use('/auth', authRoutes);
+app.use('/users', userRoutes);
 
 app.listen(port, () => {
   log.info(`Listening on port ${port}`);

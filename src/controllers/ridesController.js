@@ -1,8 +1,6 @@
-const db = require('../database/connection');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
-const uuidv1 = require('uuid/v1');
-const env = require('dotenv');
+import db from '../database/connection';
+import uuidv1 from 'uuid/v1';
+import env from 'dotenv';
 
 env.config();
 
@@ -219,7 +217,7 @@ class Rides {
               } else {
                 ride_requests = result.rows;
                 
-                if(ride_offer.user_id !== userId) {
+                if(ride_offer.user_id !== req.authData.user.id) {
                     res.status(401).json({
                       status: 'error',
                       message: 'You don\'t have permission to accept or reject this ride',

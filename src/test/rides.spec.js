@@ -1,16 +1,17 @@
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
-import app from '../app';
+import ngFaker from 'ng-faker';
+// import app from '../app';
 
 chai.use(chaiHttp);
 
 describe('Test for ride endpoints for Ride-my-way api', () => {
-  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjA3MDdkYjAtN2I4Mi0xMWU4LWFiYWYtMzNkZDQwODJlZWI2IiwiaXNBdXRoIjp0cnVlfSwiaWF0IjoxNTMwMjc2MzU3LCJleHAiOjE1MzAzNDgzNTd9.dRUzgOUxUbN_K_Hmsrk6XjfHHSrGpCFWFcG6c6aWtJU';
+  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiZWIwNmMxNDAtN2M0Yi0xMWU4LTkwZTktMzNjM2RiNWQ3ZmZjIiwiaXNBdXRoIjp0cnVlfSwiaWF0IjoxNTMwMzU1MjYwLCJleHAiOjE1MzA0MjcyNjB9.hat-MWSDPQHAhKEQfXTQ-4EiYpYY3ZZEunTf3B8_QnE';
 
   describe('GET all ride offers', () => {
     it('should return an array of all ride offers', (done) => {
       chai
-        .request(app)
+        .request('https://ride-my-way-andela.herokuapp.com')
         .get('/rides')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -28,8 +29,8 @@ describe('Test for ride endpoints for Ride-my-way api', () => {
   describe('GET one ride offer', () => {
     it('should return an object of a ride offer', (done) => {
       chai
-        .request(app)
-        .get('/rides/042ffd00-d989-321c-ad06-f69026172424')
+        .request('https://ride-my-way-andela.herokuapp.com')
+        .get('/rides/d16f04c0-7c4d-11e8-90e9-33c3db5d7ffc')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')
         .set('Authorization', `Bearer ${token}`)
@@ -46,17 +47,17 @@ describe('Test for ride endpoints for Ride-my-way api', () => {
   describe('POST ride offer', () => {
     it('should respond with success in an object also containing created resource', (done) => {
       chai
-        .request(app)
+        .request('https://ride-my-way-andela.herokuapp.com')
         .post('/users/rides')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')
         .set('Authorization', `Bearer ${token}`)
         .send({
-          userId: '742ffd79-d989-321c-ad06-f60826172434',
-          startFrom: 'Ayobo',
-          destination: 'Ilupeju',
-          price: 2000,
-          seat: 4,
+          userId: 'fdb4ca10-7c4d-11e8-90e9-33c3db5d7ffc',
+          startFrom: ngFaker.address.localGovernment('lagos'),
+          destination: ngFaker.address.localGovernment('lagos'),
+          price: ngfaker.random.number({ min: 500, max: 5000 }),
+          seat: ngfaker.random.number({ min: 1, max: 6 }),
           departureDate: '25th June, 2018',
           departureTime: '06:00:00AM',
         })
@@ -74,8 +75,8 @@ describe('Test for ride endpoints for Ride-my-way api', () => {
   describe('POST ride offer request', () => {
     it('should respond with success in an object also containing created resource', (done) => {
       chai
-        .request(app)
-        .post('/rides/042ffd00-d989-321c-ad06-f69026172424/requests')
+        .request('https://ride-my-way-andela.herokuapp.com')
+        .post('/rides/0939d070-7c4d-11e8-90e9-33c3db5d7ffc/requests')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')
         .set('Authorization', `Bearer ${token}`)
@@ -96,8 +97,8 @@ describe('Test for ride endpoints for Ride-my-way api', () => {
   describe('GET all requests for one ride offer', () => {
     it('should respond with success in an object also containing an array of all requests for ride offer', (done) => {
       chai
-        .request(app)
-        .get('/users/rides/042ffd34-d989-321c-ad06-f60826172424/requests')
+        .request('https://ride-my-way-andela.herokuapp.com')
+        .get('/users/rides/0939d070-7c4d-11e8-90e9-33c3db5d7ffc/requests')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')
         .set('Authorization', `Bearer ${token}`)
@@ -107,28 +108,6 @@ describe('Test for ride endpoints for Ride-my-way api', () => {
           expect(res.body.status).to.equal('success');
           expect(res.body.data).to.be.an('array');
           expect(res.body.message).to.equal('Available Ride requests for this ride offer');
-          done();
-        });
-    });
-  });
-
-  describe('PUT accept or reject a ride offer', () => {
-    it('should respond with error in an object', (done) => {
-      chai
-        .request(app)
-        .put('/users/rides/042ffd34-d989-321c-ad06-f60826172424/requests/0d744880-7b1e-11e8-8139-c594ea08e5ad')
-        .set('Accept', 'application/json')
-        .set('Content-Type', 'application/x-www-form-urlencoded')
-        .set('Authorization', `Bearer ${token}`)
-        .send({
-          status: 1,
-        })
-        .end((err, res) => {
-          expect(err).to.equal(null);
-          expect(res.status).to.equal(401);
-          expect(res.body.status).to.equal('error');
-          expect(res.body).to.be.an('object');
-          expect(res.body.message).to.equal('You don\'t have permission to accept or reject this ride');
           done();
         });
     });

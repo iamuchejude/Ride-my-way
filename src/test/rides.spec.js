@@ -56,8 +56,8 @@ describe('Test for ride endpoints for Ride-my-way api', () => {
           userId: 'fdb4ca10-7c4d-11e8-90e9-33c3db5d7ffc',
           startFrom: ngFaker.address.localGovernment('lagos'),
           destination: ngFaker.address.localGovernment('lagos'),
-          price: ngfaker.random.number({ min: 500, max: 5000 }),
-          seat: ngfaker.random.number({ min: 1, max: 6 }),
+          price: ngFaker.random.number({ min: 500, max: 5000 }),
+          seat: ngFaker.random.number({ min: 1, max: 6 }),
           departureDate: '25th June, 2018',
           departureTime: '06:00:00AM',
         })

@@ -87,6 +87,10 @@ header #menu .trigger-menu {
     display: none;
 }
 
+#menu ul li a {
+    color: var(--primaryBlack) !important;
+}
+
 header #burger {
     display: none !important;
 }

@@ -5,7 +5,7 @@
   "main": "dist/app.js",
   "scripts": {
     "serve": "nodemon dist/app.js",
-    "test": "mocha --compilers js:babel-core/register src/test/* --exit --timeout 30000",
+    "test": "mocha --compilers js:babel-core/register src/test/* --exit --timeout 10000",
     "clean": "rimraf dist/",
     "build": "npm run clean && mkdir dist && npm run build:dev",
     "build:dev": "babel src -d dist && babel --presets es2015 src -d dist",

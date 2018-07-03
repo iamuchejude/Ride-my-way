@@ -17,8 +17,8 @@
 
 a {
     text-decoration: none;
-    color: var(--primaryBlack);
-    font-weight: 400;
+    color: rgb(9, 84, 146);
+    font-weight: 500;
 }
 
 h1, h2, h3, h4, h5, h6 {

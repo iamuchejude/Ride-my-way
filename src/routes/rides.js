@@ -1,6 +1,6 @@
 import express from 'express';
-import Rides from '../controllers/ridesController';
-import authMiddleware from '../middleware/authMiddleware';
+import Rides from '../controllers/rides';
+import authMiddleware from '../middleware/auth';
 
 const router = express.Router();
 

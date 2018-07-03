@@ -1,17 +1,16 @@
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import ngFaker from 'ng-faker';
-// import app from '../app';
 
 chai.use(chaiHttp);
 
 describe('Test for ride endpoints for Ride-my-way api', () => {
-  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiZWIwNmMxNDAtN2M0Yi0xMWU4LTkwZTktMzNjM2RiNWQ3ZmZjIiwiaXNBdXRoIjp0cnVlfSwiaWF0IjoxNTMwMzU1MjYwLCJleHAiOjE1MzA0MjcyNjB9.hat-MWSDPQHAhKEQfXTQ-4EiYpYY3ZZEunTf3B8_QnE';
+  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiMTU4ZTY3NjAtN2ViMy0xMWU4LTgyZTEtMDVmMzhiZGEwNTk2IiwiaXNBdXRoIjp0cnVlfSwiaWF0IjoxNTMwNjE3MjcyLCJleHAiOjE1MzA2ODkyNzJ9.NLnv-TZZlkA3UZNwzJrKrUaO6yg4i0tCS75LACcPJjQ';
 
   describe('GET all ride offers', () => {
     it('should return an array of all ride offers', (done) => {
       chai
-        .request('https://ride-my-way-andela.herokuapp.com')
+        .request('https://ride-my-way-andela.herokuapp.com/api/v1')
         .get('/rides')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')

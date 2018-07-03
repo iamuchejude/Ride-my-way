@@ -19,7 +19,7 @@ describe('Test for auth endpoints for Ride-my-way ride API', () => {
   describe('POST create new user', () => {
     it('should return an object with success with an object of created resources', (done) => {
       chai
-        .request('https://ride-my-way-andela.herokuapp.com')
+        .request('https://ride-my-way-andela.herokuapp.com/api/v1')
         .post('/auth/register')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')

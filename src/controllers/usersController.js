@@ -38,7 +38,7 @@ export default class Users {
               res.status(200).json({
                 status: 'success',
                 message: 'Returning user',
-                data: result.rows,
+                data: result.rows[0],
               })
             }
           })

@@ -16,9 +16,9 @@ app.use(logger('dev'));
 app.use(bodyParser.json({ type: 'application/*+json' }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use('/rides', rideRoutes);
-app.use('/auth', authRoutes);
-app.use('/users', userRoutes);
+app.use('/api/v1/rides', rideRoutes);
+app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/users', userRoutes);
 
 app.listen(port, () => {
   log.info(`Listening on port ${port}`);

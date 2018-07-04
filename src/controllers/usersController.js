@@ -13,16 +13,15 @@ export default class Users {
                 } else {
                     res.status(200).json({
                         status: 'success',
-                        message: 'Returning all users',
+                        message: 'Users found',
                         data: result.rows,
                     })
                 }
             })
             .catch((error) => {
-                res.status(400).json({
+                res.status(500).json({
                     status: 'error',
-                    message: 'Error Occured',
-                    error
+                    message: 'Internal server error. Please try again later',
                 })
             })
     }
@@ -33,21 +32,21 @@ export default class Users {
             if(result.rowCount < 1) {
               res.status(404).json({
                 status: 'error',
+                message: 'User was not found'
               })
             } else {
               res.status(200).json({
                 status: 'success',
-                message: 'Returning user',
+                message: 'User was found',
                 data: result.rows[0],
               })
             }
           })
-          .catch((error) => {
-            res.status(400).json({
-              status: 'error',
-              message: 'Error Occured',
-              error
-            })
+            .catch((error) => {
+                res.status(500).json({
+                    status: 'error',
+                    message: 'Internal server error. Please try again later',
+                })
           })
     }
 }

@@ -10,10 +10,10 @@ class Auth {
     static login(req, res) {
         const { email, password } = req.body;
 
-        if((email === null || undefined) || (password === null || undefined)) {
+        if(((email === null || undefined) || (email.trim().length < 1) ) || ((password === null || undefined) || (password.trim().length < 1))) {
             res.status(400).json({
                 status: 'error',
-                message: 'Bad Request',
+                message: 'Please provide an email and a password',
             })
         } else {
             db.query('SELECT * FROM users WHERE email=$1', [email])
@@ -21,14 +21,14 @@ class Auth {
                     if(result.rowCount < 1) {
                         res.status(404).json({
                             status: 'error',
-                            message: 'Auth Failed! Email is not registered',
+                            message: 'Login Failed! Email is not registered',
                         });
                     } else {
                         const comparePassword = bcrypt.compareSync(password, result.rows[0].password);
                         if(!comparePassword) {
                             res.status(401).json({
                                 status: 'error',
-                                message: 'Auth Failed! Password is incorrect',
+                                message: 'Login Failed! Password is incorrect',
                                 data: result.rows[0],
                             })
                         } else {
@@ -37,18 +37,18 @@ class Auth {
                                 isAuth: true,
                             }
                             
-                            jwt.sign({ user }, process.env.JWT_SECRET_TOKEN, { expiresIn: '20h' }, (error, token) => {
+                            jwt.sign({ user }, process.env.JWT_SECRET_TOKEN, { expiresIn: '48h' }, (error, token) => {
                                 if(error) {
-                                    res.status(522).json({
+                                    res.status(500).json({
                                         status: 'error',
-                                        message: 'Auth Failed!',
+                                        message: 'Login failed! Please try again later',
                                         error,
                                     });
                                 } else {
                                     res.status(200).json({
                                         status: 'success',
-                                        message: 'Auth Successful!',
-                                        user,
+                                        message: 'Login successful!',
+                                        data: user,
                                         token,
                                     })
                                 }
@@ -57,11 +57,9 @@ class Auth {
                     }
                 })
                 .catch((error) => {
-                    console.log(error);
                     res.status(500).json({
                         status: 'error',
-                        message: 'Unexpected Error Occured',
-                        error
+                        message: 'Internal server error occured! Please try again later',
                     });
                 })
             }
@@ -73,7 +71,7 @@ class Auth {
         db.query('SELECT * FROM users WHERE email=$1', [email])
             .then((result) => {
                 if(result.rowCount >= 1) {
-                    res.status(400).json({
+                    res.status(409).json({
                         status: 'error',
                         message: 'Email is already registered',
                     });
@@ -81,20 +79,21 @@ class Auth {
                     const ecryptedPassword = bcrypt.hashSync(password, 8);
                     const uid = uuidv1();
 
-                    const userData = [uid, name, email, ecryptedPassword, 'avatar.png', new Date().toISOString()];
-                    const query = 'INSERT INTO users(id, name, email, password, photo, created_at) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *';
+                    const userData = [uid, name, email, ecryptedPassword, 'avatar.png', new Date(), new Date().toISOString()];
+                    const query = 'INSERT INTO users(id, name, email, password, photo, updated_at, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *';
                     
                     db.query(query, userData)
                         .then((result) => {
                             res.status(201).json({
                                 status: 'success',
-                                message: 'User account successfully Created',
+                                message: 'Registration successful!',
                                 data: {
                                     id: result.rows[0].id,
                                     name: result.rows[0].name,
                                     email: result.rows[0].email,
                                     phone_number: result.rows[0].phone_number,
                                     photo: result.rows[0].photo,
+                                    updated_at: result.rows[0].updated_at,
                                     created_at: result.rows[0].created_at,
                                 },
                             });
@@ -102,17 +101,15 @@ class Auth {
                         .catch((error) => {
                             res.status(500).json({
                                 status: 'error',
-                                message: 'User account creation failed.',
-                                error: err,
-                            })
+                                message: 'Internal server error occured! Please try again later',
+                            });
                         })
                 }
             })
             .catch((error) => {
                 res.status(500).json({
                     status: 'error',
-                    message: 'Error Occured',
-                    error,
+                    message: 'Internal server error occured! Please try again later',
                 });
             })
     }

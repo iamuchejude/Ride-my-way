@@ -9,7 +9,7 @@ module.exports = (req, res, next) => {
         if(error) {
             res.status(401).json({
                 status: 'error',
-                message: 'Auth Failed'
+                message: 'Login failed!',
             })
         } else {
             req.authData = decoded;

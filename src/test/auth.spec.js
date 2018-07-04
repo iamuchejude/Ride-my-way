@@ -37,19 +37,19 @@ describe('Test for auth endpoints for Ride-my-way ride API', () => {
   describe('POST log user in', () => {
     it('should return an object with success with an object containing auth token if auth is successfull', (done) => {
       chai
-        .request('https://ride-my-way-andela.herokuapp.com')
+        .request('https://ride-my-way-andela.herokuapp.com/api/v1')
         .post('/auth/login')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')
         .send({
-          email: 'victorfd.moses@gmail.com',
+          email: 'nuchejude@gmail.com',
           password: 'mypassword',
         })
         .end((err, res) => {
           expect(err).to.equal(null);
           expect(res.status).to.equal(200);
           expect(res.body.status).to.equal('success');
-          expect(res.body.user).to.be.an('object');
+          expect(res.body.data).to.be.an('object');
           done();
         });
     });

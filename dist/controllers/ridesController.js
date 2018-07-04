@@ -72,6 +72,48 @@ var Rides = function () {
       });
     }
   }, {
+    key: 'deleteOneRideOffer',
+    value: function deleteOneRideOffer(req, res) {
+      var user_id = req.authData.user.id;
+
+      console.log(req.params.id);
+
+      _connection2.default.query('SELECT * FROM ride_offers WHERE id=$1', [req.params.id]).then(function (result) {
+        if (user_id !== result.rows[0].user_id) {
+          res.status(401).json({
+            status: 'error',
+            message: 'You don\'t have the right to delete this ride offer'
+          });
+        } else {
+          _connection2.default.query('DELETE FROM ride_offers WHERE id=$1', [req.params.id]).then(function (result) {
+            if (result.rowCount < 1) {
+              res.status(200).json({
+                status: 'error',
+                message: 'Ride offer could not be deleted'
+              });
+            } else {
+              res.status(200).json({
+                status: 'success',
+                message: 'Ride offer deleted successfully'
+              });
+            }
+          }).catch(function (error) {
+            res.status(500).json({
+              status: 'error',
+              message: 'aInternal server error. Please try again later',
+              error: error
+            });
+          });
+        }
+      }).catch(function (err) {
+        res.status(500).json({
+          status: 'error',
+          message: 'bInternal server error. Please try again later',
+          err: err
+        });
+      });
+    }
+  }, {
     key: 'createRideOffer',
     value: function createRideOffer(req, res) {
       var _req$body = req.body,
@@ -120,29 +162,35 @@ var Rides = function () {
         } else {
           var userId = req.body.userId;
 
-          var data = [(0, _v2.default)(), req.params.id, userId, 'pending', new Date().toISOString(), new Date().toISOString()];
-
-          _connection2.default.query('INSERT INTO ride_offer_requests(id, ride_id, user_id, status, updated_at, created_at) VALUES($1, $2, $3, $4, $5, $6) RETURNING *', data).then(function (result) {
-            if (result.rows[0] < 1) {
-              res.status(400).json({
-                status: 'error',
-                message: 'Request was successfully made',
-                data: result.rows[0]
-              });
-            } else {
-              res.status(201).json({
-                status: 'success',
-                message: 'Requests was not successfully mad',
-                data: result.rows[0]
-              });
-            }
-          }).catch(function (error) {
-            res.status(500).json({
+          if (userId === req.authData.user.id) {
+            res.status(400).json({
               status: 'error',
-              error: error,
-              message: 'Internal server error. Please try again later'
+              message: 'Sorry, You cannot request for your ride'
             });
-          });
+          } else {
+            var data = [(0, _v2.default)(), req.params.id, userId, 'pending', new Date().toISOString(), new Date().toISOString()];
+
+            _connection2.default.query('INSERT INTO ride_offer_requests(id, ride_id, user_id, status, updated_at, created_at) VALUES($1, $2, $3, $4, $5, $6) RETURNING *', data).then(function (result) {
+              if (result.rows[0] < 1) {
+                res.status(400).json({
+                  status: 'error',
+                  message: 'Request was successfully made',
+                  data: result.rows[0]
+                });
+              } else {
+                res.status(201).json({
+                  status: 'success',
+                  message: 'Request was not successfully made'
+                });
+              }
+            }).catch(function (error) {
+              res.status(500).json({
+                status: 'error',
+                error: error,
+                message: 'Internal server error. Please try again later'
+              });
+            });
+          }
         }
       }).catch(function (error) {
         res.status(500).json({

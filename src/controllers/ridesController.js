@@ -53,6 +53,47 @@ class Rides {
       })
   }
 
+  static deleteOneRideOffer(req, res) {
+    const user_id = req.authData.user.id;
+    
+    db.query('SELECT * FROM ride_offers WHERE id=$1', [req.params.id])
+      .then((result) => {
+        if (user_id !== result.rows[0].user_id) {
+          res.status(401).json({
+            status: 'error',
+            message: 'You don\'t have the right to delete this ride offer'
+          })
+        } else {
+          db.query('DELETE FROM ride_offers WHERE id=$1', [req.params.id])
+            .then((result) => {
+              if (result.rowCount < 1) {
+                res.status(200).json({
+                  status: 'error',
+                  message: 'Ride offer could not be deleted'
+                })
+              } else {
+                res.status(200).json({
+                  status: 'success',
+                  message: 'Ride offer deleted successfully'
+                })
+              }
+            })
+            .catch((error) => {
+              res.status(500).json({
+                status: 'error',
+                message: 'Internal server error. Please try again later',
+              })
+            });
+        }
+      })
+      .catch((err) => {
+        res.status(500).json({
+          status: 'error',
+          message: 'Internal server error. Please try again later',
+        })
+      });
+  }
+
   static createRideOffer(req, res) {
     const {
       userId, startFrom, destination, price, seat, departureDate, departureTime,

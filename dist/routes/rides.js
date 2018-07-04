@@ -22,6 +22,7 @@ var router = _express2.default.Router();
 
 router.get('/', _authMiddleware2.default, _ridesController2.default.getAllRideOffers);
 router.get('/:id', _authMiddleware2.default, _ridesController2.default.getOneRideOffer);
+router.delete('/:id', _authMiddleware2.default, _ridesController2.default.deleteOneRideOffer);
 router.post('/:id/requests', _authMiddleware2.default, _ridesController2.default.createRideOfferRequest);
 
 exports.default = router;

@@ -1,6 +1,7 @@
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import ngFaker from 'ng-faker';
+import app from './../app';
 
 chai.use(chaiHttp);
 
@@ -18,8 +19,8 @@ describe('Test for auth endpoints for Ride-my-way ride API', () => {
   describe('POST create new user', () => {
     it('should return an object with success with an object of created resources', (done) => {
       chai
-        .request('https://ride-my-way-andela.herokuapp.com/api/v1')
-        .post('/auth/register')
+        .request(app)
+        .post('/api/v1/auth/register')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')
         .send(data)
@@ -37,12 +38,12 @@ describe('Test for auth endpoints for Ride-my-way ride API', () => {
   describe('POST log user in', () => {
     it('should return an object with success with an object containing auth token if auth is successfull', (done) => {
       chai
-        .request('https://ride-my-way-andela.herokuapp.com/api/v1')
-        .post('/auth/login')
+        .request(app)
+        .post('/api/v1/auth/login')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')
         .send({
-          email: 'nuchejude@gmail.com',
+          email: 'nuchejud@gmail.com',
           password: 'mypassword',
         })
         .end((err, res) => {
@@ -50,6 +51,7 @@ describe('Test for auth endpoints for Ride-my-way ride API', () => {
           expect(res.status).to.equal(200);
           expect(res.body.status).to.equal('success');
           expect(res.body.data).to.be.an('object');
+          expect(res.body.data.isAuth).to.equal(true);
           done();
         });
     });

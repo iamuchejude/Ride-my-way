@@ -76,8 +76,6 @@ var Rides = function () {
     value: function deleteOneRideOffer(req, res) {
       var user_id = req.authData.user.id;
 
-      console.log(req.params.id);
-
       _connection2.default.query('SELECT * FROM ride_offers WHERE id=$1', [req.params.id]).then(function (result) {
         if (user_id !== result.rows[0].user_id) {
           res.status(401).json({
@@ -100,16 +98,14 @@ var Rides = function () {
           }).catch(function (error) {
             res.status(500).json({
               status: 'error',
-              message: 'aInternal server error. Please try again later',
-              error: error
+              message: 'Internal server error. Please try again later'
             });
           });
         }
       }).catch(function (err) {
         res.status(500).json({
           status: 'error',
-          message: 'bInternal server error. Please try again later',
-          err: err
+          message: 'Internal server error. Please try again later'
         });
       });
     }

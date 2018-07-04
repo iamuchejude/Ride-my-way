@@ -18,6 +18,5 @@ var router = _express2.default.Router();
 
 router.post('/login', _authController2.default.login);
 router.post('/register', _authController2.default.register);
-// router.get('/auth/recover', Auth.recover);
 
 exports.default = router;

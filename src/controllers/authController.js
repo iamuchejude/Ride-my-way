@@ -9,7 +9,6 @@ env.config();
 class Auth {
     static login(req, res) {
         const { email, password } = req.body;
-
         if((email === undefined || email.trim().length < 1) || (password === undefined || password.trim().length < 1)) {
             res.status(409).json({
                 status: 'error',
@@ -67,7 +66,6 @@ class Auth {
 
     static register(req, res) {
         const { name, email, password } = req.body;
-
         if((name === undefined || name.trim().length < 1) || (email === undefined || email.trim().length < 1) || (password === undefined || password.trim().length < 1)) {
             res.status(409).json({
                 status: 'error',

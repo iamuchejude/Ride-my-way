@@ -53,6 +53,48 @@ class Rides {
       })
   }
 
+  static createRideOffer(req, res) {
+    const {
+      userId, startFrom, destination, price, seat, departureDate, departureTime,
+    } = req.body;
+
+    const query = "INSERT INTO ride_offers(id, user_id, start_from, destination, price, seat, departure_date, departure_time, updated_at, created_at) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *";
+    const data = [
+      uuidv1(),
+      userId,
+      startFrom,
+      destination,
+      price,
+      seat,
+      departureDate,
+      departureTime,
+      new Date().toISOString(),
+      new Date().toISOString()
+    ]
+
+    db.query(query, data)
+      .then((result) => {
+        if(result.rowCount < 1) {
+          res.status(409).json({
+            status: 'error',
+            message: 'Oops! Ride offer was not added',
+          });
+        } else {
+          res.status(201).json({
+            status: 'success',
+            message: 'Ride offer was added successfully',
+            data: result.rows[0]
+          });
+        }
+      })
+      .catch((error) => {
+        res.status(500).json({
+          status: 'error',
+          message: 'Internal server error. Please try again later',
+        })
+      })
+  }
+
   static deleteOneRideOffer(req, res) {
     const user_id = req.authData.user.id;
     
@@ -261,7 +303,6 @@ class Rides {
     const { userId, status } = req.body;
     let ride_offer;
     let ride_requests;
-
     db.query('SELECT * FROM ride_offers WHERE id=$1', [req.params.ride_id])
       .then((result) => {
         if(result.rowCount < 1) {

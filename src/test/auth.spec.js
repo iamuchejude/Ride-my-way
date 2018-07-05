@@ -44,7 +44,7 @@ describe('Test for auth endpoints for Ride-my-way ride API', () => {
         .set('Content-Type', 'application/x-www-form-urlencoded')
         .send({
           email: 'nuchejud@gmail.com',
-          password: 'mypassword',
+          password: 'changeMyPassword',
         })
         .end((err, res) => {
           expect(err).to.equal(null);

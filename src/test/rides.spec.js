@@ -5,7 +5,7 @@ import ngFaker from 'ng-faker';
 chai.use(chaiHttp);
 
 describe('Test for ride endpoints for Ride-my-way api', () => {
-  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiODIzNjBiNDAtN2ZkZC0xMWU4LWI2YmQtYTE2ZjljMDc5NTEwIiwiaXNBdXRoIjp0cnVlfSwiaWF0IjoxNTMwNzQ1MDA2LCJleHAiOjE1MzA5MTc4MDZ9.GPo0MYnZZZn0MleMNAK0JPs1Gfql5aCLY916zO3Y2yg';
+  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNDU3NGVhNDAtODA0Yy0xMWU4LWI0OGUtMzdjNTcxNjNiNjJkIiwiaXNBdXRoIjp0cnVlfSwiaWF0IjoxNTMwNzk5MjkzLCJleHAiOjE1MzA5NzIwOTN9.b8e1KpHnhLqFVfOKrqHyw3Ww1EHlhFsCTdQdOvFz-00';
 
   describe('GET all ride offers', () => {
     it('should return an array of all ride offers', (done) => {
@@ -29,7 +29,7 @@ describe('Test for ride endpoints for Ride-my-way api', () => {
     it('should return an object of a ride offer', (done) => {
       chai
         .request('https://ride-my-way-andela.herokuapp.com')
-        .get('/api/v1/rides/5c622700-7fd8-11e8-9cf1-6f3fb418fc65')
+        .get('/api/v1/rides/b4a73be0-805e-11e8-8b74-375385422771')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')
         .set('Authorization', `Bearer ${token}`)
@@ -101,12 +101,12 @@ describe('Test for ride endpoints for Ride-my-way api', () => {
     it('should respond with success in an object also containing created resource', (done) => {
       chai
         .request('https://ride-my-way-andela.herokuapp.com')
-        .post('/api/v1/rides/5c622700-7fd8-11e8-9cf1-6f3fb418fc65/requests')
+        .post('/api/v1/rides/b4a73be0-805e-11e8-8b74-375385422771/requests')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')
         .set('Authorization', `Bearer ${token}`)
         .send({
-          userId: '48d31690-7fe2-11e8-b719-a11e2b5f3704',
+          userId: '5f1314c0-805d-11e8-8b74-375385422771',
         })
         .end((err, res) => {
           expect(err).to.equal(null);
@@ -143,7 +143,7 @@ describe('Test for ride endpoints for Ride-my-way api', () => {
     it('should respond with success in an object also containing an array of all requests for ride offer', (done) => {
       chai
         .request('https://ride-my-way-andela.herokuapp.com')
-        .get('/api/v1/users/rides/5c622700-7fd8-11e8-9cf1-6f3fb418fc65/requests')
+        .get('/api/v1/users/rides/b4a73be0-805e-11e8-8b74-375385422771/requests')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')
         .set('Authorization', `Bearer ${token}`)
@@ -158,44 +158,44 @@ describe('Test for ride endpoints for Ride-my-way api', () => {
     });
   });
 
-  describe('PUT accept or reject ride offer request', () => {
-    it('should return success', (done) => {
-      chai
-        .request('https://ride-my-way-andela.herokuapp.com')
-        .delete('/api/v1/rides/db1bc330-8032-11e8-980c-7d5fbc92cee9')
-        .set('Accept', 'application/json')
-        .set('Content-Type', 'application/x-www-form-urlencoded')
-        .set('Authorization', `Bearer ${token}`)
-        .send({
-          status: 'accepted',
-          userId: '82360b40-7fdd-11e8-b6bd-a16f9c079510'
-        })
-        .end((err, res) => {
-          expect(err).to.equal(null);
-          expect(res.status).to.equal(200);
-          expect(res.body.status).to.equal('success');
-          expect(res.body.message).to.equal('Ride offer was deleted successfully');
-          done();
-        });
-    });
-  });
+  // describe('PUT accept or reject ride offer request', () => {
+  //   it('should return success', (done) => {
+  //     chai
+  //       .request('https://ride-my-way-andela.herokuapp.com')
+  //       .put('/api/v1/rides/b4a73be0-805e-11e8-8b74-375385422771/requests/5df6e470-805f-11e8-8b74-375385422771')
+  //       .set('Accept', 'application/json')
+  //       .set('Content-Type', 'application/x-www-form-urlencoded')
+  //       .set('Authorization', `Bearer ${token}`)
+  //       .send({
+  //         status: 'accepted',
+  //         userId: '4574ea40-804c-11e8-b48e-37c57163b62d'
+  //       })
+  //       .end((err, res) => {
+  //         expect(err).to.equal(null);
+  //         expect(res.status).to.equal(200);
+  //         expect(res.body.status).to.equal('success');
+  //         expect(res.body.message).to.equal('Ride offer was deleted successfully');
+  //         done();
+  //       });
+  //   });
+  // });
 
-  describe('DELETE a ride offer', () => {
-    it('should return success if delete was successfull', (done) => {
-      chai
-        .request('https://ride-my-way-andela.herokuapp.com')
-        .delete('/api/v1/rides/be42a940-8032-11e8-980c-7d5fbc92cee9')
-        .set('Accept', 'application/json')
-        .set('Content-Type', 'application/x-www-form-urlencoded')
-        .set('Authorization', `Bearer ${token}`)
-        .end((err, res) => {
-          expect(err).to.equal(null);
-          expect(res.status).to.equal(200);
-          expect(res.body.status).to.equal('success');
-          expect(res.body.message).to.equal('Ride offer was deleted successfully');
-          done();
-        });
-    });
-  });
+  // describe('DELETE a ride offer', () => {
+  //   it('should return success if delete was successfull', (done) => {
+  //     chai
+  //       .request('https://ride-my-way-andela.herokuapp.com')
+  //       .delete('/api/v1/rides/0c288270-805f-11e8-8b74-375385422771')
+  //       .set('Accept', 'application/json')
+  //       .set('Content-Type', 'application/x-www-form-urlencoded')
+  //       .set('Authorization', `Bearer ${token}`)
+  //       .end((err, res) => {
+  //         expect(err).to.equal(null);
+  //         expect(res.status).to.equal(200);
+  //         expect(res.body.status).to.equal('success');
+  //         expect(res.body.message).to.equal('Ride offer was deleted successfully');
+  //         done();
+  //       });
+  //   });
+  // });
   
 });

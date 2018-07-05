@@ -4,7 +4,7 @@ import chaiHttp from 'chai-http';
 chai.use(chaiHttp);
 
 describe('Test for user endpoints for Ride-my-way ride API', () => {
-  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiODIzNjBiNDAtN2ZkZC0xMWU4LWI2YmQtYTE2ZjljMDc5NTEwIiwiaXNBdXRoIjp0cnVlfSwiaWF0IjoxNTMwNzQ1MDA2LCJleHAiOjE1MzA5MTc4MDZ9.GPo0MYnZZZn0MleMNAK0JPs1Gfql5aCLY916zO3Y2yg';
+  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNDU3NGVhNDAtODA0Yy0xMWU4LWI0OGUtMzdjNTcxNjNiNjJkIiwiaXNBdXRoIjp0cnVlfSwiaWF0IjoxNTMwNzk5MjkzLCJleHAiOjE1MzA5NzIwOTN9.b8e1KpHnhLqFVfOKrqHyw3Ww1EHlhFsCTdQdOvFz-00';
 
   describe('GET all users', () => {
     it('should return an array of all users', (done) => {
@@ -28,7 +28,7 @@ describe('Test for user endpoints for Ride-my-way ride API', () => {
     it('should return an object of one user', (done) => {
       chai
         .request('https://ride-my-way-andela.herokuapp.com')
-        .get('/api/v1/users/82360b40-7fdd-11e8-b6bd-a16f9c079510')
+        .get('/api/v1/users/4574ea40-804c-11e8-b48e-37c57163b62d')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')
         .set('Authorization', `Bearer ${token}`)
@@ -46,7 +46,7 @@ describe('Test for user endpoints for Ride-my-way ride API', () => {
     it('should return an success with object of updated resources', (done) => {
       chai
         .request('https://ride-my-way-andela.herokuapp.com')
-        .put('/api/v1/users/82360b40-7fdd-11e8-b6bd-a16f9c079510')
+        .put('/api/v1/users/4574ea40-804c-11e8-b48e-37c57163b62d')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')
         .set('Authorization', `Bearer ${token}`)
@@ -68,7 +68,7 @@ describe('Test for user endpoints for Ride-my-way ride API', () => {
     it('should return success', (done) => {
       chai
         .request('https://ride-my-way-andela.herokuapp.com')
-        .put('/api/v1/users/82360b40-7fdd-11e8-b6bd-a16f9c079510/password')
+        .put('/api/v1/users/4574ea40-804c-11e8-b48e-37c57163b62d/password')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')
         .set('Authorization', `Bearer ${token}`)
@@ -88,7 +88,7 @@ describe('Test for user endpoints for Ride-my-way ride API', () => {
     it('should return success', (done) => {
       chai
         .request('https://ride-my-way-andela.herokuapp.com')
-        .put('/api/v1/users/82360b40-7fdd-11e8-b6bd-a16f9c079510/photo')
+        .put('/api/v1/users/4574ea40-804c-11e8-b48e-37c57163b62d/photo')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')
         .set('Authorization', `Bearer ${token}`)
@@ -108,7 +108,7 @@ describe('Test for user endpoints for Ride-my-way ride API', () => {
     it('should return error because email cannot edited', (done) => {
       chai
         .request('https://ride-my-way-andela.herokuapp.com')
-        .put('/api/v1/users/82360b40-7fdd-11e8-b6bd-a16f9c079510')
+        .put('/api/v1/users/4574ea40-804c-11e8-b48e-37c57163b62d')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')
         .set('Authorization', `Bearer ${token}`)
@@ -130,7 +130,7 @@ describe('Test for user endpoints for Ride-my-way ride API', () => {
     it('should return error', (done) => {
       chai
         .request('https://ride-my-way-andela.herokuapp.com')
-        .put('/api/v1/users/82360b40-7fdd-11e8-b6bd-a16f9c079510')
+        .put('/api/v1/users/4574ea40-804c-11e8-b48e-37c57163b62d')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')
         .set('Authorization', `Bearer ${token}`)
@@ -151,7 +151,7 @@ describe('Test for user endpoints for Ride-my-way ride API', () => {
     it('should return error', (done) => {
       chai
         .request('https://ride-my-way-andela.herokuapp.com')
-        .put('/api/v1/users/82360b40-7fdd-11e8-b6bd-a16f9c079510/password')
+        .put('/api/v1/users/4574ea40-804c-11e8-b48e-37c57163b62d/password')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')
         .set('Authorization', `Bearer ${token}`)
@@ -171,7 +171,7 @@ describe('Test for user endpoints for Ride-my-way ride API', () => {
     it('should update photo to avatar.png which is the default photo and return object of updated resources', (done) => {
       chai
         .request('https://ride-my-way-andela.herokuapp.com')
-        .put('/api/v1/users/82360b40-7fdd-11e8-b6bd-a16f9c079510/photo')
+        .put('/api/v1/users/4574ea40-804c-11e8-b48e-37c57163b62d/photo')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')
         .set('Authorization', `Bearer ${token}`)

@@ -44,17 +44,46 @@ describe('Test for auth endpoints for Ride-my-way ride API', function () {
     });
   });
 
+  describe('POST create new user with empty data', function () {
+    it('should return error', function (done) {
+      _chai2.default.request(_app2.default).post('/api/v1/auth/register').set('Accept', 'application/json').set('Content-Type', 'application/x-www-form-urlencoded').send({
+        name: '   ',
+        email: 'iamuchejude@gmail.com',
+        password: 'testPassword'
+      }).end(function (err, res) {
+        (0, _chai.expect)(err).to.equal(null);
+        (0, _chai.expect)(res.status).to.equal(409);
+        (0, _chai.expect)(res.body.status).to.equal('error');
+        done();
+      });
+    });
+  });
+
   describe('POST log user in', function () {
     it('should return an object with success with an object containing auth token if auth is successfull', function (done) {
       _chai2.default.request(_app2.default).post('/api/v1/auth/login').set('Accept', 'application/json').set('Content-Type', 'application/x-www-form-urlencoded').send({
         email: 'nuchejud@gmail.com',
-        password: 'mypassword'
+        password: 'changeMyPassword'
       }).end(function (err, res) {
         (0, _chai.expect)(err).to.equal(null);
         (0, _chai.expect)(res.status).to.equal(200);
         (0, _chai.expect)(res.body.status).to.equal('success');
         (0, _chai.expect)(res.body.data).to.be.an('object');
         (0, _chai.expect)(res.body.data.isAuth).to.equal(true);
+        done();
+      });
+    });
+  });
+
+  describe('POST log user in with empty data', function () {
+    it('should return error', function (done) {
+      _chai2.default.request(_app2.default).post('/api/v1/auth/login').set('Accept', 'application/json').set('Content-Type', 'application/x-www-form-urlencoded').send({
+        email: '  ',
+        password: 'changeMyPassword'
+      }).end(function (err, res) {
+        (0, _chai.expect)(err).to.equal(null);
+        (0, _chai.expect)(res.status).to.equal(409);
+        (0, _chai.expect)(res.body.status).to.equal('error');
         done();
       });
     });

@@ -97,63 +97,66 @@ var Users = function () {
                                 name = _req$body.name,
                                 phoneNumber = _req$body.phoneNumber;
 
-                            if (name.trim() === undefined || null || phoneNumber.trim() === undefined || null) {
-                                res.status(401).json({
+                            if (req.body.email !== undefined) {
+                                res.status(409).json({
                                     status: 'error',
-                                    message: 'All fields are required'
+                                    message: 'Sorry, you cannot update email address'
                                 });
                             } else {
-                                _connection2.default.query('UPDATE users SET name=$1, phone_number=$2 WHERE id=$3', [name, phoneNumber, req.params.id]).then(function (resultTwo) {
-                                    if (resultTwo.rowCount < 1) {
-                                        res.status(409).json({
-                                            status: 'error',
-                                            message: 'Profile update failed. Please try again later'
-                                        });
-                                    } else {
-                                        res.status(200).json({
-                                            status: 'success',
-                                            message: 'Profile updated successfully'
-                                        });
-                                    }
-                                }).catch(function (erorTwo) {
-                                    res.status(500).json({
-                                        status: 'error',
-                                        message: 'Internal server error. Please try again later'
-                                    });
-                                });
-                            }
-                        } else {
-                            if (data === 'photo') {
-                                if (req.body.photo === undefined || req.body.photo.length < 1) {
+                                if (name === undefined || name.trim().length < 1 || phoneNumber === undefined || phoneNumber.trim().length < 1) {
                                     res.status(409).json({
                                         status: 'error',
-                                        message: 'Please upload a photo'
+                                        message: 'All fields are required'
                                     });
                                 } else {
-                                    _connection2.default.query('UPDATE users SET photo=$1 WHERE id=$2', [req.body.photo, req.params.id]).then(function (resultThree) {
-                                        if (resultThree.rowCount < 1) {
+                                    _connection2.default.query('UPDATE users SET name=$1, phone_number=$2 WHERE id=$3 RETURNING *', [name, phoneNumber, req.params.id]).then(function (resultTwo) {
+                                        if (resultTwo.rowCount < 1) {
                                             res.status(409).json({
                                                 status: 'error',
-                                                message: 'Photo update failed. Please try again later'
+                                                message: 'Profile update failed. Please try again later'
                                             });
                                         } else {
                                             res.status(200).json({
                                                 status: 'success',
-                                                message: 'Photo updated successfully'
+                                                message: 'Profile updated successfully',
+                                                data: resultTwo.rows[0]
                                             });
                                         }
-                                    }).catch(function (errorThree) {
+                                    }).catch(function (erorTwo) {
                                         res.status(500).json({
                                             status: 'error',
                                             message: 'Internal server error. Please try again later'
                                         });
                                     });
                                 }
+                            }
+                        } else {
+                            if (data === 'photo') {
+                                var photo = req.body.photo === undefined || req.body.photo.trim().length < 1 ? 'avatar.png' : req.body.photo;
+                                _connection2.default.query('UPDATE users SET photo=$1 WHERE id=$2 RETURNING *', [photo, req.params.id]).then(function (resultThree) {
+                                    if (resultThree.rowCount < 1) {
+                                        res.status(409).json({
+                                            status: 'error',
+                                            message: 'Photo update failed. Please try again later'
+                                        });
+                                    } else {
+                                        res.status(200).json({
+                                            status: 'success',
+                                            message: 'Photo updated successfully',
+                                            data: resultThree.rows[0]
+                                        });
+                                    }
+                                }).catch(function (errorThree) {
+                                    res.status(500).json({
+                                        status: 'error',
+                                        message: 'Internal server error. Please try again later'
+                                    });
+                                });
                             } else {
                                 var password = req.body.password;
 
-                                if (password.trim() === null || undefined) {
-                                    res.status(401).json({
+                                if (password === undefined || password.trim().length < 1) {
+                                    res.status(409).json({
                                         status: 'error',
                                         message: 'Password is required'
                                     });

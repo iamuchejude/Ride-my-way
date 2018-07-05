@@ -10,8 +10,8 @@ class Auth {
     static login(req, res) {
         const { email, password } = req.body;
 
-        if(((email === null || undefined) || (email.trim().length < 1) ) || ((password === null || undefined) || (password.trim().length < 1))) {
-            res.status(400).json({
+        if((email === undefined || email.trim().length < 1) || (password === undefined || password.trim().length < 1)) {
+            res.status(409).json({
                 status: 'error',
                 message: 'Please provide an email and a password',
             })
@@ -68,50 +68,57 @@ class Auth {
     static register(req, res) {
         const { name, email, password } = req.body;
 
-        db.query('SELECT * FROM users WHERE email=$1', [email])
-            .then((result) => {
-                if(result.rowCount >= 1) {
-                    res.status(409).json({
-                        status: 'error',
-                        message: 'Email is already registered',
-                    });
-                } else {
-                    const ecryptedPassword = bcrypt.hashSync(password, 8);
-                    const uid = uuidv1();
+        if((name === undefined || name.trim().length < 1) || (email === undefined || email.trim().length < 1) || (password === undefined || password.trim().length < 1)) {
+            res.status(409).json({
+                status: 'error',
+                message: 'All fields are required'
+            })
+        } else {
+            db.query('SELECT * FROM users WHERE email=$1', [email])
+                .then((result) => {
+                    if(result.rowCount >= 1) {
+                        res.status(409).json({
+                            status: 'error',
+                            message: 'Email is already registered',
+                        });
+                    } else {
+                        const ecryptedPassword = bcrypt.hashSync(password, 8);
+                        const uid = uuidv1();
 
-                    const userData = [uid, name, email, ecryptedPassword, 'avatar.png', new Date(), new Date().toISOString()];
-                    const query = 'INSERT INTO users(id, name, email, password, photo, updated_at, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *';
-                    
-                    db.query(query, userData)
-                        .then((result) => {
-                            res.status(201).json({
-                                status: 'success',
-                                message: 'Registration successful!',
-                                data: {
-                                    id: result.rows[0].id,
-                                    name: result.rows[0].name,
-                                    email: result.rows[0].email,
-                                    phone_number: result.rows[0].phone_number,
-                                    photo: result.rows[0].photo,
-                                    updated_at: result.rows[0].updated_at,
-                                    created_at: result.rows[0].created_at,
-                                },
-                            });
-                        })
-                        .catch((error) => {
-                            res.status(500).json({
-                                status: 'error',
-                                message: 'Internal server error occured! Please try again later',
-                            });
-                        })
-                }
-            })
-            .catch((error) => {
-                res.status(500).json({
-                    status: 'error',
-                    message: 'Internal server error occured! Please try again later',
-                });
-            })
+                        const userData = [uid, name, email, ecryptedPassword, 'avatar.png', new Date(), new Date().toISOString()];
+                        const query = 'INSERT INTO users(id, name, email, password, photo, updated_at, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *';
+                        
+                        db.query(query, userData)
+                            .then((result) => {
+                                res.status(201).json({
+                                    status: 'success',
+                                    message: 'Registration successful!',
+                                    data: {
+                                        id: result.rows[0].id,
+                                        name: result.rows[0].name,
+                                        email: result.rows[0].email,
+                                        phone_number: result.rows[0].phone_number,
+                                        photo: result.rows[0].photo,
+                                        updated_at: result.rows[0].updated_at,
+                                        created_at: result.rows[0].created_at,
+                                    },
+                                });
+                            })
+                            .catch((error) => {
+                                res.status(500).json({
+                                    status: 'error',
+                                    message: 'Internal server error occured! Please try again later',
+                                });
+                            })
+                    }
+                })
+                .catch((error) => {
+                    res.status(500).json({
+                        status: 'error',
+                        message: 'Internal server error occured! Please try again later',
+                    });
+                })
+        }
     }
 
 }

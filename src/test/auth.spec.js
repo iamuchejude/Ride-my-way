@@ -35,6 +35,27 @@ describe('Test for auth endpoints for Ride-my-way ride API', () => {
     });
   });
 
+  describe('POST create new user with empty data', () => {
+    it('should return error', (done) => {
+      chai
+        .request(app)
+        .post('/api/v1/auth/register')
+        .set('Accept', 'application/json')
+        .set('Content-Type', 'application/x-www-form-urlencoded')
+        .send({
+          name: '   ',
+          email: 'iamuchejude@gmail.com',
+          password: 'testPassword'
+        })
+        .end((err, res) => {
+          expect(err).to.equal(null);
+          expect(res.status).to.equal(409);
+          expect(res.body.status).to.equal('error');
+          done();
+        });
+    });
+  });
+
   describe('POST log user in', () => {
     it('should return an object with success with an object containing auth token if auth is successfull', (done) => {
       chai
@@ -52,6 +73,26 @@ describe('Test for auth endpoints for Ride-my-way ride API', () => {
           expect(res.body.status).to.equal('success');
           expect(res.body.data).to.be.an('object');
           expect(res.body.data.isAuth).to.equal(true);
+          done();
+        });
+    });
+  });
+
+  describe('POST log user in with empty data', () => {
+    it('should return error', (done) => {
+      chai
+        .request(app)
+        .post('/api/v1/auth/login')
+        .set('Accept', 'application/json')
+        .set('Content-Type', 'application/x-www-form-urlencoded')
+        .send({
+          email: '  ',
+          password: 'changeMyPassword',
+        })
+        .end((err, res) => {
+          expect(err).to.equal(null);
+          expect(res.status).to.equal(409);
+          expect(res.body.status).to.equal('error');
           done();
         });
     });

@@ -122,79 +122,93 @@ var Rides = function () {
           departureTime = _req$body.departureTime;
 
 
-      var query = "INSERT INTO ride_offers(id, user_id, start_from, destination, price, seat, departure_date, departure_time, updated_at, created_at) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *";
-      var data = [(0, _v2.default)(), userId, startFrom, destination, price, seat, departureDate, departureTime, new Date().toISOString(), new Date().toISOString()];
-
-      _connection2.default.query(query, data).then(function (result) {
-        if (result.rowCount < 1) {
-          res.status(409).json({
-            status: 'error',
-            message: 'Oops! Ride offer was not added'
-          });
-        } else {
-          res.status(201).json({
-            status: 'success',
-            message: 'Ride offer was added successfully',
-            data: result.rows[0]
-          });
-        }
-      }).catch(function (error) {
-        res.status(500).json({
+      if (userId === undefined || userId.trim().length < 1 || startFrom === undefined || startFrom.trim().length < 1 || destination === undefined || destination.trim().length < 1 || price === undefined || price.trim().length < 1 || seat === undefined || seat.trim().length < 1 || departureDate === undefined || departureDate.trim().length < 1 || departureTime === undefined || departureTime.trim().length < 1) {
+        res.status(409).json({
           status: 'error',
-          message: 'Internal server error. Please try again later'
+          message: 'Please provide all required data'
         });
-      });
+      } else {
+        var query = "INSERT INTO ride_offers(id, user_id, start_from, destination, price, seat, departure_date, departure_time, updated_at, created_at) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *";
+        var data = [(0, _v2.default)(), userId, startFrom, destination, price, seat, departureDate, departureTime, new Date().toISOString(), new Date().toISOString()];
+
+        _connection2.default.query(query, data).then(function (result) {
+          if (result.rowCount < 1) {
+            res.status(409).json({
+              status: 'error',
+              message: 'Oops! Ride offer was not added'
+            });
+          } else {
+            res.status(201).json({
+              status: 'success',
+              message: 'Ride offer was added successfully',
+              data: result.rows[0]
+            });
+          }
+        }).catch(function (error) {
+          res.status(500).json({
+            status: 'error',
+            message: 'Internal server error. Please try again later'
+          });
+        });
+      }
     }
   }, {
     key: 'createRideOfferRequest',
     value: function createRideOfferRequest(req, res) {
       // Check if Ride Offer is existing
-      _connection2.default.query('SELECT * FROM ride_offers WHERE id=$1', [req.params.id]).then(function (result) {
-        if (result.rowCount < 1) {
-          res.status(404).json({
-            status: 'error',
-            message: 'Ride offer does not exist'
-          });
-        } else {
-          var userId = req.body.userId;
-
-          if (userId === req.authData.user.id) {
-            res.status(400).json({
+      if (req.body.userId === undefined || req.body.userId.trim().length < 1) {
+        res.status(409).json({
+          status: 'error',
+          message: 'Please provide a valid user ID'
+        });
+      } else {
+        _connection2.default.query('SELECT * FROM ride_offers WHERE id=$1', [req.params.id]).then(function (result) {
+          if (result.rowCount < 1) {
+            res.status(404).json({
               status: 'error',
-              message: 'Sorry, You cannot request for your ride'
+              message: 'Ride offer does not exist'
             });
           } else {
-            var data = [(0, _v2.default)(), req.params.id, userId, 'pending', new Date().toISOString(), new Date().toISOString()];
+            var userId = req.body.userId;
 
-            _connection2.default.query('INSERT INTO ride_offer_requests(id, ride_id, user_id, status, updated_at, created_at) VALUES($1, $2, $3, $4, $5, $6) RETURNING *', data).then(function (result) {
-              if (result.rowCount >= 1) {
-                res.status(201).json({
-                  status: 'success',
-                  message: 'Request was successfully made',
-                  data: result.rows[0]
-                });
-              } else {
-                res.status(400).json({
-                  status: 'error',
-                  message: 'Request was not successfully made'
-                });
-              }
-            }).catch(function (error) {
-              res.status(500).json({
+            if (userId === req.authData.user.id) {
+              res.status(400).json({
                 status: 'error',
-                error: error,
-                message: 'Internal server error. Please try again later'
+                message: 'Sorry, You cannot request for your ride'
               });
-            });
+            } else {
+              var data = [(0, _v2.default)(), req.params.id, userId, 'pending', new Date().toISOString(), new Date().toISOString()];
+
+              _connection2.default.query('INSERT INTO ride_offer_requests(id, ride_id, user_id, status, updated_at, created_at) VALUES($1, $2, $3, $4, $5, $6) RETURNING *', data).then(function (result) {
+                if (result.rowCount >= 1) {
+                  res.status(201).json({
+                    status: 'success',
+                    message: 'Request was successfully made',
+                    data: result.rows[0]
+                  });
+                } else {
+                  res.status(400).json({
+                    status: 'error',
+                    message: 'Request was not successfully made'
+                  });
+                }
+              }).catch(function (error) {
+                res.status(500).json({
+                  status: 'error',
+                  error: error,
+                  message: 'Internal server error. Please try again later'
+                });
+              });
+            }
           }
-        }
-      }).catch(function (error) {
-        res.status(500).json({
-          status: 'error',
-          error: error,
-          message: 'Internal server error. Please try again later'
+        }).catch(function (error) {
+          res.status(500).json({
+            status: 'error',
+            error: error,
+            message: 'Internal server error. Please try again later'
+          });
         });
-      });
+      }
     }
   }, {
     key: 'getRideOfferRequestsForOneRide',
@@ -243,6 +257,7 @@ var Rides = function () {
 
       var ride_offer = void 0;
       var ride_requests = void 0;
+
       _connection2.default.query('SELECT * FROM ride_offers WHERE id=$1', [req.params.ride_id]).then(function (result) {
         if (result.rowCount < 1) {
           res.status(404).json({

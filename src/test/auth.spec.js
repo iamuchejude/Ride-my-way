@@ -63,7 +63,7 @@ describe('Test for auth endpoints for Ride-my-way ride API', () => {
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')
         .send({
-          email: 'nuchejud@gmail.com',
+          email: 'nuchejuded@gmail.com',
           password: 'changeMyPassword',
         })
         .end((err, res) => {

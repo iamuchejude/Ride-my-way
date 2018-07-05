@@ -92,7 +92,7 @@ var Rides = function () {
             } else {
               res.status(200).json({
                 status: 'success',
-                message: 'Ride offer deleted successfully'
+                message: 'Ride offer was deleted successfully'
               });
             }
           }).catch(function (error) {
@@ -167,15 +167,15 @@ var Rides = function () {
             var data = [(0, _v2.default)(), req.params.id, userId, 'pending', new Date().toISOString(), new Date().toISOString()];
 
             _connection2.default.query('INSERT INTO ride_offer_requests(id, ride_id, user_id, status, updated_at, created_at) VALUES($1, $2, $3, $4, $5, $6) RETURNING *', data).then(function (result) {
-              if (result.rows[0] < 1) {
-                res.status(400).json({
-                  status: 'error',
+              if (result.rowCount >= 1) {
+                res.status(201).json({
+                  status: 'success',
                   message: 'Request was successfully made',
                   data: result.rows[0]
                 });
               } else {
-                res.status(201).json({
-                  status: 'success',
+                res.status(400).json({
+                  status: 'error',
                   message: 'Request was not successfully made'
                 });
               }

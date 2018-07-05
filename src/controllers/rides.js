@@ -57,7 +57,6 @@ class Rides {
     const {
       userId, startFrom, destination, price, seat, departureDate, departureTime,
     } = req.body;
-
     const query = "INSERT INTO ride_offers(id, user_id, start_from, destination, price, seat, departure_date, departure_time, updated_at, created_at) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *";
     const data = [
       uuidv1(),
@@ -303,6 +302,7 @@ class Rides {
     const { userId, status } = req.body;
     let ride_offer;
     let ride_requests;
+    
     db.query('SELECT * FROM ride_offers WHERE id=$1', [req.params.ride_id])
       .then((result) => {
         if(result.rowCount < 1) {
@@ -390,7 +390,6 @@ class Rides {
       .catch((error) => {
         res.status(500).json({
           status: 'error',
-          error,
           message: 'Internal server error. Please try again later',
         })
       })

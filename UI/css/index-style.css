@@ -64,6 +64,10 @@ header #logo h2 {
     padding: 0 15px;
 }
 
+.menu ul li a {
+    color: var(--primaryBlack) !important;
+}
+
 header .right {
     height: 100%;
     overflow: hidden;

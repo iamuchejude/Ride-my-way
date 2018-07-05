@@ -41,7 +41,6 @@ class Auth {
                                     res.status(500).json({
                                         status: 'error',
                                         message: 'Login failed! Please try again later',
-                                        error,
                                     });
                                 } else {
                                     res.status(200).json({

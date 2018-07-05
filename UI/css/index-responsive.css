@@ -10,6 +10,11 @@
         padding-left: 30px;
         padding-right: 30px;
     }
+
+    #about {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+    }
 }
 
 @media only screen and (min-width: 600px) and (max-width: 700px) {
@@ -21,6 +26,11 @@
     #contact {
         padding-left: 0px;
         padding-right: 0px;
+    }
+
+    #about {
+        padding-left: 15px !important;
+        padding-right: 15px !important;
     }
 }
 
@@ -70,6 +80,11 @@
         margin-bottom: 5px;
         font-size: 2.2em;
     }
+
+    #about {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+    }
 }
 
 @media only screen and (max-width: 400px) {
@@ -96,6 +111,11 @@
         padding-left: 10px;
         padding-right: 10px;
     }
+
+    #about {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
 }
 
 @media only screen and (max-width: 320px) {
@@ -107,5 +127,10 @@
     #contact {
         padding-left: 0px;
         padding-right: 0px;
+    }
+
+    #about {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
     }
 }

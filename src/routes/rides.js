@@ -6,6 +6,7 @@ const router = express.Router();
 
 router.get('/', authMiddleware, Rides.getAllRideOffers);
 router.get('/:id', authMiddleware, Rides.getOneRideOffer);
+router.delete('/:id', authMiddleware, Rides.deleteOneRideOffer);
 router.post('/:id/requests', authMiddleware, Rides.createRideOfferRequest);
 
 export default router;

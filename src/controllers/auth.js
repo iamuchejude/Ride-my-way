@@ -28,7 +28,6 @@ class Auth {
                             res.status(401).json({
                                 status: 'error',
                                 message: 'Login Failed! Password is incorrect',
-                                data: result.rows[0],
                             })
                         } else {
                             let user = {

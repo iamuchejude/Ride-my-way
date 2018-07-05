@@ -1,7 +1,6 @@
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import ngFaker from 'ng-faker';
-import app from './../app';
 
 chai.use(chaiHttp);
 
@@ -19,7 +18,7 @@ describe('Test for auth endpoints for Ride-my-way ride API', () => {
   describe('POST create new user', () => {
     it('should return an object with success with an object of created resources', (done) => {
       chai
-        .request(app)
+        .request('https://ride-my-way-andela.herokuapp.com')
         .post('/api/v1/auth/register')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -38,7 +37,7 @@ describe('Test for auth endpoints for Ride-my-way ride API', () => {
   describe('POST create new user with empty data', () => {
     it('should return error', (done) => {
       chai
-        .request(app)
+        .request('https://ride-my-way-andela.herokuapp.com')
         .post('/api/v1/auth/register')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -59,7 +58,7 @@ describe('Test for auth endpoints for Ride-my-way ride API', () => {
   describe('POST log user in', () => {
     it('should return an object with success with an object containing auth token if auth is successfull', (done) => {
       chai
-        .request(app)
+        .request('https://ride-my-way-andela.herokuapp.com')
         .post('/api/v1/auth/login')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -81,7 +80,7 @@ describe('Test for auth endpoints for Ride-my-way ride API', () => {
   describe('POST log user in with empty data', () => {
     it('should return error', (done) => {
       chai
-        .request(app)
+        .request('https://ride-my-way-andela.herokuapp.com')
         .post('/api/v1/auth/login')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')

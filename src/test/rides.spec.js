@@ -1,7 +1,6 @@
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import ngFaker from 'ng-faker';
-import app from './../app';
 
 chai.use(chaiHttp);
 
@@ -11,7 +10,7 @@ describe('Test for ride endpoints for Ride-my-way api', () => {
   describe('GET all ride offers', () => {
     it('should return an array of all ride offers', (done) => {
       chai
-        .request(app)
+        .request('https://ride-my-way-andela.herokuapp.com')
         .get('/api/v1/rides')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -29,7 +28,7 @@ describe('Test for ride endpoints for Ride-my-way api', () => {
   describe('GET one ride offer', () => {
     it('should return an object of a ride offer', (done) => {
       chai
-        .request(app)
+        .request('https://ride-my-way-andela.herokuapp.com')
         .get('/api/v1/rides/5c622700-7fd8-11e8-9cf1-6f3fb418fc65')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -47,7 +46,7 @@ describe('Test for ride endpoints for Ride-my-way api', () => {
   describe('POST ride offer', () => {
     it('should respond with success in an object also containing created resource', (done) => {
       chai
-        .request(app)
+        .request('https://ride-my-way-andela.herokuapp.com')
         .post('/api/v1/users/rides')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -75,7 +74,7 @@ describe('Test for ride endpoints for Ride-my-way api', () => {
   describe('POST ride offer with empty data', () => {
     it('should respond with error', (done) => {
       chai
-        .request(app)
+        .request('https://ride-my-way-andela.herokuapp.com')
         .post('/api/v1/users/rides')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -101,7 +100,7 @@ describe('Test for ride endpoints for Ride-my-way api', () => {
   describe('POST ride offer request', () => {
     it('should respond with success in an object also containing created resource', (done) => {
       chai
-        .request(app)
+        .request('https://ride-my-way-andela.herokuapp.com')
         .post('/api/v1/rides/5c622700-7fd8-11e8-9cf1-6f3fb418fc65/requests')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -123,7 +122,7 @@ describe('Test for ride endpoints for Ride-my-way api', () => {
   describe('POST ride offer request with empty user id', () => {
     it('should respond with error', (done) => {
       chai
-        .request(app)
+        .request('https://ride-my-way-andela.herokuapp.com')
         .post('/api/v1/rides/5c622700-7fd8-11e8-9cf1-6f3fb418fc65/requests')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -143,7 +142,7 @@ describe('Test for ride endpoints for Ride-my-way api', () => {
   describe('GET all requests for one ride offer', () => {
     it('should respond with success in an object also containing an array of all requests for ride offer', (done) => {
       chai
-        .request(app)
+        .request('https://ride-my-way-andela.herokuapp.com')
         .get('/api/v1/users/rides/5c622700-7fd8-11e8-9cf1-6f3fb418fc65/requests')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -162,7 +161,7 @@ describe('Test for ride endpoints for Ride-my-way api', () => {
   describe('PUT accept or reject ride offer request', () => {
     it('should return success', (done) => {
       chai
-        .request(app)
+        .request('https://ride-my-way-andela.herokuapp.com')
         .delete('/api/v1/rides/db1bc330-8032-11e8-980c-7d5fbc92cee9')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -184,7 +183,7 @@ describe('Test for ride endpoints for Ride-my-way api', () => {
   describe('DELETE a ride offer', () => {
     it('should return success if delete was successfull', (done) => {
       chai
-        .request(app)
+        .request('https://ride-my-way-andela.herokuapp.com')
         .delete('/api/v1/rides/be42a940-8032-11e8-980c-7d5fbc92cee9')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')

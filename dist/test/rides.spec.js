@@ -98,7 +98,7 @@ describe('Test for ride endpoints for Ride-my-way api', function () {
 
   describe('DELETE a ride offer', function () {
     it('should return success if delete was successfull', function (done) {
-      _chai2.default.request(_app2.default).delete('/api/v1/rides/4411ik-4141ff-41adr12').set('Accept', 'application/json').set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer ' + token).end(function (err, res) {
+      _chai2.default.request(_app2.default).delete('/api/v1/rides/26515470-7fe6-11e8-b31d-a5235d950b65').set('Accept', 'application/json').set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer ' + token).end(function (err, res) {
         (0, _chai.expect)(err).to.equal(null);
         (0, _chai.expect)(res.status).to.equal(200);
         (0, _chai.expect)(res.body.status).to.equal('success');

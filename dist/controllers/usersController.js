@@ -6,6 +6,10 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _bcrypt = require('bcrypt');
+
+var _bcrypt2 = _interopRequireDefault(_bcrypt);
+
 var _connection = require('../database/connection');
 
 var _connection2 = _interopRequireDefault(_connection);
@@ -63,6 +67,127 @@ var Users = function () {
                 res.status(500).json({
                     status: 'error',
                     message: 'Internal server error. Please try again later'
+                });
+            });
+        }
+    }, {
+        key: 'updateOneUser',
+        value: function updateOneUser(req, res) {
+            var loggedUserId = req.authData.user.id;
+            var _req$params = req.params,
+                id = _req$params.id,
+                data = _req$params.data;
+
+
+            _connection2.default.query('SELECT * FROM users WHERE id=$1', [req.params.id]).then(function (resultOne) {
+                if (resultOne.rowCount < 1) {
+                    res.status(404).json({
+                        status: 'error',
+                        message: 'User does not exist'
+                    });
+                } else {
+                    if (id !== loggedUserId) {
+                        res.status(401).json({
+                            status: 'error',
+                            message: 'You don\'t have permission to update this user'
+                        });
+                    } else {
+                        if (data === undefined) {
+                            var _req$body = req.body,
+                                name = _req$body.name,
+                                phoneNumber = _req$body.phoneNumber;
+
+                            if (name.trim() === undefined || null || phoneNumber.trim() === undefined || null) {
+                                res.status(401).json({
+                                    status: 'error',
+                                    message: 'All fields are required'
+                                });
+                            } else {
+                                _connection2.default.query('UPDATE users SET name=$1, phone_number=$2 WHERE id=$3', [name, phoneNumber, req.params.id]).then(function (resultTwo) {
+                                    if (resultTwo.rowCount < 1) {
+                                        res.status(409).json({
+                                            status: 'error',
+                                            message: 'Profile update failed. Please try again later'
+                                        });
+                                    } else {
+                                        res.status(200).json({
+                                            status: 'success',
+                                            message: 'Profile updated successfully'
+                                        });
+                                    }
+                                }).catch(function (erorTwo) {
+                                    res.status(500).json({
+                                        status: 'error',
+                                        message: 'Internal server error. Please try again later'
+                                    });
+                                });
+                            }
+                        } else {
+                            if (data === 'photo') {
+                                if (req.body.photo === undefined || req.body.photo.length < 1) {
+                                    res.status(409).json({
+                                        status: 'error',
+                                        message: 'Please upload a photo'
+                                    });
+                                } else {
+                                    _connection2.default.query('UPDATE users SET photo=$1 WHERE id=$2', [req.body.photo, req.params.id]).then(function (resultThree) {
+                                        if (resultThree.rowCount < 1) {
+                                            res.status(409).json({
+                                                status: 'error',
+                                                message: 'Photo update failed. Please try again later'
+                                            });
+                                        } else {
+                                            res.status(200).json({
+                                                status: 'success',
+                                                message: 'Photo updated successfully'
+                                            });
+                                        }
+                                    }).catch(function (errorThree) {
+                                        res.status(500).json({
+                                            status: 'error',
+                                            message: 'Internal server error. Please try again later'
+                                        });
+                                    });
+                                }
+                            } else {
+                                var password = req.body.password;
+
+                                if (password.trim() === null || undefined) {
+                                    res.status(401).json({
+                                        status: 'error',
+                                        message: 'Password is required'
+                                    });
+                                } else {
+                                    var hashedPassword = _bcrypt2.default.hashSync(password.trim(), 8);
+                                    _connection2.default.query('UPDATE users SET password=$1 WHERE id=$2', [hashedPassword, req.params.id]).then(function (resultThree) {
+                                        if (resultThree.rowCount < 1) {
+                                            res.status(409).json({
+                                                status: 'error',
+                                                message: 'Password update failed. Please try again later'
+                                            });
+                                        } else {
+                                            res.status(200).json({
+                                                status: 'success',
+                                                message: 'Password updated successfully'
+                                            });
+                                        }
+                                    }).catch(function (errorThree) {
+                                        res.status(500).json({
+                                            status: 'error',
+                                            message: 'Internal server error. Please try again later'
+                                        });
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+            }).catch(function (errorOne) {
+                console.log(errorOne);
+                res.status(500).json({
+                    status: 'error',
+                    message: 'bInternal server error. Please try again later',
+                    errorOne: errorOne
                 });
             });
         }

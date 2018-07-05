@@ -80,7 +80,7 @@ var Rides = function () {
         if (user_id !== result.rows[0].user_id) {
           res.status(401).json({
             status: 'error',
-            message: 'You don\'t have the right to delete this ride offer'
+            message: 'You don\'t have permission to delete this ride offer'
           });
         } else {
           _connection2.default.query('DELETE FROM ride_offers WHERE id=$1', [req.params.id]).then(function (result) {

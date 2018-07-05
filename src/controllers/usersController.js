@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt';
 import db from '../database/connection';
 
 export default class Users {
@@ -48,5 +49,126 @@ export default class Users {
                     message: 'Internal server error. Please try again later',
                 })
           })
+    }
+
+    static updateOneUser(req, res) {
+        const loggedUserId = req.authData.user.id;
+        const { id, data} = req.params;
+
+        db.query('SELECT * FROM users WHERE id=$1', [req.params.id])
+            .then((resultOne) => {
+                if(resultOne.rowCount < 1) {
+                    res.status(404).json({
+                        status: 'error',
+                        message: 'User does not exist'
+                    })
+                } else {
+                    if(id !== loggedUserId) {
+                        res.status(401).json({
+                            status: 'error',
+                            message: 'You don\'t have permission to update this user'
+                        })
+                    } else {
+                        if(data === undefined) {
+                            const { name, phoneNumber } = req.body;
+                            if((name.trim() === undefined || null) || (phoneNumber.trim() === undefined || null)) {
+                                res.status(401).json({
+                                    status: 'error',
+                                    message: 'All fields are required'
+                                });
+                            } else {
+                                db.query('UPDATE users SET name=$1, phone_number=$2 WHERE id=$3', [name, phoneNumber, req.params.id])
+                                    .then((resultTwo) => {
+                                        if (resultTwo.rowCount < 1) {
+                                            res.status(409).json({
+                                                status: 'error',
+                                                message: 'Profile update failed. Please try again later',
+                                            })
+                                        } else {
+                                            res.status(200).json({
+                                                status: 'success',
+                                                message: 'Profile updated successfully',
+                                            })
+                                        }
+                                    })
+                                    .catch((erorTwo) => {
+                                        res.status(500).json({
+                                            status: 'error',
+                                            message: 'Internal server error. Please try again later',
+                                        })
+                                    })
+                            }
+                        } else {
+                            if(data === 'photo') {
+                                if (req.body.photo === undefined || req.body.photo.length < 1) {
+                                    res.status(409).json({
+                                        status: 'error',
+                                        message: 'Please upload a photo'
+                                    });
+                                } else {
+                                    db.query('UPDATE users SET photo=$1 WHERE id=$2', [req.body.photo, req.params.id])
+                                    .then((resultThree) => {
+                                        if (resultThree.rowCount < 1) {
+                                            res.status(409).json({
+                                                status: 'error',
+                                                message: 'Photo update failed. Please try again later',
+                                            })
+                                        } else {
+                                            res.status(200).json({
+                                                status: 'success',
+                                                message: 'Photo updated successfully',
+                                            })
+                                        }
+                                    })
+                                    .catch((errorThree) => {
+                                        res.status(500).json({
+                                            status: 'error',
+                                            message: 'Internal server error. Please try again later',
+                                        })
+                                    })
+                                }
+                            } else {
+                                const { password } = req.body;
+                                if ((password.trim() === null || undefined)) {
+                                    res.status(401).json({
+                                        status: 'error',
+                                        message: 'Password is required'
+                                    });
+                                } else {
+                                    const hashedPassword = bcrypt.hashSync(password.trim(), 8);
+                                    db.query('UPDATE users SET password=$1 WHERE id=$2', [hashedPassword, req.params.id])
+                                        .then((resultThree) => {
+                                            if (resultThree.rowCount < 1) {
+                                                res.status(409).json({
+                                                    status: 'error',
+                                                    message: 'Password update failed. Please try again later',
+                                                })
+                                            } else {
+                                                res.status(200).json({
+                                                    status: 'success',
+                                                    message: 'Password updated successfully',
+                                                })
+                                            }
+                                        })
+                                        .catch((errorThree) => {
+                                            res.status(500).json({
+                                                status: 'error',
+                                                message: 'Internal server error. Please try again later',
+                                            })
+                                        })
+                                }
+                            }
+                        }
+                    }
+                }
+            })
+            .catch((errorOne) => {
+                console.log(errorOne);
+                res.status(500).json({
+                    status: 'error',
+                    message: 'bInternal server error. Please try again later',
+                    errorOne
+                })
+            });
     }
 }

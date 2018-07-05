@@ -100,7 +100,7 @@ class Rides {
     db.query('SELECT * FROM ride_offers WHERE id=$1', [req.params.id])
       .then((result) => {
         if (user_id !== result.rows[0].user_id) {
-          res.status(401).json({
+          res.status(403).json({
             status: 'error',
             message: 'You don\'t have permission to delete this ride offer'
           })
@@ -322,7 +322,7 @@ class Rides {
               } else {
                 ride_requests = result.rows[0];
                 if(ride_offer.user_id !== req.authData.user.id) {
-                    res.status(401).json({
+                    res.status(403).json({
                       status: 'error',
                       message: 'You don\'t have permission to accept or reject this ride',
                     });

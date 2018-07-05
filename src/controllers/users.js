@@ -64,7 +64,7 @@ export default class Users {
                     })
                 } else {
                     if(id !== loggedUserId) {
-                        res.status(401).json({
+                        res.status(403).json({
                             status: 'error',
                             message: 'You don\'t have permission to update this user'
                         })

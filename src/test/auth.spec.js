@@ -1,6 +1,7 @@
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import ngFaker from 'ng-faker';
+import app from './../app';
 
 chai.use(chaiHttp);
 
@@ -18,8 +19,8 @@ describe('Test for auth endpoints for Ride-my-way ride API', () => {
   describe('POST create new user', () => {
     it('should return an object with success with an object of created resources', (done) => {
       chai
-        .request('https://ride-my-way-andela.herokuapp.com/api/v1')
-        .post('/auth/register')
+        .request(app)
+        .post('/api/v1/auth/register')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')
         .send(data)
@@ -34,22 +35,64 @@ describe('Test for auth endpoints for Ride-my-way ride API', () => {
     });
   });
 
-  describe('POST log user in', () => {
-    it('should return an object with success with an object containing auth token if auth is successfull', (done) => {
+  describe('POST create new user with empty data', () => {
+    it('should return error', (done) => {
       chai
-        .request('https://ride-my-way-andela.herokuapp.com/api/v1')
-        .post('/auth/login')
+        .request(app)
+        .post('/api/v1/auth/register')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')
         .send({
-          email: 'nuchejude@gmail.com',
-          password: 'mypassword',
+          name: '   ',
+          email: 'iamuchejude@gmail.com',
+          password: 'testPassword'
+        })
+        .end((err, res) => {
+          expect(err).to.equal(null);
+          expect(res.status).to.equal(409);
+          expect(res.body.status).to.equal('error');
+          done();
+        });
+    });
+  });
+
+  describe('POST log user in', () => {
+    it('should return an object with success with an object containing auth token if auth is successfull', (done) => {
+      chai
+        .request(app)
+        .post('/api/v1/auth/login')
+        .set('Accept', 'application/json')
+        .set('Content-Type', 'application/x-www-form-urlencoded')
+        .send({
+          email: 'nuchejud@gmail.com',
+          password: 'changeMyPassword',
         })
         .end((err, res) => {
           expect(err).to.equal(null);
           expect(res.status).to.equal(200);
           expect(res.body.status).to.equal('success');
           expect(res.body.data).to.be.an('object');
+          expect(res.body.data.isAuth).to.equal(true);
+          done();
+        });
+    });
+  });
+
+  describe('POST log user in with empty data', () => {
+    it('should return error', (done) => {
+      chai
+        .request(app)
+        .post('/api/v1/auth/login')
+        .set('Accept', 'application/json')
+        .set('Content-Type', 'application/x-www-form-urlencoded')
+        .send({
+          email: '  ',
+          password: 'changeMyPassword',
+        })
+        .end((err, res) => {
+          expect(err).to.equal(null);
+          expect(res.status).to.equal(409);
+          expect(res.body.status).to.equal('error');
           done();
         });
     });

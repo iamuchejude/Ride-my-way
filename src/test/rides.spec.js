@@ -112,4 +112,23 @@ describe('Test for ride endpoints for Ride-my-way api', () => {
         });
     });
   });
+
+  describe('DELETE a ride offer', () => {
+    it('should return success if delete was successfull', (done) => {
+      chai
+        .request(app)
+        .delete('/api/v1/rides/26515470-7fe6-11e8-b31d-a5235d950b65')
+        .set('Accept', 'application/json')
+        .set('Content-Type', 'application/x-www-form-urlencoded')
+        .set('Authorization', `Bearer ${token}`)
+        .end((err, res) => {
+          expect(err).to.equal(null);
+          expect(res.status).to.equal(200);
+          expect(res.body.status).to.equal('success');
+          expect(res.body.message).to.equal('Ride offer was deleted successfully');
+          done();
+        });
+    });
+  });
+  
 });

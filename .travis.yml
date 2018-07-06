@@ -16,7 +16,7 @@ services:
   - postgresql
 
 addons:
-  postgresql: "10"
+  postgresql: "9.6"
 
 before_script:
   - psql -c 'CREATE DATABASE ride_my_way_andela_test;' -U postgres

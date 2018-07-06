@@ -17,10 +17,6 @@ services:
 
 addons:
   postgresql: "10"
-  apt:
-    packages:
-    - postgresql-10
-    - postgresql-client-10
 
 before_script:
   - psql -c 'CREATE DATABASE ride_my_way_andela_test;' -U postgres

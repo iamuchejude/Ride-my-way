@@ -153,18 +153,20 @@ class Rides {
       });
     } else {
 
-      db.query("SELECT * FROM ride_offers WHERE user_id=$1, departure_date=$2 AND departure_time=$3", checkData)
-        .then((res) => {
-          if(res.rowCount > 0) {
-            
-          }
-        })
-        .catch((err) => {
-          res.status(500).json({
-            status: 'error',
-            message: 'Internal server error. Please try again later',
-          })
-        });
+      // const checkData = []
+
+      // db.query("SELECT * FROM ride_offers WHERE user_id=$1, departure_date=$2 AND departure_time=$3", checkData)
+      //   .then((res) => {
+      //     if(res.rowCount > 0) {
+
+      //     }
+      //   })
+      //   .catch((err) => {
+      //     res.status(500).json({
+      //       status: 'error',
+      //       message: 'Internal server error. Please try again later',
+      //     })
+      //   });
 
 
       const query = "INSERT INTO ride_offers(id, user_id, start_from, destination, price, seat, departure_date, departure_time, updated_at, created_at) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *";

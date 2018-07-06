@@ -11,7 +11,7 @@
     "create:users": "babel-node ./src/database/migrations/create_users_table.js -presets es2015",
     "create:rideOffers": "babel-node ./src/database/migrations/create_ride_offers_table.js -presets es2015",
     "create:rideOfferRequests": "babel-node ./src/database/migrations/create_ride_offer_requests_table.js -presets es2015",
-    "migrate": "npm run create:enum && npm run create:users, npm run create:rideOffers && npm run create:rideOfferRequests"
+    "migrate": "npm run create:enum && npm run create:users, npm run create:rideOffers && npm run create:rideOfferRequests",
     "build": "npm run clean && mkdir dist && npm run build:dev",
     "build:dev": "babel src -d dist && babel --presets es2015 src -d dist",
     "serve:dev": "nodemon ./src/app.js --exec babel-node",

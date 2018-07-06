@@ -157,45 +157,4 @@ describe('Test for ride endpoints for Ride-my-way api', () => {
         });
     });
   });
-
-  // describe('PUT accept or reject ride offer request', () => {
-  //   it('should return success', (done) => {
-  //     chai
-  //       .request('https://ride-my-way-andela.herokuapp.com')
-  //       .put('/api/v1/rides/b4a73be0-805e-11e8-8b74-375385422771/requests/5df6e470-805f-11e8-8b74-375385422771')
-  //       .set('Accept', 'application/json')
-  //       .set('Content-Type', 'application/x-www-form-urlencoded')
-  //       .set('Authorization', `Bearer ${token}`)
-  //       .send({
-  //         status: 'accepted',
-  //         userId: '4574ea40-804c-11e8-b48e-37c57163b62d'
-  //       })
-  //       .end((err, res) => {
-  //         expect(err).to.equal(null);
-  //         expect(res.status).to.equal(200);
-  //         expect(res.body.status).to.equal('success');
-  //         expect(res.body.message).to.equal('Ride offer was deleted successfully');
-  //         done();
-  //       });
-  //   });
-  // });
-
-  // describe('DELETE a ride offer', () => {
-  //   it('should return success if delete was successfull', (done) => {
-  //     chai
-  //       .request('https://ride-my-way-andela.herokuapp.com')
-  //       .delete('/api/v1/rides/0c288270-805f-11e8-8b74-375385422771')
-  //       .set('Accept', 'application/json')
-  //       .set('Content-Type', 'application/x-www-form-urlencoded')
-  //       .set('Authorization', `Bearer ${token}`)
-  //       .end((err, res) => {
-  //         expect(err).to.equal(null);
-  //         expect(res.status).to.equal(200);
-  //         expect(res.body.status).to.equal('success');
-  //         expect(res.body.message).to.equal('Ride offer was deleted successfully');
-  //         done();
-  //       });
-  //   });
-  // });
-  
 });

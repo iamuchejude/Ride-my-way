@@ -72,31 +72,24 @@ export default class Users {
                         if(data === undefined) {
                             const { name, phoneNumber } = req.body;
                             if(req.body.email !== undefined) {
-                                res.status(409).json({
+                                res.status(400).json({
                                     status: 'error',
                                     message: 'Sorry, you cannot update email address'
                                 });
                             } else {
-                                if((name === undefined || name.trim().length < 1) || (phoneNumber === undefined || phoneNumber.trim().length < 1)) {
-                                    res.status(409).json({
+                                if((name === undefined) || (phoneNumber === undefined)) {
+                                    res.status(400).json({
                                         status: 'error',
                                         message: 'All fields are required'
                                     });
                                 } else {
                                     db.query('UPDATE users SET name=$1, phone_number=$2 WHERE id=$3 RETURNING *', [name, phoneNumber, req.params.id])
                                         .then((resultTwo) => {
-                                            if (resultTwo.rowCount < 1) {
-                                                res.status(409).json({
-                                                    status: 'error',
-                                                    message: 'Profile update failed. Please try again later',
-                                                })
-                                            } else {
-                                                res.status(200).json({
-                                                    status: 'success',
-                                                    message: 'Profile updated successfully',
-                                                    data: resultTwo.rows[0]
-                                                })
-                                            }
+                                            res.status(200).json({
+                                                status: 'success',
+                                                message: 'Profile updated successfully',
+                                                user: resultTwo.rows[0]
+                                            })
                                         })
                                         .catch((erorTwo) => {
                                             res.status(500).json({
@@ -111,18 +104,11 @@ export default class Users {
                                 let photo = req.body.photo === undefined || req.body.photo.trim().length < 1 ? 'avatar.png' : req.body.photo;
                                 db.query('UPDATE users SET photo=$1 WHERE id=$2 RETURNING *', [photo, req.params.id])
                                     .then((resultThree) => {
-                                        if (resultThree.rowCount < 1) {
-                                            res.status(409).json({
-                                                status: 'error',
-                                                message: 'Photo update failed. Please try again later',
-                                            })
-                                        } else {
-                                            res.status(200).json({
-                                                status: 'success',
-                                                message: 'Photo updated successfully',
-                                                data: resultThree.rows[0]
-                                            })
-                                        }
+                                        res.status(200).json({
+                                            status: 'success',
+                                            message: 'Photo updated successfully',
+                                            user: resultThree.rows[0]
+                                        })
                                     })
                                     .catch((errorThree) => {
                                         res.status(500).json({
@@ -133,7 +119,7 @@ export default class Users {
                             } else {
                                 const { password } = req.body;
                                 if (password === undefined || password.trim().length < 1) {
-                                    res.status(409).json({
+                                    res.status(400).json({
                                         status: 'error',
                                         message: 'Password is required'
                                     });
@@ -141,17 +127,10 @@ export default class Users {
                                     const hashedPassword = bcrypt.hashSync(password.trim(), 8);
                                     db.query('UPDATE users SET password=$1 WHERE id=$2', [hashedPassword, req.params.id])
                                         .then((resultThree) => {
-                                            if (resultThree.rowCount < 1) {
-                                                res.status(409).json({
-                                                    status: 'error',
-                                                    message: 'Password update failed. Please try again later',
-                                                })
-                                            } else {
-                                                res.status(200).json({
-                                                    status: 'success',
-                                                    message: 'Password updated successfully',
-                                                })
-                                            }
+                                            res.status(200).json({
+                                                status: 'success',
+                                                message: 'Password updated successfully',
+                                            })
                                         })
                                         .catch((errorThree) => {
                                             res.status(500).json({
@@ -166,11 +145,9 @@ export default class Users {
                 }
             })
             .catch((errorOne) => {
-                console.log(errorOne);
                 res.status(500).json({
                     status: 'error',
-                    message: 'bInternal server error. Please try again later',
-                    errorOne
+                    message: 'Internal server error. Please try again later',
                 })
             });
     }

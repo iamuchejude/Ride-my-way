@@ -1,5 +1,6 @@
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
+import app from './../app';
 
 chai.use(chaiHttp);
 
@@ -9,7 +10,7 @@ describe('Test for user endpoints for Ride-my-way ride API', () => {
   describe('GET all users', () => {
     it('should return an array of all users', (done) => {
       chai
-        .request('https://ride-my-way-andela.herokuapp.com')
+        .request(app)
         .get('/api/v1/users')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -27,7 +28,7 @@ describe('Test for user endpoints for Ride-my-way ride API', () => {
   describe('GET one user', () => {
     it('should return an object of one user', (done) => {
       chai
-        .request('https://ride-my-way-andela.herokuapp.com')
+        .request(app)
         .get('/api/v1/users/4574ea40-804c-11e8-b48e-37c57163b62d')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -45,7 +46,7 @@ describe('Test for user endpoints for Ride-my-way ride API', () => {
   describe('UPDATE update user profile', () => {
     it('should return an success with object of updated resources', (done) => {
       chai
-        .request('https://ride-my-way-andela.herokuapp.com')
+        .request(app)
         .put('/api/v1/users/4574ea40-804c-11e8-b48e-37c57163b62d')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -67,7 +68,7 @@ describe('Test for user endpoints for Ride-my-way ride API', () => {
   describe('UPDATE update user password', () => {
     it('should return success', (done) => {
       chai
-        .request('https://ride-my-way-andela.herokuapp.com')
+        .request(app)
         .put('/api/v1/users/4574ea40-804c-11e8-b48e-37c57163b62d/password')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -87,7 +88,7 @@ describe('Test for user endpoints for Ride-my-way ride API', () => {
   describe('UPDATE update user photo', () => {
     it('should return success', (done) => {
       chai
-        .request('https://ride-my-way-andela.herokuapp.com')
+        .request(app)
         .put('/api/v1/users/4574ea40-804c-11e8-b48e-37c57163b62d/photo')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -107,7 +108,7 @@ describe('Test for user endpoints for Ride-my-way ride API', () => {
   describe('UPDATE update email', () => {
     it('should return error because email cannot edited', (done) => {
       chai
-        .request('https://ride-my-way-andela.herokuapp.com')
+        .request(app)
         .put('/api/v1/users/4574ea40-804c-11e8-b48e-37c57163b62d')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -129,7 +130,7 @@ describe('Test for user endpoints for Ride-my-way ride API', () => {
   describe('UPDATE update profile with empty data', () => {
     it('should return error', (done) => {
       chai
-        .request('https://ride-my-way-andela.herokuapp.com')
+        .request(app)
         .put('/api/v1/users/4574ea40-804c-11e8-b48e-37c57163b62d')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -150,7 +151,7 @@ describe('Test for user endpoints for Ride-my-way ride API', () => {
   describe('UPDATE update password with empty data', () => {
     it('should return error', (done) => {
       chai
-        .request('https://ride-my-way-andela.herokuapp.com')
+        .request(app)
         .put('/api/v1/users/4574ea40-804c-11e8-b48e-37c57163b62d/password')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -170,7 +171,7 @@ describe('Test for user endpoints for Ride-my-way ride API', () => {
   describe('UPDATE update photo with empty data', () => {
     it('should update photo to avatar.png which is the default photo and return object of updated resources', (done) => {
       chai
-        .request('https://ride-my-way-andela.herokuapp.com')
+        .request(app)
         .put('/api/v1/users/4574ea40-804c-11e8-b48e-37c57163b62d/photo')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')

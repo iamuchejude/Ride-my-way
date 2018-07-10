@@ -1,6 +1,7 @@
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import ngFaker from 'ng-faker';
+import app from './../app';
 
 chai.use(chaiHttp);
 
@@ -18,7 +19,7 @@ describe('Test for auth endpoints for Ride-my-way ride API', () => {
   describe('POST create new user', () => {
     it('should return an object with success with an object of created resources', (done) => {
       chai
-        .request('https://ride-my-way-andela.herokuapp.com')
+        .request(app)
         .post('/api/v1/auth/register')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -27,8 +28,8 @@ describe('Test for auth endpoints for Ride-my-way ride API', () => {
             expect(err).to.equal(null);
             expect(res.status).to.equal(201);
             expect(res.body.status).to.equal('success');
-            expect(res.body.data).to.be.an('object');
-            expect(res.body.data.photo).to.equal('avatar.png');
+            expect(res.body.user).to.be.an('object');
+            expect(res.body.user.photo).to.equal('avatar.png');
             done();
         });
     });
@@ -37,7 +38,7 @@ describe('Test for auth endpoints for Ride-my-way ride API', () => {
   describe('POST create new user with empty data', () => {
     it('should return error', (done) => {
       chai
-        .request('https://ride-my-way-andela.herokuapp.com')
+        .request(app)
         .post('/api/v1/auth/register')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -48,7 +49,7 @@ describe('Test for auth endpoints for Ride-my-way ride API', () => {
         })
         .end((err, res) => {
           expect(err).to.equal(null);
-          expect(res.status).to.equal(409);
+          expect(res.status).to.equal(400);
           expect(res.body.status).to.equal('error');
           done();
         });
@@ -58,20 +59,20 @@ describe('Test for auth endpoints for Ride-my-way ride API', () => {
   describe('POST log user in', () => {
     it('should return an object with success with an object containing auth token if auth is successfull', (done) => {
       chai
-        .request('https://ride-my-way-andela.herokuapp.com')
+        .request(app)
         .post('/api/v1/auth/login')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')
         .send({
-          email: 'nuchejuded@gmail.com',
-          password: 'changeMyPassword',
+          email: data.email,
+          password: data.password,
         })
         .end((err, res) => {
           expect(err).to.equal(null);
           expect(res.status).to.equal(200);
           expect(res.body.status).to.equal('success');
-          expect(res.body.data).to.be.an('object');
-          expect(res.body.data.isAuth).to.equal(true);
+          expect(res.body.user).to.be.an('object');
+          expect(res.body.user.isAuth).to.equal(true);
           done();
         });
     });
@@ -80,7 +81,7 @@ describe('Test for auth endpoints for Ride-my-way ride API', () => {
   describe('POST log user in with empty data', () => {
     it('should return error', (done) => {
       chai
-        .request('https://ride-my-way-andela.herokuapp.com')
+        .request(app)
         .post('/api/v1/auth/login')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -90,7 +91,7 @@ describe('Test for auth endpoints for Ride-my-way ride API', () => {
         })
         .end((err, res) => {
           expect(err).to.equal(null);
-          expect(res.status).to.equal(409);
+          expect(res.status).to.equal(400);
           expect(res.body.status).to.equal('error');
           done();
         });

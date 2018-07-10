@@ -4,14 +4,20 @@
   "description": "Ride-my-way App with Data Structure for Storage",
   "main": "dist/app.js",
   "scripts": {
-    "serve": "nodemon dist/app.js",
-    "test": "mocha --compilers js:babel-core/register src/test/* --exit --timeout 3000",
+    "serve": "nodemon ./dist/app.js",
+    "test": "cross-env NODE_ENV=test --reporter=html --reporter=text mocha --compilers js:babel-core/register src/test/* --exit --timeout 3000",
     "clean": "rimraf dist/",
+    "create:enum": "babel-node ./src/database/migrations/create_request_enum.js -presets es2015",
+    "create:users": "babel-node ./src/database/migrations/create_users_table.js -presets es2015",
+    "create:rideOffers": "babel-node ./src/database/migrations/create_ride_offers_table.js -presets es2015",
+    "create:rideOfferRequests": "babel-node ./src/database/migrations/create_ride_offer_requests_table.js -presets es2015",
+    "migrate": "npm run create:enum && npm run create:users, npm run create:rideOffers && npm run create:rideOfferRequests",
     "build": "npm run clean && mkdir dist && npm run build:dev",
     "build:dev": "babel src -d dist && babel --presets es2015 src -d dist",
+    "serve:dev": "nodemon ./src/app.js --exec babel-node",
     "lint": "eslint ./ --fix",
     "start": "npm run build && npm run serve",
-    "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
@@ -37,6 +43,7 @@
     "babel-preset-es2015": "^6.24.1",
     "codeclimate-test-reporter": "^0.5.0",
     "coveralls": "^3.0.1",
+    "cross-env": "^5.2.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.13.0",

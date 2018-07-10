@@ -1,6 +1,7 @@
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import ngFaker from 'ng-faker';
+import app from './../app';
 
 chai.use(chaiHttp);
 
@@ -10,7 +11,7 @@ describe('Test for ride endpoints for Ride-my-way api', () => {
   describe('GET all ride offers', () => {
     it('should return an array of all ride offers', (done) => {
       chai
-        .request('https://ride-my-way-andela.herokuapp.com')
+        .request(app)
         .get('/api/v1/rides')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -19,7 +20,7 @@ describe('Test for ride endpoints for Ride-my-way api', () => {
           expect(err).to.equal(null);
           expect(res.status).to.equal(200);
           expect(res.body.status).to.equal('success');
-          expect(res.body.data).to.be.an('array');
+          expect(res.body.rides).to.be.an('array');
           done();
         });
     });
@@ -28,7 +29,7 @@ describe('Test for ride endpoints for Ride-my-way api', () => {
   describe('GET one ride offer', () => {
     it('should return an object of a ride offer', (done) => {
       chai
-        .request('https://ride-my-way-andela.herokuapp.com')
+        .request(app)
         .get('/api/v1/rides/b4a73be0-805e-11e8-8b74-375385422771')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -37,7 +38,7 @@ describe('Test for ride endpoints for Ride-my-way api', () => {
           expect(err).to.equal(null);
           expect(res.status).to.equal(200);
           expect(res.body.status).to.equal('success');
-          expect(res.body.data).to.be.an('object');
+          expect(res.body.ride).to.be.an('object');
           done();
         });
     });
@@ -46,7 +47,7 @@ describe('Test for ride endpoints for Ride-my-way api', () => {
   describe('POST ride offer', () => {
     it('should respond with success in an object also containing created resource', (done) => {
       chai
-        .request('https://ride-my-way-andela.herokuapp.com')
+        .request(app)
         .post('/api/v1/users/rides')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -64,7 +65,7 @@ describe('Test for ride endpoints for Ride-my-way api', () => {
           expect(err).to.equal(null);
           expect(res.status).to.equal(201);
           expect(res.body.status).to.equal('success');
-          expect(res.body.data).to.be.an('object');
+          expect(res.body.ride).to.be.an('object');
           expect(res.body.message).to.equal('Ride offer was added successfully');
           done();
         });
@@ -74,7 +75,7 @@ describe('Test for ride endpoints for Ride-my-way api', () => {
   describe('POST ride offer with empty data', () => {
     it('should respond with error', (done) => {
       chai
-        .request('https://ride-my-way-andela.herokuapp.com')
+        .request(app)
         .post('/api/v1/users/rides')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -100,7 +101,7 @@ describe('Test for ride endpoints for Ride-my-way api', () => {
   describe('POST ride offer request', () => {
     it('should respond with success in an object also containing created resource', (done) => {
       chai
-        .request('https://ride-my-way-andela.herokuapp.com')
+        .request(app)
         .post('/api/v1/rides/b4a73be0-805e-11e8-8b74-375385422771/requests')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -112,7 +113,7 @@ describe('Test for ride endpoints for Ride-my-way api', () => {
           expect(err).to.equal(null);
           expect(res.status).to.equal(201);
           expect(res.body.status).to.equal('success');
-          expect(res.body.data).to.be.an('object');
+          expect(res.body.request).to.be.an('object');
           expect(res.body.message).to.equal('Request was successfully made');
           done();
         });
@@ -122,7 +123,7 @@ describe('Test for ride endpoints for Ride-my-way api', () => {
   describe('POST ride offer request with empty user id', () => {
     it('should respond with error', (done) => {
       chai
-        .request('https://ride-my-way-andela.herokuapp.com')
+        .request(app)
         .post('/api/v1/rides/5c622700-7fd8-11e8-9cf1-6f3fb418fc65/requests')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -142,7 +143,7 @@ describe('Test for ride endpoints for Ride-my-way api', () => {
   describe('GET all requests for one ride offer', () => {
     it('should respond with success in an object also containing an array of all requests for ride offer', (done) => {
       chai
-        .request('https://ride-my-way-andela.herokuapp.com')
+        .request(app)
         .get('/api/v1/users/rides/b4a73be0-805e-11e8-8b74-375385422771/requests')
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -151,51 +152,10 @@ describe('Test for ride endpoints for Ride-my-way api', () => {
           expect(err).to.equal(null);
           expect(res.status).to.equal(200);
           expect(res.body.status).to.equal('success');
-          expect(res.body.data).to.be.an('array');
+          expect(res.body.requests).to.be.an('array');
           expect(res.body.message).to.equal('Available Ride requests for this ride offer');
           done();
         });
     });
   });
-
-  // describe('PUT accept or reject ride offer request', () => {
-  //   it('should return success', (done) => {
-  //     chai
-  //       .request('https://ride-my-way-andela.herokuapp.com')
-  //       .put('/api/v1/rides/b4a73be0-805e-11e8-8b74-375385422771/requests/5df6e470-805f-11e8-8b74-375385422771')
-  //       .set('Accept', 'application/json')
-  //       .set('Content-Type', 'application/x-www-form-urlencoded')
-  //       .set('Authorization', `Bearer ${token}`)
-  //       .send({
-  //         status: 'accepted',
-  //         userId: '4574ea40-804c-11e8-b48e-37c57163b62d'
-  //       })
-  //       .end((err, res) => {
-  //         expect(err).to.equal(null);
-  //         expect(res.status).to.equal(200);
-  //         expect(res.body.status).to.equal('success');
-  //         expect(res.body.message).to.equal('Ride offer was deleted successfully');
-  //         done();
-  //       });
-  //   });
-  // });
-
-  // describe('DELETE a ride offer', () => {
-  //   it('should return success if delete was successfull', (done) => {
-  //     chai
-  //       .request('https://ride-my-way-andela.herokuapp.com')
-  //       .delete('/api/v1/rides/0c288270-805f-11e8-8b74-375385422771')
-  //       .set('Accept', 'application/json')
-  //       .set('Content-Type', 'application/x-www-form-urlencoded')
-  //       .set('Authorization', `Bearer ${token}`)
-  //       .end((err, res) => {
-  //         expect(err).to.equal(null);
-  //         expect(res.status).to.equal(200);
-  //         expect(res.body.status).to.equal('success');
-  //         expect(res.body.message).to.equal('Ride offer was deleted successfully');
-  //         done();
-  //       });
-  //   });
-  // });
-  
 });

@@ -1,12 +1,12 @@
 import express from 'express';
 import Rides from '../controllers/rides';
-import authMiddleware from '../middleware/auth';
+import checkAuth from '../middleware/auth';
 
 const router = express.Router();
 
-router.get('/', authMiddleware, Rides.getAllRideOffers);
-router.get('/:id', authMiddleware, Rides.getOneRideOffer);
-router.delete('/:id', authMiddleware, Rides.deleteOneRideOffer);
-router.post('/:id/requests', authMiddleware, Rides.createRideOfferRequest);
+router.get('/', checkAuth, Rides.getAllRideOffers);
+router.get('/:id', checkAuth, Rides.getOneRideOffer);
+router.delete('/:id', checkAuth, Rides.deleteOneRideOffer);
+router.post('/:id/requests', checkAuth, Rides.createRideOfferRequest);
 
 export default router;

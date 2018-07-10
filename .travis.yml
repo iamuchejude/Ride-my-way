@@ -6,8 +6,20 @@ node_js:
 env:
   global:
     - CC_TEST_REPORTER_ID=632b43c1e28b7b4d135a8ef761fe985fc5ecea97813660e4c682ae49479140eb
+    - DATABASE_HOST_TEST=ride_my_way_andela_test
+    - DATABASE_USER_TEST=postgres
+    - DATABASE_PASSWORD_TEST=
+    - DATABASE_PORT_TEST=5432
+    - DATABASE_HOST_TEST=localhost
+  
+services:
+  - postgresql
+
+addons:
+  postgresql: "9.6"
 
 before_script:
+  - psql -c 'CREATE DATABASE ride_my_way_andela_test;' -U postgres
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build

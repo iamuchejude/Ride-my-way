@@ -9,7 +9,7 @@ module.exports = (req, res, next) => {
         if(error) {
             res.status(401).json({
                 status: 'error',
-                message: 'Login failed!',
+                message: 'Token expired! Please login again to continue',
             })
         } else {
             req.authData = decoded;

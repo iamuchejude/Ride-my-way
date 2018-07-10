@@ -10,14 +10,14 @@ class Rides {
       .then((result) => {
         if(result.rowCount < 1) {
           res.status(404).json({
-            status: 'success',
+            status: 'error',
             message: 'No Ride Offer Available',
           })
         } else {
           res.status(200).json({
             status: 'success',
             message: 'Returning all available ride offers',
-            data: result.rows,
+            rides: result.rows,
           })
         }
       })
@@ -41,7 +41,7 @@ class Rides {
           res.status(200).json({
             status: 'success',
             message: 'Returning ride offer',
-            data: result.rows[0],
+            ride: result.rows[0],
           })
         }
       })
@@ -73,18 +73,11 @@ class Rides {
 
     db.query(query, data)
       .then((result) => {
-        if(result.rowCount < 1) {
-          res.status(409).json({
-            status: 'error',
-            message: 'Oops! Ride offer was not added',
-          });
-        } else {
           res.status(201).json({
             status: 'success',
             message: 'Ride offer was added successfully',
-            data: result.rows[0]
+            ride: result.rows[0]
           });
-        }
       })
       .catch((error) => {
         res.status(500).json({
@@ -140,31 +133,27 @@ class Rides {
       userId, startFrom, destination, price, seat, departureDate, departureTime,
     } = req.body;
 
-    if ((userId === undefined || userId.trim().length < 1) || 
-        (startFrom === undefined || startFrom.trim().length < 1) ||
-        (destination === undefined || destination.trim().length < 1) ||
-        (price === undefined || price.trim().length < 1) ||
-        (seat === undefined || seat.trim().length < 1) ||
-        (departureDate === undefined || departureDate.trim().length < 1) ||
-        (departureTime === undefined || departureTime.trim().length < 1)) {
-      res.status(409).json({
+    if ((userId === undefined) && (startFrom === undefined) && (destination === undefined) && (price === undefined) && (seat === undefined) && (departureDate === undefined) && (departureTime === undefined)) {
+      res.status(400).json({
         status: 'error',
-        message: 'Please provide all required data'
+        message: 'Please provide all required fields'
       });
     } else {
 
-      db.query("SELECT * FROM ride_offers WHERE user_id=$1, departure_date=$2 AND departure_time=$3", checkData)
-        .then((res) => {
-          if(res.rowCount > 0) {
-            
-          }
-        })
-        .catch((err) => {
-          res.status(500).json({
-            status: 'error',
-            message: 'Internal server error. Please try again later',
-          })
-        });
+      // const checkData = []
+
+      // db.query("SELECT * FROM ride_offers WHERE user_id=$1, departure_date=$2 AND departure_time=$3", checkData)
+      //   .then((res) => {
+      //     if(res.rowCount > 0) {
+
+      //     }
+      //   })
+      //   .catch((err) => {
+      //     res.status(500).json({
+      //       status: 'error',
+      //       message: 'Internal server error. Please try again later',
+      //     })
+      //   });
 
 
       const query = "INSERT INTO ride_offers(id, user_id, start_from, destination, price, seat, departure_date, departure_time, updated_at, created_at) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *";
@@ -183,18 +172,11 @@ class Rides {
 
       db.query(query, data)
         .then((result) => {
-          if(result.rowCount < 1) {
-            res.status(409).json({
-              status: 'error',
-              message: 'Oops! Ride offer was not added',
-            });
-          } else {
-            res.status(201).json({
-              status: 'success',
-              message: 'Ride offer was added successfully',
-              data: result.rows[0]
-            });
-          }
+          res.status(201).json({
+            status: 'success',
+            message: 'Ride offer was added successfully',
+            data: result.rows[0]
+          });
         })
         .catch((error) => {
           res.status(500).json({
@@ -206,70 +188,47 @@ class Rides {
   }
 
   static createRideOfferRequest(req, res) {
-    // Check if Ride Offer is existing
-    if(req.body.userId === undefined || req.body.userId.trim().length < 1) {
-      res.status(409).json({
-        status: 'error',
-        message: 'Please provide a valid user ID'
-      });
-    } else {
-      db.query('SELECT * FROM ride_offers WHERE id=$1', [req.params.id])
-        .then((result) => {
+    db.query('SELECT * FROM ride_offers WHERE id=$1', [req.params.id])
+      .then((result) => {
           if(result.rowCount < 1) {
             res.status(404).json({
               status: 'error',
               message: 'Ride offer does not exist',
             })
-          } else {
-            const { userId } = req.body;
-            if(userId === req.authData.user.id) {
-              res.status(400).json({
-                status: 'error',
-                message: 'Sorry, You cannot request for your ride',
-              });
-            } else {
-              const data = [
+        } else {
+          const data = [
                 uuidv1(),
                 req.params.id,
-                userId,
+                req.authData.user.id,
                 'pending',
                 new Date().toISOString(),
                 new Date().toISOString(),
               ];
               
-              db.query('INSERT INTO ride_offer_requests(id, ride_id, user_id, status, updated_at, created_at) VALUES($1, $2, $3, $4, $5, $6) RETURNING *', data)
-                .then((result) => {
-                  if(result.rowCount >= 1) {
+          db.query('INSERT INTO ride_offer_requests(id, ride_id, user_id, status, updated_at, created_at) VALUES($1, $2, $3, $4, $5, $6) RETURNING *', data)
+            .then((result) => {
                     res.status(201).json({
                       status: 'success',
                       message: 'Request was successfully made',
-                      data: result.rows[0],
+                      request: result.rows[0],
                     });
-                  } else {
-                    res.status(400).json({
-                      status: 'error',
-                      message: 'Request was not successfully made',
-                    });
-                  }
-                })
-                .catch((error) => {
+            })
+            .catch((error) => {
                   res.status(500).json({
                     status: 'error',
                     error,
                     message: 'Internal server error. Please try again later',
                   })
-                })
-            }
-          }
+            })
+        }
+      })
+      .catch((error) => {
+        res.status(500).json({
+          status: 'error',
+          error,
+          message: 'Internal server error. Please try again later',
         })
-        .catch((error) => {
-          res.status(500).json({
-            status: 'error',
-            error,
-            message: 'Internal server error. Please try again later',
-          })
-        });
-    }
+      });
   }
 
   static getRideOfferRequestsForOneRide(req, res) {
@@ -293,7 +252,7 @@ class Rides {
               res.status(200).json({
                 status: 'success',
                 message: 'Available Ride requests for this ride offer',
-                data: result.rows,
+                requests: result.rows,
               })
             }
           })
@@ -314,7 +273,7 @@ class Rides {
   }
 
   static acceptOrRejectRequest(req, res) {
-    const { userId, status } = req.body;
+    const { status } = req.body;
     let ride_offer;
     let ride_requests;
     
@@ -367,7 +326,7 @@ class Rides {
                               res.status(200).json({
                                 status: 'success',
                                 message: `Request has been ${status}`,
-                                data: ures.rows[0]
+                                request: ures.rows[0]
                               });
                             })
                             .catch((errU) => {
@@ -380,7 +339,7 @@ class Rides {
                           res.status(200).json({
                             status: 'success',
                             message: `Request has been ${status}`,
-                            data: result.rows[0]
+                            request: result.rows[0]
                           });
                         }
                       })

@@ -294,3 +294,24 @@ thead th {
 .hidden {
     display: none;
 }
+
+/* Input messages */
+.input-message {
+    padding: 0;
+    margin: 0;
+    font-size: small;
+    text-align: left !important;
+    margin-bottom: 2px;
+    display: none;
+    transition: .5s ease-in-out;
+}
+
+/* #d9534f,#f9f9f9,#5bc0de,#5cb85c,#428bca colors. */
+
+.input-message.error {
+    color: #d9534f;
+}
+
+.input-message.success {
+    color: #5cb85c;
+}

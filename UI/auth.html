@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Ride-my-way | Ride sharing carpooling application</title>
     <link rel="stylesheet" href="css/style.css">   
-    <link rel="shorcut icon" href="img/favicon.ico">  
+    <link rel="shorcut icon" href="img/favicon.ico"> 
 </head>
 <body>
     <div id="wrapper">
@@ -16,7 +16,6 @@
                 <a href="./UI/../index.html">
                     <h1>
                         <span><i class="lnr lnr-car"></i></span>
-                        <!-- <span>Ride-my-share</span> -->
                     </h1>
                 </a>
             </div>
@@ -29,6 +28,7 @@
                 Login
             </p>
             <form method="POST" id="login_form">
+                <p class="input-message form-top"></p>
                 <div class="input-holder">
                     <label for="Email">Email</label>
                     <input type="email" name="email" id="login_email" placeholder="username@host.com" required>
@@ -53,25 +53,30 @@
             <p class="info">
                 Register
             </p>
-            <form method="POST">
+            <form method="POST" id="register_form">
+                <p class="input-message form-top"></p>
                 <div class="input-holder">
                     <label for="Name">Name</label>
                     <input type="text" name="name" id="register_name" placeholder="John Doe" required>
+                    <p class="input-message"></p>
                 </div>
                 <div class="input-holder">
                     <label for="Email">Email</label>
                     <input type="email" name="email" id="register_email" placeholder="username@host.com" required>
+                    <p class="input-message"></p>
                 </div>
                 <div class="input-holder">
                     <label for="Password" class="left">Password</label>
                     <input type="password" name="password" id="register_password" placeholder="yourPassword" required>
+                    <p class="input-message"></p>
                 </div>
                 <div class="input-holder">
                     <label for="Password" class="left">Verify Password</label>
-                    <input type="password" name="password" id="register_verify_password" placeholder="yourPassword" required>
+                    <input type="password" name="verify_password" id="register_verify_password" placeholder="yourPassword" required>
+                    <p class="input-message"></p>
                 </div>
                 <div class="input-holder">
-                    <button class="btn btn-primary btn-full" type="submit">Register</button>
+                    <button class="btn btn-primary btn-full" id="register_btn" type="submit">Register</button>
                 </div>
             </form>
             <p>
@@ -90,6 +95,6 @@
     <!-- End of Footer Style --> 
 
     <script src="js/scripts.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
 </body>
 </html>

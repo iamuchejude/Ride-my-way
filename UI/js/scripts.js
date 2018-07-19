@@ -26,12 +26,3 @@ document.querySelectorAll('#uploadPhoto').forEach((el) => {
         document.querySelector('#photo').click();
     })
 });
-
-// Scroll Trigger
-// let scrollTrigger = document.querySelectorAll('.scroll-trigger');
-// scrollTrigger.forEach((el) => {
-//     el.addEventListener('click', e => {
-//         let $el = document.querySelector(e.target.getAttribute('data-section'));
-//         console.log($el.offsetTop);
-//     });
-// });

@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Poppins:400,500");
-@import "linearicons.css";
+@import "./linearicons.css";
 
 /* General Styles */
 :root {
@@ -304,6 +304,7 @@ thead th {
     margin-bottom: 2px;
     display: none;
     transition: .5s ease-in-out;
+    font-weight: bold;
 }
 
 /* #d9534f,#f9f9f9,#5bc0de,#5cb85c,#428bca colors. */
@@ -315,3 +316,27 @@ thead th {
 .input-message.success {
     color: #5cb85c;
 }
+
+button:disabled {
+    background: #ddd;
+    color: #888;
+    border: 1px solid #ddd;
+    cursor: no-drop;
+}
+
+.input-message.form-top {
+    margin-bottom: 5px;
+    padding: 10px;
+    border-radius: 2px;
+}
+
+.input-message.form-top.error {
+    background: #FFD2D2;
+    border: 1px solid #FFD2D2;
+}
+
+.input-message.form-top.success {
+    background: #DFF2BF;
+    border: 1px solid #DFF2BF;
+}
+

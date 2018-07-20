@@ -211,29 +211,31 @@
                 </div>
             </div>
             <div class="modal-content">
-                <form method="POST">
+                <form method="POST" id="offer-a-ride-form">
+                    <p class="input-message form-top"></p>
                     <div class="input-holder dual-input">
-                        <label for="To">Location</label>
-                        <input type="text" placeholder="Start" id="from">
-                        <input type="text" placeholder="Destination" id="to">
+                        <label for="To">Locations</label>
+                        <input type="text" required placeholder="Start" id="from">
+                        <p class="input-message"></p>
+                        <input type="text" required placeholder="Destination" id="to">
+                        <p class="input-message"></p>
                     </div>
                     <div class="input-holder">
                         <label for="seats">No of Seats</label>
-                        <input type="number" placeholder="No of seats available" id="seats">
-                    </div>
-                    <div class="input-holder">
-                        <label for="price">Price(&#8358;)</label>
-                        <input type="number" placeholder="Price" id="price">
+                        <input type="number" required placeholder="No of seats available" id="seats">
+                        <p class="input-message"></p>
                     </div>
                     <div class="input-holder">
                         <label for="date">Date</label>
-                        <input type="date" placeholder="Departure Date" id="date">
+                        <input type="date" required placeholder="Departure Date" id="date">
+                        <p class="input-message"></p>
                     </div>
                     <div class="input-holder">
                         <label for="time">Time</label>
-                        <input type="time" placeholder="Departure Time" id="time">
+                        <input type="time" required placeholder="Departure Time" id="time">
+                        <p class="input-message"></p>
                     </div>
-                    <button class="btn btn-primary btn-full" type="submit">Offer ride</button>
+                    <button class="btn btn-primary btn-full" id="offer-ride-btn" type="submit">Offer ride</button>
                 </form>
             </div>
         </div>
@@ -300,5 +302,6 @@
     </div>
 
     <script src="../js/scripts.js"></script>
+    <script src="../js/offer-a-ride-validation.js"></script>
 </body>
 </html>

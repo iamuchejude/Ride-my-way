@@ -48,7 +48,11 @@
     <section id="main" class="clear">
         <div class="section-header clear">
             <div class="left">
-                <h3>Ride Offers</h3>
+                <!-- <h3>Ride Offers</h3> -->
+                <ul class="ride-offers-tab">
+                    <li class="active"><a href="javascript:void(0)" data-elem='#all'>Ride Offers</a></li>
+                    <li><a href="javascript:void(0)" data-elem='#my'>My Ride Offers</a></li>
+                </ul>
             </div>
             <div class="right search-area">
                 <form method="post" class="search-container">
@@ -57,13 +61,15 @@
                 </form>
             </div>
         </div>
-        <div class="offers clear">
+
+        <div class="offers clear active" id="all">
+
             <div class="offer clear">
                 <div class="clear">
-                    <a href="#single-offer" class="left">
+                    <a href="javascript:void(0)" data-rideid='10' class="single-offer left">
                         <i class="lnr lnr-map-marker"></i> Iyana Ipaja to Ikeja
                     </a>
-                    <div class="right">&#8358;1000</div>
+                    <div class="right"><i class="lnr lnr-car"></i> 4</div>
                 </div>
                 <div class="clear">
                     <ul class="date_time left">
@@ -71,17 +77,17 @@
                         <li><i class="lnr lnr-clock"></i> 10:20:00 PM</li>
                     </ul>
                     <div class="action right">
-                        <a href="#single-offer"><button class="btn btn-secondary btn-small btn-rounded"><i class="lnr lnr-eye"></i> View</button></a>
+                        <a href="javascript:void(0)" data-rideid='10' class="single-offer"><button class="btn btn-secondary btn-small btn-rounded"><i class="lnr lnr-eye"></i> View</button></a>
                     </div>
                 </div>
             </div>
 
             <div class="offer clear">
                 <div class="clear">
-                    <a href="#single-offer" class="left">
+                    <a href="javascript:void(0)" data-rideid='10' class="single-offer left">
                         <i class="lnr lnr-map-marker"></i> Iyana Ipaja to Ikeja
                     </a>
-                    <div class="right">&#8358;1000</div>
+                    <div class="right"><i class="lnr lnr-car"></i> 4</div>
                 </div>
                 <div class="clear">
                     <ul class="date_time left">
@@ -89,17 +95,18 @@
                         <li><i class="lnr lnr-clock"></i> 10:20:00 PM</li>
                     </ul>
                     <div class="action right">
-                        <a href="#single-offer"><button class="btn btn-secondary btn-small btn-rounded"><i class="lnr lnr-eye"></i> View</button></a>
+                        <a href="javascript:void(0)" data-rideid='10' class="my-ride-offer"><button class="btn btn-secondary btn-small btn-rounded"><i class="lnr lnr-eye"></i> View</button></a>
+                        <a href="javascript:void(0)" data-rideid='10' class="delete-offer"><button class="btn btn-secondary btn-small btn-rounded"><i class="lnr lnr-trash"></i></button></a>
                     </div>
                 </div>
             </div>
 
             <div class="offer clear">
                 <div class="clear">
-                    <a href="#single-offer" class="left">
+                    <a href="javascript:void(0)" data-rideid='10' class="single-offer left">
                         <i class="lnr lnr-map-marker"></i> Iyana Ipaja to Ikeja
                     </a>
-                    <div class="right">&#8358;1000</div>
+                    <div class="right"><i class="lnr lnr-car"></i> 4</div>
                 </div>
                 <div class="clear">
                     <ul class="date_time left">
@@ -107,17 +114,17 @@
                         <li><i class="lnr lnr-clock"></i> 10:20:00 PM</li>
                     </ul>
                     <div class="action right">
-                        <a href="#single-offer"><button class="btn btn-secondary btn-small btn-rounded"><i class="lnr lnr-eye"></i> View</button></a>
+                        <a href="javascript:void(0)" data-rideid='10' class="single-offer"><button class="btn btn-secondary btn-small btn-rounded"><i class="lnr lnr-eye"></i> View</button></a>
                     </div>
                 </div>
             </div>
 
             <div class="offer clear">
                 <div class="clear">
-                    <a href="#single-offer" class="left">
+                    <a href="javascript:void(0)" data-rideid='10' class="single-offer left">
                         <i class="lnr lnr-map-marker"></i> Iyana Ipaja to Ikeja
                     </a>
-                    <div class="right">&#8358;1000</div>
+                    <div class="right"><i class="lnr lnr-car"></i> 4</div>
                 </div>
                 <div class="clear">
                     <ul class="date_time left">
@@ -125,17 +132,18 @@
                         <li><i class="lnr lnr-clock"></i> 10:20:00 PM</li>
                     </ul>
                     <div class="action right">
-                        <a href="#single-offer"><button class="btn btn-secondary btn-small btn-rounded"><i class="lnr lnr-eye"></i> View</button></a>
+                        <a href="javascript:void(0)" data-rideid='10' class="my-ride-offer"><button class="btn btn-secondary btn-small btn-rounded"><i class="lnr lnr-eye"></i> View</button></a>
+                        <a href="javascript:void(0)" data-rideid='10' class="delete-offer"><button class="btn btn-secondary btn-small btn-rounded"><i class="lnr lnr-trash"></i></button></a>
                     </div>
                 </div>
             </div>
 
             <div class="offer clear">
                 <div class="clear">
-                    <a href="#single-offer" class="left">
+                    <a href="javascript:void(0)" data-rideid='10' class="single-offer left">
                         <i class="lnr lnr-map-marker"></i> Iyana Ipaja to Ikeja
                     </a>
-                    <div class="right">&#8358;1000</div>
+                    <div class="right"><i class="lnr lnr-car"></i> 4</div>
                 </div>
                 <div class="clear">
                     <ul class="date_time left">
@@ -143,17 +151,39 @@
                         <li><i class="lnr lnr-clock"></i> 10:20:00 PM</li>
                     </ul>
                     <div class="action right">
-                        <a href="#single-offer"><button class="btn btn-secondary btn-small btn-rounded"><i class="lnr lnr-eye"></i> View</button></a>
+                        <a href="javascript:void(0)" data-rideid='10' class="single-offer"><button class="btn btn-secondary btn-small btn-rounded"><i class="lnr lnr-eye"></i> View</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="offers clear" id="my">
+    
+            <div class="offer clear">
+                <div class="clear">
+                    <a href="javascript:void(0)" class="my-ride-offer left">
+                        <i class="lnr lnr-map-marker"></i> Iyana Ipaja to Ikeja
+                    </a>
+                    <div class="right"><i class="lnr lnr-car"></i> 4</div>
+                </div>
+                <div class="clear">
+                    <ul class="date_time left">
+                        <li><i class="lnr lnr-calendar-full"></i> 24/10/2018</li> 
+                        <li><i class="lnr lnr-clock"></i> 10:20:00 PM</li>
+                    </ul>
+                    <div class="action right">
+                        <a href="javascript:void(0)" class="my-ride-offer"><button class="btn btn-secondary btn-small btn-rounded"><i class="lnr lnr-eye"></i> View</button></a>
+                        <a href="javascript:void(0)" data-rideid='10' class="delete-offer"><button class="btn btn-secondary btn-small btn-rounded"><i class="lnr lnr-trash"></i></button></a>                        
                     </div>
                 </div>
             </div>
 
             <div class="offer clear">
                 <div class="clear">
-                    <a href="#single-offer" class="left">
+                    <a href="javascript:void(0)" class="my-ride-offer left">
                         <i class="lnr lnr-map-marker"></i> Iyana Ipaja to Ikeja
                     </a>
-                    <div class="right">&#8358;1000</div>
+                    <div class="right"><i class="lnr lnr-car"></i> 4</div>
                 </div>
                 <div class="clear">
                     <ul class="date_time left">
@@ -161,17 +191,18 @@
                         <li><i class="lnr lnr-clock"></i> 10:20:00 PM</li>
                     </ul>
                     <div class="action right">
-                        <a href="#single-offer"><button class="btn btn-secondary btn-small btn-rounded"><i class="lnr lnr-eye"></i> View</button></a>
+                        <a href="javascript:void(0)" class="my-ride-offer"><button class="btn btn-secondary btn-small btn-rounded"><i class="lnr lnr-eye"></i> View</button></a>
+                        <a href="javascript:void(0)" data-rideid='10' class="delete-offer"><button class="btn btn-secondary btn-small btn-rounded"><i class="lnr lnr-trash"></i></button></a>                        
                     </div>
                 </div>
             </div>
-
+    
             <div class="offer clear">
                 <div class="clear">
-                    <a href="#single-offer" class="left">
+                    <a href="javascript:void(0)" class="my-ride-offer left">
                         <i class="lnr lnr-map-marker"></i> Iyana Ipaja to Ikeja
                     </a>
-                    <div class="right">&#8358;1000</div>
+                    <div class="right"><i class="lnr lnr-car"></i> 4</div>
                 </div>
                 <div class="clear">
                     <ul class="date_time left">
@@ -179,61 +210,8 @@
                         <li><i class="lnr lnr-clock"></i> 10:20:00 PM</li>
                     </ul>
                     <div class="action right">
-                        <a href="#single-offer"><button class="btn btn-secondary btn-small btn-rounded"><i class="lnr lnr-eye"></i> View</button></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="offer clear">
-                <div class="clear">
-                    <a href="#single-offer" class="left">
-                        <i class="lnr lnr-map-marker"></i> Iyana Ipaja to Ikeja
-                    </a>
-                    <div class="right">&#8358;1000</div>
-                </div>
-                <div class="clear">
-                    <ul class="date_time left">
-                        <li><i class="lnr lnr-calendar-full"></i> 24/10/2018</li> 
-                        <li><i class="lnr lnr-clock"></i> 10:20:00 PM</li>
-                    </ul>
-                    <div class="action right">
-                        <a href="#single-offer"><button class="btn btn-secondary btn-small btn-rounded"><i class="lnr lnr-eye"></i> View</button></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="offer clear">
-                <div class="clear">
-                    <a href="#single-offer" class="left">
-                        <i class="lnr lnr-map-marker"></i> Iyana Ipaja to Ikeja
-                    </a>
-                    <div class="right">&#8358;1000</div>
-                </div>
-                <div class="clear">
-                    <ul class="date_time left">
-                        <li><i class="lnr lnr-calendar-full"></i> 24/10/2018</li> 
-                        <li><i class="lnr lnr-clock"></i> 10:20:00 PM</li>
-                    </ul>
-                    <div class="action right">
-                        <a href="#single-offer"><button class="btn btn-secondary btn-small btn-rounded"><i class="lnr lnr-eye"></i> View</button></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="offer clear">
-                <div class="clear">
-                    <a href="#single-offer" class="left">
-                        <i class="lnr lnr-map-marker"></i> Iyana Ipaja to Ikeja
-                    </a>
-                    <div class="right">&#8358;1000</div>
-                </div>
-                <div class="clear">
-                    <ul class="date_time left">
-                        <li><i class="lnr lnr-calendar-full"></i> 24/10/2018</li> 
-                        <li><i class="lnr lnr-clock"></i> 10:20:00 PM</li>
-                    </ul>
-                    <div class="action right">
-                        <a href="#single-offer"><button class="btn btn-secondary btn-small btn-rounded"><i class="lnr lnr-eye"></i> View</button></a>
+                        <a href="javascript:void(0)" class="my-ride-offer"><button class="btn btn-secondary btn-small btn-rounded"><i class="lnr lnr-eye"></i> View</button></a>
+                        <a href="javascript:void(0)" data-rideid='10' class="delete-offer"><button class="btn btn-secondary btn-small btn-rounded"><i class="lnr lnr-trash"></i></button></a>                        
                     </div>
                 </div>
             </div>
@@ -293,32 +271,24 @@
                     <h3>Ride Details</h3>
                 </div>
                 <div class="modal-close right">
-                    <a href="#"><i class="lnr lnr-cross-circle"></i></a>
+                    <a href="javascript:void(0)" class="single-offers-close"><i class="lnr lnr-cross-circle"></i></a>
                 </div>
             </div>
             <div class="modal-content">
                 <div class="columns clear">
-                    <div class="column half">
+                    <div class="column one-third">
                         <span class="item-label">
                             <i class="lnr lnr-map-marker"></i> Starting From
                         </span>
                         <span class="item-content">Iyana Ipaja</span>
                     </div>
-                    <div class="column half">
+                    <div class="column one-third">
                         <span class="item-label">
                             <i class="lnr lnr-map-marker"></i> Destination
                         </span>
                         <span class="item-content">Ikeja</span>
                     </div>
-                </div>
-                <div class="columns clear">
-                    <div class="column half">
-                        <span class="item-label">
-                            <i class="lnr lnr-map-marker"></i> Price of Ride
-                        </span>
-                        <span class="item-content">&#8358;1000</span>
-                    </div>
-                    <div class="column half">
+                    <div class="column one-third">
                         <span class="item-label">
                             <i class="lnr lnr-map-marker"></i> No of Seats
                         </span>
@@ -347,6 +317,111 @@
                 <div class="right">
                     <button class="btn btn-primary btn-rounded"><i class="lnr lnr-checkmark-circle"></i> Request ride</button>
                 </div>
+            </div>
+        </div>
+    </div> 
+
+    <div class="modal" id="my-single-offer">
+        <div class="modal-area modal-medium">
+            <div class="modal-header clear">
+                <div class="modal-title left">
+                    <h3>Ride Details</h3>
+                </div>
+                <div class="modal-close right">
+                    <a href="javascript:void(0)" class="single-offers-close"><i class="lnr lnr-cross-circle"></i></a>
+                </div>
+            </div>
+            <div class="modal-content">
+                <div class="ride-detail">
+                    <div class="columns clear">
+                        <div class="column one-third">
+                            <span class="item-label">
+                                <i class="lnr lnr-map-marker"></i> Starting From
+                            </span>
+                            <span class="item-content">Iyana Ipaja</span>
+                        </div>
+                        <div class="column one-third">
+                            <span class="item-label">
+                                <i class="lnr lnr-map-marker"></i> Destination
+                            </span>
+                            <span class="item-content">Ikeja</span>
+                        </div>
+                        <div class="column one-third">
+                            <span class="item-label">
+                                <i class="lnr lnr-map-marker"></i> No of Seats
+                            </span>
+                            <span class="item-content">Four (4)</span>
+                        </div>
+                    </div>
+                    <div class="columns clear">
+                        <div class="column half">
+                            <span class="item-label">
+                                <i class="lnr lnr-calendar-full"></i> Date of Departure
+                            </span>
+                            <span class="item-content">24/10/2018</span>
+                        </div>
+                        <div class="column half">
+                            <span class="item-label">
+                                <i class="lnr lnr-clock"></i> Time of Departure
+                            </span>
+                            <span class="item-content">10:20:00PM</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="ride-requests">
+                    <div class="ride-requests-header">
+                        <h4>Ride Requests</h4>
+                    </div>
+                    <div class="ride-requests-contents table-responsive table-hover">
+                        <table>
+                            <tr>
+                                <th>SN</th>
+                                <th>Name</th>
+                                <th>Options</th>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Uche Jude</td>
+                                <td>
+                                    <button class="btn btn-small btn-rounded btn-secondary"><i class="lnr lnr-exit-up"></i> Accept</button>
+                                    <button class="btn btn-small btn-rounded btn-primary"><i class="lnr lnr-exit-up"></i> Reject</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Paul Adedokun</td>
+                                <td>
+                                    <button class="btn btn-small btn-rounded btn-secondary"><i class="lnr lnr-exit-up"></i> Accept</button>
+                                    <button class="btn btn-small btn-rounded btn-primary"><i class="lnr lnr-exit-up"></i> Reject</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Gideon Oladimeji</td>
+                                <td>
+                                    <button class="btn btn-small btn-rounded btn-secondary"><i class="lnr lnr-exit-up"></i> Accept</button>
+                                    <button class="btn btn-small btn-rounded btn-primary"><i class="lnr lnr-exit-up"></i> Reject</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>Rita Uzoma</td>
+                                <td>
+                                    <button class="btn btn-small btn-rounded btn-secondary"><i class="lnr lnr-exit-up"></i> Accept</button>
+                                    <button class="btn btn-small btn-rounded btn-primary"><i class="lnr lnr-exit-up"></i> Reject</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer clear">
+                <!-- <div class="left">
+                    <i class="lnr lnr-user"></i> Uche Jude
+                </div>
+                <div class="right">
+                    <button class="btn btn-primary btn-rounded"><i class="lnr lnr-checkmark-circle"></i> Request ride</button>
+                </div> -->
             </div>
         </div>
     </div> 

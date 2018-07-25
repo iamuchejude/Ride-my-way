@@ -27,11 +27,31 @@ document.querySelectorAll('#uploadPhoto').forEach((el) => {
     })
 });
 
-// Scroll Trigger
-// let scrollTrigger = document.querySelectorAll('.scroll-trigger');
-// scrollTrigger.forEach((el) => {
-//     el.addEventListener('click', e => {
-//         let $el = document.querySelector(e.target.getAttribute('data-section'));
-//         console.log($el.offsetTop);
-//     });
-// });
+// Tab for Ride Offers
+document.querySelectorAll('.ride-offers-tab li a').forEach((el) => {
+    el.addEventListener('click', e => {
+        e.preventDefault();
+        document.querySelectorAll('.ride-offers-tab li').forEach($element => { $element.classList.remove('active') });
+        document.querySelectorAll('.offers').forEach($element => { $element.classList.remove('active') });
+        e.target.parentElement.classList.add('active');
+        document.querySelector(`.offers${e.target.getAttribute('data-elem')}`).classList.add('active');
+    });
+});
+
+// View Ride Offer
+document.querySelectorAll('.single-offer').forEach((el) => {
+    el.addEventListener('click', e => {
+        e.preventDefault();
+        let rideId = e.target.getAttribute('data-rideid');
+        document.querySelector('#single-offer').classList.toggle('active');
+    });
+});
+
+// View My Ride Offer
+document.querySelectorAll('.my-ride-offer').forEach((el) => {
+    el.addEventListener('click', e => {
+        e.preventDefault();
+        let rideId = e.target.getAttribute('data-rideid');
+        document.querySelector('#my-single-offer').classList.toggle('active');
+    });
+});

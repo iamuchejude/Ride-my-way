@@ -142,9 +142,14 @@ footer {
 #main .offers {
     width: 100%;
     padding: 5px;
-    display: inline-grid;
     grid-template-columns: auto auto auto auto;
     grid-gap: 20px;
+    display: none !important;
+    transition: .5s ease-in-out;
+}
+
+#main .offers.active {
+    display: inline-grid !important;
 }
 
 #main .offers .offer a {
@@ -462,4 +467,49 @@ footer {
 
 .notification-list .notification-item .notification-actions {
     margin-top: 3px;
+}
+
+/* Ride Offers Tab */
+.ride-offers-tab {
+    padding: 0;
+    margin: 0;
+}
+
+.ride-offers-tab li {
+    float: left;
+    margin-right: 10px;
+    padding: 0 2px;
+}
+
+.ride-offers-tab li:last-child {
+    margin: 0;
+}
+
+.ride-offers-tab li.active {
+    border-bottom: 3px solid var(--primaryBlack);
+    color: var(--primaryBlack) !important;
+}
+
+.ride-offers-tab li.active a {
+    color: var(--primaryBlack) !important;
+}
+
+
+#single-offer.active, #my-single-offer.active {
+    display: block;
+}
+
+.ride-requests-contents table tr th {
+    text-align: left;
+    padding-left: 10px;
+}
+
+.ride-requests-contents table tr td:first-child {
+    text-align: center;
+}
+
+.ride-requests-contents table tr td:last-child {
+    width: 165px !important;
+    max-width: 165px !important;
+    min-width: 165px !important;
 }

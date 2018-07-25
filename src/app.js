@@ -23,9 +23,9 @@ app.use('/api/v1/users', userRoutes);
 app.all('*', (req, res) => {
   res.status(404).json({
     status: 'error',
-    message: 'Not found'
+    message: 'Not found',
   });
-})
+});
 
 app.listen(port, () => {
   log.info(`Listening on port ${port}`);

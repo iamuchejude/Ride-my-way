@@ -2,7 +2,6 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import env from 'dotenv';
 import randomstring from 'randomstring';
-import log from 'fancy-log';
 import db from '../database/connection';
 
 env.config();
@@ -52,11 +51,10 @@ class Auth {
             }
           }
         })
-        .catch((error) => {
+        .catch(() => {
           res.status(500).json({
             status: 'error',
             message: 'Internal server error occured! Please try again later',
-            error,
           });
         });
     }
@@ -104,7 +102,7 @@ class Auth {
                   token,
                 });
               })
-              .catch((firstError) => {
+              .catch(() => {
                 res.status(500).json({
                   status: 'error',
                   message: 'Internal server error occured! Please try again later',
@@ -112,7 +110,7 @@ class Auth {
               });
           }
         })
-        .catch((secondError) => {
+        .catch(() => {
           res.status(500).json({
             status: 'error',
             message: 'Internal server error occured! Please try again later',

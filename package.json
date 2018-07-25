@@ -5,7 +5,7 @@
   "main": "dist/app.js",
   "scripts": {
     "serve": "nodemon ./dist/app.js",
-    "test": "cross-env NODE_ENV=test --reporter=html --reporter=text mocha --compilers js:babel-core/register src/test/* --exit --timeout 3000",
+    "test": "cross-env NODE_ENV=Test --reporter=html --reporter=text mocha --compilers js:babel-core/register src/test/* --exit --timeout 3000",
     "clean": "rimraf dist/",
     "create:enum": "babel-node ./src/database/migrations/create_request_enum.js -presets es2015",
     "create:users": "babel-node ./src/database/migrations/create_users_table.js -presets es2015",

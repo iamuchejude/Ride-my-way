@@ -1,6 +1,8 @@
 import validateEmail from './../../util/validate_email';
 
 const validate = (req, res, next) => {
+  console.log(req);
+
   if (!req.body.name || req.body.name === null || req.body.name === undefined) {
     res.status(403).json({
       status: 'error',

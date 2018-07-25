@@ -8,17 +8,17 @@ export default class Users {
         if (firstResult.rowCount < 1) {
           res.status(200).json({
             status: 'success',
-            message: 'No User found',
+            message: 'No user found',
           });
         } else {
           res.status(200).json({
             status: 'success',
-            message: 'Users found',
-            user: firstResult.rows,
+            message: `${firstResult.rowCount} user(s) found`,
+            users: firstResult.rows,
           });
         }
       })
-      .catch((error) => {
+      .catch(() => {
         res.status(500).json({
           status: 'error',
           message: 'Internal server error. Please try again later',
@@ -37,12 +37,12 @@ export default class Users {
         } else {
           res.status(200).json({
             status: 'success',
-            message: 'User was found',
+            message: 'User found',
             user: firstResult.rows[0],
           });
         }
       })
-      .catch((error) => {
+      .catch(() => {
         res.status(500).json({
           status: 'error',
           message: 'Internal server error. Please try again later',
@@ -87,7 +87,7 @@ export default class Users {
                   user: resultTwo.rows[0],
                 });
               })
-              .catch((erorTwo) => {
+              .catch(() => {
                 res.status(500).json({
                   status: 'error',
                   message: 'Internal server error. Please try again later',
@@ -104,7 +104,7 @@ export default class Users {
                 user: resultThree.rows[0],
               });
             })
-            .catch((errorThree) => {
+            .catch(() => {
               res.status(500).json({
                 status: 'error',
                 message: 'Internal server error. Please try again later',
@@ -120,13 +120,13 @@ export default class Users {
           } else {
             const hashedPassword = bcrypt.hashSync(password.trim(), 8);
             db.query('UPDATE users SET password=$1 WHERE id=$2', [hashedPassword, req.params.id])
-              .then((resultThree) => {
+              .then(() => {
                 res.status(200).json({
                   status: 'success',
                   message: 'Password updated successfully',
                 });
               })
-              .catch((errorThree) => {
+              .catch(() => {
                 res.status(500).json({
                   status: 'error',
                   message: 'Internal server error. Please try again later',
@@ -135,7 +135,7 @@ export default class Users {
           }
         }
       })
-      .catch((errorOne) => {
+      .catch((e) => {
         res.status(500).json({
           status: 'error',
           message: 'Internal server error. Please try again later',

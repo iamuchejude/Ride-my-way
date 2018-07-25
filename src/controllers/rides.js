@@ -8,20 +8,13 @@ class Rides {
   static getAllRideOffers(req, res) {
     db.query('SELECT * FROM ride_offers')
       .then((result) => {
-        if (result.rowCount < 1) {
-          res.status(404).json({
-            status: 'error',
-            message: 'No Ride Offer Available',
-          });
-        } else {
-          res.status(200).json({
-            status: 'success',
-            message: 'Returning all available ride offers',
-            rides: result.rows,
-          });
-        }
+        res.status(200).json({
+          status: 'success',
+          message: `${result.rowCount} ride offer(s) found`,
+          rides: result.rows,
+        });
       })
-      .catch((error) => {
+      .catch(() => {
         res.status(500).json({
           status: 'error',
           message: 'Internal server error. Please try again later',
@@ -33,19 +26,18 @@ class Rides {
     db.query('SELECT * FROM ride_offers WHERE id=$1', [req.params.id])
       .then((result) => {
         if (result.rowCount < 1) {
-          res.status(404).json({
+          return res.status(404).json({
             status: 'error',
             message: 'Ride was not found',
           });
-        } else {
-          res.status(200).json({
-            status: 'success',
-            message: 'Returning ride offer',
-            ride: result.rows[0],
-          });
         }
+        res.status(200).json({
+          status: 'success',
+          message: 'Returning ride offer',
+          ride: result.rows[0],
+        });
       })
-      .catch((error) => {
+      .catch(() => {
         res.status(500).json({
           status: 'error',
           message: 'Internal server error. Please try again later',
@@ -55,15 +47,15 @@ class Rides {
 
   static createRideOffer(req, res) {
     const {
-      userId, startFrom, destination, seat, departureDate, departureTime,
+      startLocation, destination, seats, departureDate, departureTime,
     } = req.body;
-    const query = 'INSERT INTO ride_offers(id, user_id, start_from, destination, price, seat, departure_date, departure_time, updated_at, created_at) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *';
+    const query = 'INSERT INTO ride_offers(id, user_id, start_from, destination, seat, departure_date, departure_time, updated_at, created_at) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *';
     const data = [
       randomstring.generate(10),
-      userId,
-      startFrom,
+      req.authData.user.id,
+      startLocation,
       destination,
-      seat,
+      seats,
       departureDate,
       departureTime,
       new Date().toISOString(),
@@ -74,11 +66,11 @@ class Rides {
       .then((result) => {
         res.status(201).json({
           status: 'success',
-          message: 'Ride offer was added successfully',
+          message: 'Ride offer was successfully added',
           ride: result.rows[0],
         });
       })
-      .catch((error) => {
+      .catch(() => {
         res.status(500).json({
           status: 'error',
           message: 'Internal server error. Please try again later',

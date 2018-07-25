@@ -6,7 +6,7 @@ node_js:
 env:
   global:
     - CC_TEST_REPORTER_ID=632b43c1e28b7b4d135a8ef761fe985fc5ecea97813660e4c682ae49479140eb
-    - DATABASE_HOST_TEST=ride_my_way_andela_test
+    - DATABASE_NAME_TEST=ride_my_way_andela_test
     - DATABASE_USER_TEST=postgres
     - DATABASE_PASSWORD_TEST=
     - DATABASE_PORT_TEST=5432

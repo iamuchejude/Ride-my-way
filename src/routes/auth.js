@@ -6,6 +6,6 @@ import registerMiddleware from './../middleware/validations/register';
 const router = express.Router();
 
 router.post('/login', loginMiddleware, Auth.login);
-router.post('/register', registerMiddleware, Auth.register);
+router.post('/signup', registerMiddleware, Auth.register);
 
 export default router;

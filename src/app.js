@@ -19,6 +19,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api/v1/rides', rideRoutes);
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/users', userRoutes);
+
 app.all('*', (req, res) => {
   res.status(404).json({
     status: 'error',

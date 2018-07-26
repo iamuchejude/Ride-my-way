@@ -31,14 +31,14 @@ class Rides {
             message: 'Ride was not found',
           });
         }
-        res.status(200).json({
+        return res.status(200).json({
           status: 'success',
           message: 'Returning ride offer',
           ride: result.rows[0],
         });
       })
       .catch(() => {
-        res.status(500).json({
+        return res.status(500).json({
           status: 'error',
           message: 'Internal server error. Please try again later',
         });
@@ -70,7 +70,7 @@ class Rides {
           ride: result.rows[0],
         });
       })
-      .catch(() => {
+      .catch((err) => {
         res.status(500).json({
           status: 'error',
           message: 'Internal server error. Please try again later',
@@ -146,19 +146,17 @@ class Rides {
                 request: result.rows[0],
               });
             })
-            .catch((error) => {
+            .catch(() => {
               res.status(500).json({
                 status: 'error',
-                error,
                 message: 'Internal server error. Please try again later',
               });
             });
         }
       })
-      .catch((error) => {
+      .catch(() => {
         res.status(500).json({
           status: 'error',
-          error,
           message: 'Internal server error. Please try again later',
         });
       });

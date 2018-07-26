@@ -41,21 +41,18 @@ const validate = (req, res, next) => {
     });
   }
 
-  const query = 'SELECT * FROM ride_offers WHERE user_id=$1, departure_date=$2 AND departure_time=$3';
-  const data = [req.authData.user.id, req.body.departureDate, req.body.departureTime];
-  db.query(query, data)
+  db.query('SELECT * FROM ride_offers WHERE user_id=$1 AND departure_time=$2 AND departure_date=$3', [req.authData.user.id, req.body.departureTime, req.body.departureDate])
     .then((result) => {
       if (result.rowCount >= 1) {
-        res.status(403).json({
+        res.status(400).json({
           status: 'error',
           message: 'You have a ride to offer at this time',
         });
       }
     })
-    .catch((err) => {
+    .catch(() => {
       res.status(500).json({
         status: 'error',
-        err,
         message: 'Internal server error. Please try again later',
       });
     });

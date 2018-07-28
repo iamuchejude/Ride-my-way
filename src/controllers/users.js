@@ -66,18 +66,17 @@ export default class Users {
             })
           } else {
             // Prepare Query String
-            let updateQuery = 'UPDATE users SET';
-            updateQuery += name !== undefined ? ' name=$1' : '';
-            updateQuery += phoneNumber !== undefined ? name !== undefined ? ', phone_number=$2' : ' phone_number=$1': '';
-            updateQuery += name !== undefined && phoneNumber !== undefined ? ' WHERE id=$3' : ' WHERE id=$2';
-            updateQuery += ' RETURNING id,';
+            let updateQuery = 'UPDATE users SET updated_at=$1,';
+            updateQuery += name !== undefined ? ' name=$2' : '';
+            updateQuery += phoneNumber !== undefined ? name !== undefined ? ', phone_number=$3' : ' phone_number=$2': '';
+            updateQuery += name !== undefined && phoneNumber !== undefined ? ' WHERE id=$4' : ' WHERE id=$3';
+            updateQuery += ' RETURNING updated_at,';
             updateQuery += name !== undefined && phoneNumber !== undefined ? ' name, phone_number' : name !== undefined ? ' name' : phoneNumber !== undefined ? ' phone_number' : '' ;
-            updateQuery += ' created_at, updated_at';
 
             // Prepare QueryData
             const updateData = name !== undefined && phoneNumber !== undefined ? [name, phoneNumber] : name !== undefined ? [name] : phoneNumber !== undefined ? [phoneNumber] : '';
 
-            db.query(updateQuery, [...updateData, req.authData.user.id])
+            db.query(updateQuery, [new Date().toISOString(), ...updateData, req.authData.user.id])
               .then((resultTwo) => {
                 res.status(200).json({
                   status: 'succes',
@@ -118,7 +117,7 @@ export default class Users {
               message: 'You cannot update another user\'s profile',
             })
           } else {
-            db.query('UPDATE users SET password=$1 WHERE id=$2', [bcrypt.hashSync(password, 8), req.params.id])
+            db.query('UPDATE users SET password=$1, updated_at=$2 WHERE id=$3', [bcrypt.hashSync(password, 8), new Date().toISOString(), req.params.id])
               .then(() => {
                 res.status(200).json({
                   status: 'success',
@@ -158,7 +157,7 @@ export default class Users {
               message: 'You cannot update another user\'s profile',
             })
           } else {
-            db.query('UPDATE users SET photo=$1 WHERE id=$2 RETURNING id, photo, created_at, updated_at', [photo, req.authData.user.id])
+            db.query('UPDATE users SET photo=$1, updated_at=$2 WHERE id=$3 RETURNING photo', [photo, new Date().toISOString(), req.authData.user.id])
               .then((resultTwo) => {
                 res.status(200).json({
                   status: 'success',

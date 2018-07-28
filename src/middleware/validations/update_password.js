@@ -1,5 +1,5 @@
 const validate = (req, res, next) => {
-  if (!req.body.password || req.body.password === undefined || req.body.password === null) {
+  if (!req.body.password || req.body.password === undefined) {
     return res.status(400).json({
       status: 'error',
       message: 'Please provide a password',

@@ -5,17 +5,16 @@ env.config();
 
 module.exports = (req, res, next) => {
   if (req.headers.authorization === undefined || req.headers.authorization === null) {
-    res.status(401).json({
+    return res.status(401).json({
       status: 'error',
       message: 'Login failed! Please login and try again',
     });
-    return false;
   }
 
   const token = req.headers.authorization.split(' ')[1].trim();
   jwt.verify(token, process.env.JWT_SECRET_TOKEN, (error, decoded) => {
     if (error) {
-      res.status(401).json({
+      return res.status(401).json({
         status: 'error',
         message: 'Token expired! Please login again to continue',
       });

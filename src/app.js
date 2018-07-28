@@ -20,6 +20,13 @@ app.use('/api/v1/rides', rideRoutes);
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/users', userRoutes);
 
+app.all('/api/v1', (req, res) => {
+  res.status(200).json({
+    status: 'success',
+    message: 'Welcome to Ride My Way API',
+  })
+})
+
 app.all('*', (req, res) => {
   res.status(404).json({
     status: 'error',

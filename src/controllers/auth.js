@@ -80,7 +80,7 @@ class Auth {
             const uid = randomstring.generate(10);
 
             const userData = [uid, name, email, ecryptedPassword, 'avatar.png', new Date().toISOString(), new Date().toISOString()];
-            const query = 'INSERT INTO users(id, name, email, password, photo, updated_at, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *';
+            const query = 'INSERT INTO users(id, name, email, password, photo, updated_at, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id, name, email, phone_number, photo, updated_at, created_at';
 
             db.query(query, userData)
               .then((secondResult) => {
@@ -90,15 +90,7 @@ class Auth {
                 res.status(201).json({
                   status: 'success',
                   message: 'Registration successful!',
-                  user: {
-                    id: secondResult.rows[0].id,
-                    name: secondResult.rows[0].name,
-                    email: secondResult.rows[0].email,
-                    phone_number: secondResult.rows[0].phone_number,
-                    photo: secondResult.rows[0].photo,
-                    updated_at: secondResult.rows[0].updated_at,
-                    created_at: secondResult.rows[0].created_at,
-                  },
+                  user: secondResult.rows[0],
                   token,
                 });
               })

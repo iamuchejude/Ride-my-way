@@ -41,6 +41,16 @@ const validate = (req, res, next) => {
     });
   }
 
+  const date_provided = Date.parse(req.body.departureDate);
+  const current_date = Date.parse(new Date());
+
+  if (date_provided < current_date) {
+    return res.status(403).json({
+      status: 'error',
+      message: 'Please provide a future date as Date of Departure',
+    });
+  }
+
   db.query('SELECT * FROM ride_offers WHERE user_id=$1 AND departure_time=$2 AND departure_date=$3', [req.authData.user.id, req.body.departureTime, req.body.departureDate])
     .then((result) => {
       if (result.rowCount >= 1) {

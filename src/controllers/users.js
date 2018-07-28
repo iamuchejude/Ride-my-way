@@ -8,7 +8,7 @@ export default class Users {
         if (firstResult.rowCount < 1) {
           res.status(200).json({
             status: 'success',
-            message: 'No user found',
+            message: 'No User found',
           });
         } else {
           res.status(200).json({
@@ -32,7 +32,7 @@ export default class Users {
         if (firstResult.rowCount < 1) {
           res.status(404).json({
             status: 'error',
-            message: 'User not found',
+            message: 'User does not exist',
           });
         } else {
           res.status(200).json({
@@ -50,39 +50,37 @@ export default class Users {
       });
   }
 
-  static updateOneUser(req, res) {
-    const loggedUserId = req.authData.user.id;
-    const { id, data } = req.params;
-
+  static updateUserProfile(req, res) {
+    const { name, phoneNumber } = req.body;
     db.query('SELECT * FROM users WHERE id=$1', [req.params.id])
       .then((resultOne) => {
-        if (resultOne.rowCount < 1) {
+        if(resultOne.rowCount < 1) {
           res.status(404).json({
-            status: 'error',
-            message: 'User does not exist',
+            status: 'User does not exist',
           });
-        } else if (id !== loggedUserId) {
-          res.status(403).json({
-            status: 'error',
-            message: 'You don\'t have permission to update this user',
-          });
-        } else if (data === undefined) {
-          const { name, phoneNumber } = req.body;
-          if (req.body.email !== undefined) {
+        } else {
+          if (req.params.id !== req.authData.user.id) {
             res.status(400).json({
-              status: 'error',
-              message: 'Sorry, you cannot update email address',
-            });
-          } else if ((name === undefined) || (phoneNumber === undefined)) {
-            res.status(400).json({
-              status: 'error',
-              message: 'All fields are required',
-            });
+              status: 'success',
+              message: 'You cannot update another user\'s profile',
+            })
           } else {
-            db.query('UPDATE users SET name=$1, phone_number=$2 WHERE id=$3 RETURNING *', [name, phoneNumber, req.params.id])
+            // Prepare Query String
+            let updateQuery = 'UPDATE users SET';
+            updateQuery += name !== undefined ? ' name=$1' : '';
+            updateQuery += phoneNumber !== undefined ? name !== undefined ? ', phone_number=$2' : ' phone_number=$1': '';
+            updateQuery += name !== undefined && phoneNumber !== undefined ? ' WHERE id=$3' : ' WHERE id=$2';
+            updateQuery += ' RETURNING id,';
+            updateQuery += name !== undefined && phoneNumber !== undefined ? ' name, phone_number' : name !== undefined ? ' name' : phoneNumber !== undefined ? ' phone_number' : '' ;
+            updateQuery += ' created_at, updated_at';
+
+            // Prepare QueryData
+            const updateData = name !== undefined && phoneNumber !== undefined ? [name, phoneNumber] : name !== undefined ? [name] : phoneNumber !== undefined ? [phoneNumber] : '';
+
+            db.query(updateQuery, [...updateData, req.authData.user.id])
               .then((resultTwo) => {
                 res.status(200).json({
-                  status: 'success',
+                  status: 'succes',
                   message: 'Profile updated successfully',
                   user: resultTwo.rows[0],
                 });
@@ -92,54 +90,96 @@ export default class Users {
                   status: 'error',
                   message: 'Internal server error. Please try again later',
                 });
-              });
-          }
-        } else if (data === 'photo') {
-          const photo = req.body.photo === undefined || req.body.photo.trim().length < 1 ? 'avatar.png' : req.body.photo;
-          db.query('UPDATE users SET photo=$1 WHERE id=$2 RETURNING *', [photo, req.params.id])
-            .then((resultThree) => {
-              res.status(200).json({
-                status: 'success',
-                message: 'Photo updated successfully',
-                user: resultThree.rows[0],
-              });
-            })
-            .catch(() => {
-              res.status(500).json({
-                status: 'error',
-                message: 'Internal server error. Please try again later',
-              });
-            });
+              })
+          } 
+        }
+      })
+      .catch(() => {
+        res.status(500).json({
+          status: 'error',
+          message: 'Internal server error. Please try again later',
+        });
+      })
+  }
+
+  static updateUserPassword(req, res) {
+    const { password } = req.body;
+    db.query('SELECT * FROM users WHERE id=$1', [req.params.id])
+      .then((resultOne) => {
+        if (resultOne.rowCount < 1) {
+          res.status(404).json({
+            status: 'error',
+            message: 'User does not exist',
+          });
         } else {
-          const { password } = req.body;
-          if (password === undefined || password.trim().length < 1) {
+          if (req.params.id !== req.authData.user.id) {
             res.status(400).json({
-              status: 'error',
-              message: 'Password is required',
-            });
+              status: 'success',
+              message: 'You cannot update another user\'s profile',
+            })
           } else {
-            const hashedPassword = bcrypt.hashSync(password.trim(), 8);
-            db.query('UPDATE users SET password=$1 WHERE id=$2', [hashedPassword, req.params.id])
+            db.query('UPDATE users SET password=$1 WHERE id=$2', [bcrypt.hashSync(password, 8), req.params.id])
               .then(() => {
                 res.status(200).json({
                   status: 'success',
                   message: 'Password updated successfully',
-                });
+                })
               })
               .catch(() => {
                 res.status(500).json({
                   status: 'error',
                   message: 'Internal server error. Please try again later',
                 });
-              });
+              })
           }
         }
       })
-      .catch((e) => {
+      .catch(() => {
         res.status(500).json({
           status: 'error',
           message: 'Internal server error. Please try again later',
         });
-      });
+      })
+  }
+
+  static updateUserPhoto(req, res) {
+    const { photo } = req.body;
+    db.query('SELECT * FROM users WHERE id=$1', [req.params.id])
+      .then((resultOne) => {
+        if (resultOne.rowCount < 1) {
+          res.status(404).json({
+            status: 'error',
+            message: 'User does not exist',
+          });
+        } else {
+          if (req.params.id !== req.authData.user.id) {
+            res.status(400).json({
+              status: 'success',
+              message: 'You cannot update another user\'s profile',
+            })
+          } else {
+            db.query('UPDATE users SET photo=$1 WHERE id=$2 RETURNING id, photo, created_at, updated_at', [photo, req.authData.user.id])
+              .then((resultTwo) => {
+                res.status(200).json({
+                  status: 'success',
+                  message: 'Profile photo updated successfully!',
+                  user: resultTwo.rows[0],
+                })
+              })
+              .catch(() => {
+                res.status(500).json({
+                  status: 'error',
+                  message: 'Internal server error. Please try again later',
+                });
+              })
+          }
+        }
+      })
+      .catch(() => {
+        res.status(500).json({
+          status: 'error',
+          message: 'Internal server error. Please try again later',
+        });
+      })
   }
 }

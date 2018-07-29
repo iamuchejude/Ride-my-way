@@ -18,7 +18,7 @@ app.use(cors());
 app.use(logger('dev'));
 app.use(bodyParser.json({ type: 'application/*+json' }));
 app.use(bodyParser.urlencoded({ extended: true }));
-
+app.use('/assets', express.static(path.resolve(__dirname, 'docs')));
 
 app.all('/api/v1', (req, res) => {
   res.status(200).json({
@@ -26,16 +26,12 @@ app.all('/api/v1', (req, res) => {
     message: 'Welcome to Ride My Way API',
   })
 })
-
 app.use('/api/v1/rides', rideRoutes);
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/users', userRoutes);
-
-// Documentation
 app.get('/api/v1/docs', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'docs/index.html'));
 });
-
 app.all('*', (req, res) => {
   res.status(404).json({
     status: 'error',

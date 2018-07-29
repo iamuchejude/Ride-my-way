@@ -3,7 +3,7 @@ import db from '../database/connection';
 
 export default class Users {
   static getAllUsers(req, res) {
-    db.query('SELECT * FROM users')
+    db.query('SELECT id, name, email, phone_number, photo, updated_at, created_at FROM users')
       .then((firstResult) => {
         if (firstResult.rowCount < 1) {
           res.status(200).json({
@@ -27,7 +27,7 @@ export default class Users {
   }
 
   static getOneUser(req, res) {
-    db.query('SELECT * FROM users WHERE id=$1', [req.params.id])
+    db.query('SELECT id, name, email, phone_number, photo, updated_at, created_at FROM users WHERE id=$1', [req.params.id])
       .then((firstResult) => {
         if (firstResult.rowCount < 1) {
           res.status(404).json({

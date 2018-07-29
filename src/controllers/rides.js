@@ -221,7 +221,7 @@ class Rides {
       });
   }
 
-  static acceptOrRejectRequest(req, res) {
+  static respondToRideOfferRequest(req, res) {
     const { status } = req.body;
 
     db.query('SELECT * FROM ride_offers WHERE id=$1', [req.params.rideId])

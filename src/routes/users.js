@@ -18,6 +18,6 @@ router.put('/:id/password', checkAuth, updatePasswordValidation, Users.updateUse
 router.put('/:id/photo', checkAuth, updatePhotoValidation, Users.updateUserPhoto);
 router.post('/rides', checkAuth, createRideValidation, Rides.createRideOffer);
 router.get('/rides/:id/requests', checkAuth, Rides.getRideOfferRequestsForOneRide);
-router.put('/rides/:rideId/requests/:requestId', checkAuth, rideRequestValidation, Rides.acceptOrRejectRequest);
+router.put('/rides/:rideId/requests/:requestId', checkAuth, rideRequestValidation, Rides.respondToRideOfferRequest);
 
 export default router;

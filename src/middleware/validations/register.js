@@ -10,7 +10,7 @@ const validate = (req, res, next) => {
 
   const hasNumberAndSpecialCharacters = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?0-9?]/;
   if (hasNumberAndSpecialCharacters.test(req.body.name)) {
-    return tres.status(403).json({
+    return res.status(403).json({
       status: 'error',
       message: 'Name must contain only alphabets and spaces',
     });

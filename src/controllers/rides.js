@@ -143,12 +143,13 @@ class Rides {
                 randomstring.generate(10),
                 req.params.id,
                 req.authData.user.id,
+                req.authData.user.name,
                 'pending',
                 new Date().toISOString(),
                 new Date().toISOString(),
               ];
 
-              db.query('INSERT INTO ride_offer_requests(id, ride_id, user_id, status, updated_at, created_at) VALUES($1, $2, $3, $4, $5, $6) RETURNING *', data)
+              db.query('INSERT INTO ride_offer_requests(id, ride_id, user_id, user_name, status, updated_at, created_at) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *', data)
                 .then((result) => {
                   res.status(201).json({
                     status: 'success',

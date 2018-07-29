@@ -30,7 +30,7 @@ app.use('/api/v1/rides', rideRoutes);
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/users', userRoutes);
 app.get('/api/v1/docs', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'docs/index.html'));
+  res.sendFile(path.resolve(__dirname, './../docs/index.html'));
 });
 app.all('*', (req, res) => {
   res.status(404).json({

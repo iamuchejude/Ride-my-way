@@ -18,7 +18,7 @@ app.use(cors());
 app.use(logger('dev'));
 app.use(bodyParser.json({ type: 'application/*+json' }));
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use('/assets', express.static(path.resolve(__dirname, 'docs')));
+app.use('/assets', express.static(path.resolve(__dirname, '../docs')));
 
 app.all('/api/v1', (req, res) => {
   res.status(200).json({
@@ -44,3 +44,5 @@ app.listen(port, () => {
 });
 
 export default app;
+
+console.log(path.resolve(__dirname, '../docs'));

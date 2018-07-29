@@ -1,7 +1,7 @@
 {
   "name": "ride-my-way",
   "version": "1.0.0",
-  "description": "Ride-my-way App with Data Structure for Storage",
+  "description": "Ride My Way APP API",
   "main": "dist/app.js",
   "scripts": {
     "serve": "nodemon ./dist/app.js",
@@ -13,7 +13,7 @@
     "create:rideOfferRequests": "babel-node ./src/database/migrations/create_ride_offer_requests_table.js -presets es2015",
     "migrate": "npm run create:enum && npm run create:users, npm run create:rideOffers && npm run create:rideOfferRequests",
     "build": "npm run clean && mkdir dist && npm run build:dev",
-    "build:dev": "babel src -d dist && babel --presets es2015 src -d dist",
+    "build:dev": "babel src -d dist && babel --presets es2015 src -d dist --ignore ./src/test",
     "serve:dev": "nodemon ./src/app.js --exec babel-node",
     "lint": "eslint ./ --fix",
     "start": "npm run build && npm run serve",

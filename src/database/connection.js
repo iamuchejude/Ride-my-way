@@ -33,7 +33,6 @@ if (process.env.NODE_ENV === 'Test') {
   console.log('Please specify development environment in .env file');
 }
 
-
 const db = new pg.Pool(config);
 
 module.exports = db;

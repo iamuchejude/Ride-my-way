@@ -5,18 +5,11 @@ export default class Users {
   static getAllUsers(req, res) {
     db.query('SELECT id, name, email, phone_number, photo, updated_at, created_at FROM users')
       .then((firstResult) => {
-        if (firstResult.rowCount < 1) {
-          res.status(200).json({
-            status: 'success',
-            message: 'No User found',
-          });
-        } else {
-          res.status(200).json({
-            status: 'success',
-            message: `${firstResult.rowCount} user(s) found`,
-            users: firstResult.rows,
-          });
-        }
+        res.status(200).json({
+          status: 'success',
+          message: `${firstResult.rowCount} user(s) found`,
+          users: firstResult.rows,
+        });
       })
       .catch(() => {
         res.status(500).json({
@@ -32,7 +25,7 @@ export default class Users {
         if (firstResult.rowCount < 1) {
           res.status(404).json({
             status: 'error',
-            message: 'User does not exist',
+            message: 'User was not found',
           });
         } else {
           res.status(200).json({
@@ -56,16 +49,15 @@ export default class Users {
       .then((resultOne) => {
         if(resultOne.rowCount < 1) {
           res.status(404).json({
-            status: 'User does not exist',
+            status: 'User was not found',
           });
         } else {
           if (req.params.id !== req.authData.user.id) {
-            res.status(400).json({
+            res.status(401).json({
               status: 'success',
               message: 'You cannot update another user\'s profile',
             })
           } else {
-            // Prepare Query String
             let updateQuery = 'UPDATE users SET updated_at=$1,';
             updateQuery += name !== undefined ? ' name=$2' : '';
             updateQuery += phoneNumber !== undefined ? name !== undefined ? ', phone_number=$3' : ' phone_number=$2': '';
@@ -73,7 +65,6 @@ export default class Users {
             updateQuery += ' RETURNING updated_at,';
             updateQuery += name !== undefined && phoneNumber !== undefined ? ' name, phone_number' : name !== undefined ? ' name' : phoneNumber !== undefined ? ' phone_number' : '' ;
 
-            // Prepare QueryData
             const updateData = name !== undefined && phoneNumber !== undefined ? [name, phoneNumber] : name !== undefined ? [name] : phoneNumber !== undefined ? [phoneNumber] : '';
 
             db.query(updateQuery, [new Date().toISOString(), ...updateData, req.authData.user.id])
@@ -108,11 +99,11 @@ export default class Users {
         if (resultOne.rowCount < 1) {
           res.status(404).json({
             status: 'error',
-            message: 'User does not exist',
+            message: 'User was not found',
           });
         } else {
           if (req.params.id !== req.authData.user.id) {
-            res.status(400).json({
+            res.status(401).json({
               status: 'success',
               message: 'You cannot update another user\'s profile',
             })
@@ -148,11 +139,11 @@ export default class Users {
         if (resultOne.rowCount < 1) {
           res.status(404).json({
             status: 'error',
-            message: 'User does not exist',
+            message: 'User was not found',
           });
         } else {
           if (req.params.id !== req.authData.user.id) {
-            res.status(400).json({
+            res.status(401).json({
               status: 'success',
               message: 'You cannot update another user\'s profile',
             })

@@ -43,7 +43,7 @@ class Auth {
                 if (error) {
                   res.status(500).json({
                     status: 'error',
-                    message: 'Login failed! Please try again later',
+                    message: 'Unexpected error occured. Please try again later',
                   });
                 } else {
                   res.status(200).json({
@@ -77,7 +77,7 @@ class Auth {
       db.query('SELECT * FROM users WHERE email=$1', [email])
         .then((firstResult) => {
           if (firstResult.rowCount >= 1) {
-            res.status(400).json({
+            res.status(409).json({
               status: 'error',
               message: 'Email is already registered',
             });

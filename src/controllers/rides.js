@@ -70,7 +70,7 @@ class Rides {
           ride: result.rows[0],
         });
       })
-      .catch((err) => {
+      .catch(() => {
         res.status(500).json({
           status: 'error',
           message: 'Internal server error. Please try again later',
@@ -89,20 +89,13 @@ class Rides {
           });
         } else {
           db.query('DELETE FROM ride_offers WHERE id=$1', [req.params.id])
-            .then((result) => {
-              if (result.rowCount < 1) {
-                res.status(200).json({
-                  status: 'error',
-                  message: 'Ride Offer could not be deleted',
-                });
-              } else {
+            .then(() => {
                 res.status(200).json({
                   status: 'success',
                   message: 'Ride Offer was deleted successfully',
                 });
-              }
             })
-            .catch((error) => {
+            .catch(() => {
               res.status(500).json({
                 status: 'error',
                 message: 'Internal server error. Please try again later',
@@ -128,13 +121,13 @@ class Rides {
           });
         } else {
           if(result.rows[0].user_id === req.authData.user.id) {
-            res.status(401).json({
+            res.status(400).json({
               status: 'error',
               message: 'You cannot request for your Ride Offer',
             });
           } else {
             if (result.rows[0].seat < 1) {
-              res.status(401).json({
+              res.status(400).json({
                 status: 'error',
                 message: 'No available seat! You cannot request for this Ride Offer',
               });
@@ -205,7 +198,7 @@ class Rides {
                   });
                 }
               })
-              .catch((error) => {
+              .catch(() => {
                 res.status(500).json({
                   status: 'error',
                   message: 'Internal server error. Please try again later',
@@ -242,13 +235,13 @@ class Rides {
                 });
               } else {
                 if (resultOne.rows[0].user_id !== req.authData.user.id) {
-                  res.status(401).json({
+                  res.status(403).json({
                     status: 'error',
                     message: 'You cannot accept or reject a Requests for a Ride you did not offer',
                   });
                 } else {
                   if (resultTwo.rows[0].status !== 'pending') {
-                    res.status(401).json({
+                    res.status(400).json({
                       status: 'error',
                       message: 'You cannot respond to this Ride Offer Request again',
                     });

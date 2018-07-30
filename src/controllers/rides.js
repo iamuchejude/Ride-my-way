@@ -8,20 +8,13 @@ class Rides {
   static getAllRideOffers(req, res) {
     db.query('SELECT * FROM ride_offers')
       .then((result) => {
-        if (result.rowCount < 1) {
-          res.status(404).json({
-            status: 'error',
-            message: 'No Ride Offer Available',
-          });
-        } else {
-          res.status(200).json({
-            status: 'success',
-            message: 'Returning all available ride offers',
-            rides: result.rows,
-          });
-        }
+        res.status(200).json({
+          status: 'success',
+          message: `${result.rowCount} ride offer(s) found`,
+          rides: result.rows,
+        });
       })
-      .catch((error) => {
+      .catch(() => {
         res.status(500).json({
           status: 'error',
           message: 'Internal server error. Please try again later',
@@ -33,37 +26,36 @@ class Rides {
     db.query('SELECT * FROM ride_offers WHERE id=$1', [req.params.id])
       .then((result) => {
         if (result.rowCount < 1) {
-          res.status(404).json({
+          return res.status(404).json({
             status: 'error',
-            message: 'Ride was not found',
-          });
-        } else {
-          res.status(200).json({
-            status: 'success',
-            message: 'Returning ride offer',
-            ride: result.rows[0],
+            message: 'Ride Offer does not exist',
           });
         }
+        return res.status(200).json({
+          status: 'success',
+          message: 'Ride Offer found',
+          ride: result.rows[0],
+        });
       })
-      .catch((error) => {
-        res.status(500).json({
+      .catch(() => {
+        return res.status(500).json({
           status: 'error',
           message: 'Internal server error. Please try again later',
         });
       });
   }
 
-  static createRideOffer(req, res) {
+  static createRideOffer(req, res) { 
     const {
-      userId, startFrom, destination, seat, departureDate, departureTime,
+      startLocation, destination, seats, departureDate, departureTime,
     } = req.body;
-    const query = 'INSERT INTO ride_offers(id, user_id, start_from, destination, price, seat, departure_date, departure_time, updated_at, created_at) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *';
+    const query = 'INSERT INTO ride_offers(id, user_id, start_from, destination, seat, departure_date, departure_time, updated_at, created_at) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *';
     const data = [
       randomstring.generate(10),
-      userId,
-      startFrom,
+      req.authData.user.id,
+      startLocation,
       destination,
-      seat,
+      seats,
       departureDate,
       departureTime,
       new Date().toISOString(),
@@ -74,11 +66,11 @@ class Rides {
       .then((result) => {
         res.status(201).json({
           status: 'success',
-          message: 'Ride offer was added successfully',
+          message: 'Ride offer was successfully created',
           ride: result.rows[0],
         });
       })
-      .catch((error) => {
+      .catch((err) => {
         res.status(500).json({
           status: 'error',
           message: 'Internal server error. Please try again later',
@@ -88,13 +80,12 @@ class Rides {
 
   static deleteOneRideOffer(req, res) {
     const user_id = req.authData.user.id;
-
     db.query('SELECT * FROM ride_offers WHERE id=$1', [req.params.id])
       .then((result) => {
-        if (user_id !== result.rows[0].user_id) {
+        if (result.rows[0].user_id !== user_id) {
           res.status(403).json({
             status: 'error',
-            message: 'You don\'t have permission to delete this ride offer',
+            message: 'You don\'t have permission to delete this Ride Offer',
           });
         } else {
           db.query('DELETE FROM ride_offers WHERE id=$1', [req.params.id])
@@ -102,12 +93,12 @@ class Rides {
               if (result.rowCount < 1) {
                 res.status(200).json({
                   status: 'error',
-                  message: 'Ride offer could not be deleted',
+                  message: 'Ride Offer could not be deleted',
                 });
               } else {
                 res.status(200).json({
                   status: 'success',
-                  message: 'Ride offer was deleted successfully',
+                  message: 'Ride Offer was deleted successfully',
                 });
               }
             })
@@ -127,98 +118,8 @@ class Rides {
       });
   }
 
-
   static createRideOfferRequest(req, res) {
     db.query('SELECT * FROM ride_offers WHERE id=$1', [req.params.id])
-      .then((result) => {
-        if (result.rowCount < 1) {
-          res.status(404).json({
-            status: 'error',
-            message: 'Ride offer does not exist',
-          });
-        } else {
-          const data = [
-            randomstring.generate(10),
-            req.params.id,
-            req.authData.user.id,
-            'pending',
-            new Date().toISOString(),
-            new Date().toISOString(),
-          ];
-
-          db.query('INSERT INTO ride_offer_requests(id, ride_id, user_id, status, updated_at, created_at) VALUES($1, $2, $3, $4, $5, $6) RETURNING *', data)
-            .then((result) => {
-              res.status(201).json({
-                status: 'success',
-                message: 'Request was successfully made',
-                request: result.rows[0],
-              });
-            })
-            .catch((error) => {
-              res.status(500).json({
-                status: 'error',
-                error,
-                message: 'Internal server error. Please try again later',
-              });
-            });
-        }
-      })
-      .catch((error) => {
-        res.status(500).json({
-          status: 'error',
-          error,
-          message: 'Internal server error. Please try again later',
-        });
-      });
-  }
-
-  static getRideOfferRequestsForOneRide(req, res) {
-    // Check if Ride Offer is existing
-    db.query('SELECT * FROM ride_offers WHERE id=$1', [req.params.id])
-      .then((result) => {
-        if (result.rowCount < 1) {
-          res.status(404).json({
-            status: 'error',
-            message: 'Ride does not exist.',
-          });
-        } else {
-          db.query('SELECT * FROM ride_offer_requests WHERE ride_id=$1', [req.params.id])
-            .then((result) => {
-              if (result.rowCount < 1) {
-                res.status(404).json({
-                  status: 'error',
-                  message: 'No request for this ride',
-                });
-              } else {
-                res.status(200).json({
-                  status: 'success',
-                  message: 'Available Ride requests for this ride offer',
-                  requests: result.rows,
-                });
-              }
-            })
-            .catch((error) => {
-              res.status(500).json({
-                status: 'error',
-                message: 'Internal server error. Please try again later',
-              });
-            });
-        }
-      })
-      .catch((error) => {
-        res.status(500).json({
-          status: 'error',
-          message: 'Internal server error. Please try again later',
-        });
-      });
-  }
-
-  static acceptOrRejectRequest(req, res) {
-    const { status } = req.body;
-    let ride_offer;
-    let ride_requests;
-
-    db.query('SELECT * FROM ride_offers WHERE id=$1', [req.params.ride_id])
       .then((result) => {
         if (result.rowCount < 1) {
           res.status(404).json({
@@ -226,73 +127,181 @@ class Rides {
             message: 'Ride Offer does not exist',
           });
         } else {
-          ride_offer = result.rows[0];
-          db.query('SELECT * FROM ride_offer_requests WHERE id=$1', [req.params.request_id])
-            .then((result) => {
-              if (result.rowCount < 1) {
+          if(result.rows[0].user_id === req.authData.user.id) {
+            res.status(401).json({
+              status: 'error',
+              message: 'You cannot request for your Ride Offer',
+            });
+          } else {
+            if (result.rows[0].seat < 1) {
+              res.status(401).json({
+                status: 'error',
+                message: 'No available seat! You cannot request for this Ride Offer',
+              });
+            } else {
+              const data = [
+                randomstring.generate(10),
+                req.params.id,
+                req.authData.user.id,
+                'pending',
+                new Date().toISOString(),
+                new Date().toISOString(),
+              ];
+
+              db.query('INSERT INTO ride_offer_requests(id, ride_id, user_id, status, updated_at, created_at) VALUES($1, $2, $3, $4, $5, $6) RETURNING *', data)
+                .then((result) => {
+                  res.status(201).json({
+                    status: 'success',
+                    message: 'Request was successfully made',
+                    request: result.rows[0],
+                  });
+                })
+                .catch(() => {
+                  res.status(500).json({
+                    status: 'error',
+                    message: 'Internal server error. Please try again later',
+                  });
+                });
+            }
+          }
+        }
+      })
+      .catch(() => {
+        res.status(500).json({
+          status: 'error',
+          message: 'Internal server error. Please try again later',
+        });
+      });
+  }
+
+  static getRideOfferRequestsForOneRide(req, res) {
+    db.query('SELECT * FROM ride_offers WHERE id=$1', [req.params.id])
+      .then((resultOne) => {
+        if (resultOne.rowCount < 1) {
+          res.status(404).json({
+            status: 'error',
+            message: 'Ride Offer does not exist',
+          });
+        } else {
+          if(resultOne.rows[0].user_id !== req.authData.user.id) {
+            res.status(401).json({
+              status: 'error',
+              message: 'You can not view Requests for a Ride Offer you did not create'
+            })
+          } else {
+            db.query('SELECT * FROM ride_offer_requests WHERE ride_id=$1', [req.params.id])
+              .then((result) => {
+                if (result.rowCount < 1) {
+                  res.status(404).json({
+                    status: 'error',
+                    message: 'No Request was found for this Ride Offer',
+                  });
+                } else {
+                  res.status(200).json({
+                    status: 'success',
+                    message: `Showing ${result.rowCount} Request(s) for this Ride Offer`,
+                    requests: result.rows,
+                  });
+                }
+              })
+              .catch((error) => {
+                res.status(500).json({
+                  status: 'error',
+                  message: 'Internal server error. Please try again later',
+                });
+              });
+          }
+        }
+      })
+      .catch((error) => {
+        res.status(500).json({
+          status: 'error',
+          message: 'Internal server error. Please try again later',
+        });
+      });
+  }
+
+  static respondToRideOfferRequest(req, res) {
+    const { status } = req.body;
+
+    db.query('SELECT * FROM ride_offers WHERE id=$1', [req.params.rideId])
+      .then((resultOne) => {
+        if (resultOne.rowCount < 1) {
+          res.status(404).json({
+            status: 'error',
+            message: 'Ride Offer does not exist',
+          });
+        } else {
+          db.query('SELECT * FROM ride_offer_requests WHERE id=$1', [req.params.requestId])
+            .then((resultTwo) => {
+              if (resultTwo.rowCount < 1) {
                 res.status(404).json({
                   status: 'error',
-                  message: 'Request does not exist',
+                  message: 'Ride Offer Requests does not exist',
                 });
               } else {
-                ride_requests = result.rows[0];
-                if (ride_offer.user_id !== req.authData.user.id) {
-                  res.status(403).json({
+                if (resultOne.rows[0].user_id !== req.authData.user.id) {
+                  res.status(401).json({
                     status: 'error',
-                    message: 'You don\'t have permission to accept or reject this ride',
+                    message: 'You cannot accept or reject a Requests for a Ride you did not offer',
                   });
-                } else if (status === 'accepted') {
-                  db.query('SELECT seat FROM ride_offers WHERE id=$1', [req.params.ride_id])
-                    .then((sres) => {
-                      if (parseInt(sres.rows[0].seat, 10) < 1) {
+                } else {
+                  if (resultTwo.rows[0].status !== 'pending') {
+                    res.status(401).json({
+                      status: 'error',
+                      message: 'You cannot respond to this Ride Offer Request again',
+                    });
+                  } else {
+                    if (status === 'rejected') {
+                      db.query('UPDATE ride_offer_requests SET status=$1 WHERE id=$2', ['rejected', req.params.requestId])
+                        .then(() => {
+                          res.status(200).json({
+                            status: 'success',
+                            message: 'Request rejected',
+                          });
+                        })
+                        .catch(() => {
+                          res.status(500).json({
+                            status: 'error',
+                            message: 'Internal server error. Please try again later',
+                          });
+                        })
+                    } else if (status === 'accepted') {
+                      if (resultOne.rows[0].seat < 1) {
                         res.status(400).json({
                           status: 'error',
-                          message: 'No seats available! You can no longer accept ride offers',
+                          message: 'No seat available! You can no longer accept a Requests for this Ride Offer.',
                         });
-                      }
-                    })
-                    .catch((errE) => {
-                      res.status(500).json({
-                        status: 'error',
-                        message: 'Internal server error. Please try again later',
-                      });
-                    });
-                } else {
-                  db.query('UPDATE ride_offer_requests SET status=$1, updated_at=$2 WHERE id=$3 RETURNING *', [status, new Date().toISOString(), req.params.request_id])
-                    .then((result) => {
-                      if (status === 'accepted') {
-                        db.query('UPDATE ride_offers SET seat=seat-1 WHERE id=$1 RETURNING *', [req.params.ride_id])
-                          .then((ures) => {
-                            res.status(200).json({
-                              status: 'success',
-                              message: `Request has been ${status}`,
-                              request: ures.rows[0],
-                            });
+                      } else {
+                        db.query('UPDATE ride_offer_requests SET status=$1 WHERE id=$2', ['accepted', req.params.requestId])
+                          .then(() => {
+                            db.query('UPDATE ride_offers SET seat=seat-1 WHERE id=$1', [req.params.rideId])
+                              .then(() => {
+                                res.status(200).json({
+                                  status: 'success',
+                                  message: 'Request accepted',
+                                });
+                              })
+                              .catch(() => {
+                                res.status(500).json({
+                                  status: 'error',
+                                  message: 'Internal server error. Please try again later',
+                                });
+                              })
                           })
-                          .catch((errU) => {
+                          .catch(() => {
                             res.status(500).json({
                               status: 'error',
                               message: 'Internal server error. Please try again later',
                             });
-                          });
-                      } else {
-                        res.status(200).json({
-                          status: 'success',
-                          message: `Request has been ${status}`,
-                          request: result.rows[0],
-                        });
+                          })
                       }
-                    })
-                    .catch((error) => {
-                      res.status(500).json({
-                        status: 'error',
-                        message: 'Internal server error. Please try again later',
-                      });
-                    });
+                    }
+                  }
                 }
               }
             })
-            .catch((errorNow) => {
+            .catch(() => {
               res.status(500).json({
                 status: 'error',
                 message: 'Internal server error. Please try again later',
@@ -300,7 +309,7 @@ class Rides {
             });
         }
       })
-      .catch((error) => {
+      .catch(() => {
         res.status(500).json({
           status: 'error',
           message: 'Internal server error. Please try again later',

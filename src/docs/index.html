@@ -1,0 +1,615 @@
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Ride My Way</title>
+    <link href="/assets/stylesheets/styles.css" rel="stylesheet" media="all" />
+    <link href="/assets/stylesheets/screen.css" rel="stylesheet" media="screen" />
+    <link href="/assets/stylesheets/print.css" rel="stylesheet" media="print" />
+    <script src="/assets/javascripts/all.js"></script>
+  </head>
+
+  <body class="index" data-languages="[&quot;javascript&quot;]">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="images/navbar.png" alt="Navbar" />
+      </span>
+    </a>
+    <div class="toc-wrapper">
+      <h1>Ride My Way</h1>
+        <div class="lang-selector">
+              <a href="#" data-language-name="javascript">javascript</a>
+        </div>
+        <div class="search">
+          <input type="text" class="search" id="input-search" placeholder="Search">
+        </div>
+        <ul class="search-results"></ul>
+      <div id="toc" class="toc-list-h1">
+          <li>
+            <a href="#introduction" class="toc-h1 toc-link" data-title="introduction">Introduction</a>
+          </li>
+          <li>
+            <a href="#making-a-request" class="toc-h1 toc-link" data-title="making-a-request">Making a Request</a>
+          </li>
+          <li>
+            <a href="#authentication" class="toc-h1 toc-link" data-title="authentication">Authentication</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#user-register" class="toc-h2 toc-link" data-title="user-register">User Register</a>
+                  </li>
+                  <li>
+                    <a href="#user-login" class="toc-h2 toc-link" data-title="user-login">User Login</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#users" class="toc-h1 toc-link" data-title="users">Users</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#get-all-users" class="toc-h2 toc-link" data-title="get-all-users">Get all users</a>
+                  </li>
+                  <li>
+                    <a href="#get-a-user" class="toc-h2 toc-link" data-title="get-a-user">Get a user</a>
+                  </li>
+                  <li>
+                    <a href="#update-user-profile" class="toc-h2 toc-link" data-title="update-user-profile">Update User Profile</a>
+                  </li>
+                  <li>
+                    <a href="#update-a-user-password" class="toc-h2 toc-link" data-title="update-a-user-password">Update a User Password</a>
+                  </li>
+                  <li>
+                    <a href="#update-a-user-photo" class="toc-h2 toc-link" data-title="update-a-user-photo">Update a User Photo</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#rides" class="toc-h1 toc-link" data-title="rides">Rides</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#get-all-ride-offers" class="toc-h2 toc-link" data-title="get-all-ride-offers">Get all ride offers</a>
+                  </li>
+                  <li>
+                    <a href="#get-one-ride-offer" class="toc-h2 toc-link" data-title="get-one-ride-offer">Get one ride offer</a>
+                  </li>
+                  <li>
+                    <a href="#create-a-ride-offer" class="toc-h2 toc-link" data-title="create-a-ride-offer">Create a ride offer</a>
+                  </li>
+                  <li>
+                    <a href="#delete-a-ride-offer" class="toc-h2 toc-link" data-title="delete-a-ride-offer">Delete a ride offer</a>
+                  </li>
+                  <li>
+                    <a href="#request-for-a-ride-offer" class="toc-h2 toc-link" data-title="request-for-a-ride-offer">Request for a ride offer</a>
+                  </li>
+                  <li>
+                    <a href="#respond-to-a-request-for-a-ride-offer" class="toc-h2 toc-link" data-title="respond-to-a-request-for-a-ride-offer">Respond to a request for a ride offer</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#errors" class="toc-h1 toc-link" data-title="errors">Errors</a>
+          </li>
+      </div>
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id='introduction'>Introduction</h1>
+<p>Welcome to the Ride-my-way API. This api is used by Ride-my-way App, so a clone of the app can be easily accomplished by consuming the endoints of this API  </p>
+
+<p>This document is meant to aid you through using the API ranging from resource, updating and carrying out other actions.</p>
+
+<p>BASE URL: <code>https://ride-my-way-andela.herokuapp.com/api/v1</code>  </p>
+<h1 id='making-a-request'>Making a Request</h1>
+<p>Making request to all endpoints aside the register and login function requires a token, and to get an token, you have to consume both the register and login endpoints. The register endpoint to create a user and the login endpoint to login a user, which returns an object containing the token.<br>
+The token is set to expire after 24hours of its generation.  </p>
+
+<p>To make requests, the authorization token is to be placed in the req.headers with a <code>Bearer</code> and a whitespace prefix as it is shown below  </p>
+
+<p><code>Authorization: Bearer jsonwebtoken.requiredfor.auth2018</code>  </p>
+<h1 id='authentication'>Authentication</h1><h2 id='user-register'>User Register</h2>
+<p>Create a user  </p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>POST /auth/signup</code><br>
+<code>Content-type application/json</code>  </p>
+<h3 id='http-response'>HTTP Response</h3>
+<p><code>STATUS CODE 201</code><br>
+<code>Content-type application/json</code>  </p>
+
+<blockquote>
+<p>Request</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code>  <span class="p">{</span>
+    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"John Doe"</span><span class="p">,</span>
+    <span class="s2">"email"</span><span class="p">:</span> <span class="s2">"j.doe@gmail.com"</span><span class="p">,</span>
+    <span class="s2">"password"</span><span class="p">:</span> <span class="s2">"password"</span>
+  <span class="p">}</span>
+</code></pre>
+<blockquote>
+<p>Response</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code>  <span class="p">{</span>
+    <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"success"</span><span class="p">,</span>
+    <span class="s2">"message"</span><span class="p">:</span> <span class="s2">"Registration successful!"</span><span class="p">,</span>
+    <span class="s2">"user"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"wTJb452Lcd"</span><span class="p">,</span>
+      <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Joe Doe"</span><span class="p">,</span>
+      <span class="s2">"email"</span><span class="p">:</span> <span class="s2">"j.doe@gmail.com"</span><span class="p">,</span>
+      <span class="s2">"phone_number"</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"photo"</span><span class="p">:</span> <span class="s2">"avatar.png"</span><span class="p">,</span>
+      <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2018-07-29T13:10:05.003Z"</span><span class="p">,</span>
+      <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2018-07-29T13:10:05.003Z"</span>
+    <span class="p">},</span>
+    <span class="s2">"token"</span><span class="p">:</span> <span class="s2">"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoid1RKYjQ1MkxjZCJ9LCJpYXQiOjE1MzI4Njk4MDUsImV4cCI6MTUzMzA0MjYwNX0.dhDA3_39EB6V7l8BM2CYLfVOYFz2L0WzNXlgCLs-j_U"</span>
+  <span class="p">}</span>
+</code></pre><h2 id='user-login'>User Login</h2>
+<p>Login a user in</p>
+<h3 id='http-request-2'>HTTP Request</h3>
+<p><code>POST /auth/login</code><br>
+<code>Content-type application/json</code>  </p>
+<h3 id='http-response-2'>HTTP Response</h3>
+<p><code>STATUS CODE 200</code><br>
+<code>Content-type application/json</code>  </p>
+
+<blockquote>
+<p>Request</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code>  <span class="p">{</span>
+    <span class="s2">"email"</span><span class="p">:</span> <span class="s2">"j.does@gmail.com"</span><span class="p">,</span>
+    <span class="s2">"password"</span><span class="p">:</span> <span class="s2">"password"</span>
+  <span class="p">}</span>
+</code></pre>
+<blockquote>
+<p>Response</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code>  <span class="p">{</span>
+    <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"success"</span><span class="p">,</span>
+    <span class="s2">"message"</span><span class="p">:</span> <span class="s2">"Login successful!"</span><span class="p">,</span>
+    <span class="s2">"user"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"wTJb452Lcd"</span>
+    <span class="p">},</span>
+    <span class="s2">"token"</span><span class="p">:</span> <span class="s2">"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoid1RKYjQ1MkxjZCJ9LCJpYXQiOjE1MzI4NzAyNTksImV4cCI6MTUzMzA0MzA1OX0.8BMj5tz-dMIg0_FLlUhRmnajuOBHDoewje0CwT_TWMY"</span>
+  <span class="p">}</span>
+</code></pre><h1 id='users'>Users</h1><h2 id='get-all-users'>Get all users</h2>
+<p>Get all users </p>
+<h3 id='http-request-3'>HTTP Request</h3>
+<p><code>GET /users</code><br>
+<code>Content-type application/json</code>  </p>
+<h3 id='http-response-3'>HTTP Response</h3>
+<p><code>STATUS CODE 200</code><br>
+<code>Content-type application/json</code>  </p>
+
+<blockquote>
+<p>Response</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code>  <span class="p">{</span>
+    <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"success"</span><span class="p">,</span>
+    <span class="s2">"message"</span><span class="p">:</span> <span class="s2">"2 user(s) found"</span><span class="p">,</span>
+    <span class="s2">"users"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"LM0pLGcSam"</span><span class="p">,</span>
+          <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Uche Jude"</span><span class="p">,</span>
+          <span class="s2">"email"</span><span class="p">:</span> <span class="s2">"iamuchejude@gmail.com"</span><span class="p">,</span>
+          <span class="s2">"phone_number"</span><span class="p">:</span> <span class="s2">"08135642400"</span><span class="p">,</span>
+          <span class="s2">"photo"</span><span class="p">:</span> <span class="s2">"photo.png"</span><span class="p">,</span>
+          <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2018-07-28T08:50:09.150Z"</span><span class="p">,</span>
+          <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2018-07-25T11:40:20.523Z"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+          <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"wTJb452Lcd"</span><span class="p">,</span>
+          <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Joe Doe"</span><span class="p">,</span>
+          <span class="s2">"email"</span><span class="p">:</span> <span class="s2">"j.doe@gmail.com"</span><span class="p">,</span>
+          <span class="s2">"phone_number"</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+          <span class="s2">"photo"</span><span class="p">:</span> <span class="s2">"avatar.png"</span><span class="p">,</span>
+          <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2018-07-29T13:10:05.003Z"</span><span class="p">,</span>
+          <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2018-07-29T13:10:05.003Z"</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+  <span class="p">}</span>
+</code></pre><h2 id='get-a-user'>Get a user</h2>
+<p>Get one user  </p>
+<h3 id='http-request-4'>HTTP Request</h3>
+<p><code>GET /users/:id</code><br>
+<code>Content-type application/json</code>  </p>
+<h3 id='url-parameters'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameters</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>User id</td>
+<td><code>:id</code> should be provided as the user ID</td>
+</tr>
+</tbody></table>
+<h3 id='http-response-4'>HTTP Response</h3>
+<p><code>STATUS CODE 200</code><br>
+<code>Content-type application/json</code> </p>
+
+<blockquote>
+<p>Response</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+    <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"success"</span><span class="p">,</span>
+    <span class="s2">"message"</span><span class="p">:</span> <span class="s2">"User found"</span><span class="p">,</span>
+    <span class="s2">"user"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"wTJb452Lcd"</span><span class="p">,</span>
+      <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Joe Doe"</span><span class="p">,</span>
+      <span class="s2">"email"</span><span class="p">:</span> <span class="s2">"j.doe@gmail.com"</span><span class="p">,</span>
+      <span class="s2">"phone_number"</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"photo"</span><span class="p">:</span> <span class="s2">"avatar.png"</span><span class="p">,</span>
+      <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2018-07-29T13:10:05.003Z"</span><span class="p">,</span>
+      <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2018-07-29T13:10:05.003Z"</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+</code></pre><h2 id='update-user-profile'>Update User Profile</h2>
+<p>Update a user Profile details  </p>
+<h3 id='http-request-5'>HTTP Request</h3>
+<p><code>PUT /users/:id/profile</code><br>
+<code>Content-type application/json</code>  </p>
+<h3 id='url-parameters-2'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameters</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>User id</td>
+<td><code>:id</code> should be provided as the user ID</td>
+</tr>
+</tbody></table>
+<h3 id='http-response-5'>HTTP Response</h3>
+<p><code>STATUS CODE 200</code><br>
+<code>Content-type application/json</code> </p>
+
+<blockquote>
+<p>Request</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code>  <span class="p">{</span>
+    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"John Rowland"</span><span class="p">,</span>
+    <span class="s2">"phoneNumber"</span><span class="p">:</span> <span class="s2">"08123456789"</span><span class="p">,</span>
+  <span class="p">}</span>
+</code></pre>
+<blockquote>
+<p>Response</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code>  <span class="p">{</span>
+    <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"succes"</span><span class="p">,</span>
+    <span class="s2">"message"</span><span class="p">:</span> <span class="s2">"Profile updated successfully"</span><span class="p">,</span>
+    <span class="s2">"user"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2018-07-29T13:57:11.677Z"</span><span class="p">,</span>
+        <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"John Rowland"</span><span class="p">,</span>
+        <span class="s2">"phone_number"</span><span class="p">:</span> <span class="s2">"08123456789"</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+</code></pre><h2 id='update-a-user-password'>Update a User Password</h2>
+<p>Update a Password </p>
+<h3 id='http-request-6'>HTTP Request</h3>
+<p><code>PUT /users/:id/password</code><br>
+<code>Content-type application/json</code>  </p>
+<h3 id='url-parameters-3'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameters</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>User id</td>
+<td><code>:id</code> should be provided as the user ID</td>
+</tr>
+</tbody></table>
+<h3 id='http-response-6'>HTTP Response</h3>
+<p><code>STATUS CODE 200</code><br>
+<code>Content-type application/json</code>  </p>
+
+<blockquote>
+<p>Request</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code>  <span class="p">{</span>
+    <span class="s2">"password"</span><span class="p">:</span> <span class="s2">"rowPassword"</span>
+  <span class="p">}</span>
+</code></pre>
+<blockquote>
+<p>Response</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code>  <span class="p">{</span>
+    <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"success"</span><span class="p">,</span>
+    <span class="s2">"message"</span><span class="p">:</span> <span class="s2">"Password updated successfully"</span>
+  <span class="p">}</span>
+</code></pre><h2 id='update-a-user-photo'>Update a User Photo</h2>
+<p>Update a user profile photo  </p>
+<h3 id='http-request-7'>HTTP Request</h3>
+<p><code>PUT /users/:id/photo</code><br>
+<code>Content-type application/json</code>  </p>
+<h3 id='http-response-7'>HTTP Response</h3>
+<p><code>STATUS CODE 200</code><br>
+<code>Content-type application/json</code>  </p>
+
+<blockquote>
+<p>Request</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code>  <span class="p">{</span>
+    <span class="s2">"photo"</span><span class="p">:</span> <span class="s2">"https://images.vexels.com/media/users/3/129733/isolated/preview/a558682b158debb6d6f49d07d854f99f-casual-male-avatar-silhouette-by-vexels.png"</span>
+  <span class="p">}</span>
+</code></pre>
+<blockquote>
+<p>Response</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code>  <span class="p">{</span>
+    <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"success"</span><span class="p">,</span>
+    <span class="s2">"message"</span><span class="p">:</span> <span class="s2">"Profile photo updated successfully!"</span><span class="p">,</span>
+    <span class="s2">"user"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">"photo"</span><span class="p">:</span> <span class="s2">"https://images.vexels.com/media/users/3/129733/isolated/preview/a558682b158debb6d6f49d07d854f99f-casual-male-avatar-silhouette-by-vexels.png"</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+</code></pre><h1 id='rides'>Rides</h1><h2 id='get-all-ride-offers'>Get all ride offers</h2>
+<p>Get all availble ride offers</p>
+<h3 id='http-request-8'>HTTP Request</h3>
+<p><code>GET /rides</code><br>
+<code>Content-type application/json</code>  </p>
+<h3 id='http-response-8'>HTTP Response</h3>
+<p><code>STATUS CODE 200</code><br>
+<code>Content-type application/json</code>  </p>
+
+<blockquote>
+<p>Response</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code>  <span class="p">{</span>
+    <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"success"</span><span class="p">,</span>
+    <span class="s2">"message"</span><span class="p">:</span> <span class="s2">"2 ride offer(s) found"</span><span class="p">,</span>
+    <span class="s2">"rides"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"YdvzOXsVV9"</span><span class="p">,</span>
+            <span class="s2">"user_id"</span><span class="p">:</span> <span class="s2">"LM0pLGcSam"</span><span class="p">,</span>
+            <span class="s2">"start_from"</span><span class="p">:</span> <span class="s2">"Egbeda"</span><span class="p">,</span>
+            <span class="s2">"destination"</span><span class="p">:</span> <span class="s2">"Ayobo"</span><span class="p">,</span>
+            <span class="s2">"seat"</span><span class="p">:</span> <span class="s2">"4"</span><span class="p">,</span>
+            <span class="s2">"departure_date"</span><span class="p">:</span> <span class="s2">"10-10-2018"</span><span class="p">,</span>
+            <span class="s2">"departure_time"</span><span class="p">:</span> <span class="s2">"02:00:00PM"</span><span class="p">,</span>
+            <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2018-07-25T12:42:46.014Z"</span><span class="p">,</span>
+            <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2018-07-25T12:42:46.014Z"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"iOo0t0Fber"</span><span class="p">,</span>
+            <span class="s2">"user_id"</span><span class="p">:</span> <span class="s2">"LM0pLGcSam"</span><span class="p">,</span>
+            <span class="s2">"start_from"</span><span class="p">:</span> <span class="s2">"Ilupeju"</span><span class="p">,</span>
+            <span class="s2">"destination"</span><span class="p">:</span> <span class="s2">"Oshodi"</span><span class="p">,</span>
+            <span class="s2">"seat"</span><span class="p">:</span> <span class="s2">"4"</span><span class="p">,</span>
+            <span class="s2">"departure_date"</span><span class="p">:</span> <span class="s2">"10-12-2018"</span><span class="p">,</span>
+            <span class="s2">"departure_time"</span><span class="p">:</span> <span class="s2">"05:30:00PM"</span><span class="p">,</span>
+            <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2018-07-25T12:53:37.857Z"</span><span class="p">,</span>
+            <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2018-07-25T12:53:37.857Z"</span>
+        <span class="p">}</span>
+      <span class="p">]</span>
+  <span class="p">}</span>
+</code></pre><h2 id='get-one-ride-offer'>Get one ride offer</h2>
+<p>Get a single ride offers</p>
+<h3 id='http-request-9'>HTTP Request</h3>
+<p><code>GET /rides/:id</code><br>
+<code>Content-type application/json</code>  </p>
+<h3 id='url-parameters-4'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameters</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Ride Offer id</td>
+<td><code>:id</code> should be provided as the Ride Offer ID</td>
+</tr>
+</tbody></table>
+<h3 id='http-response-9'>HTTP Response</h3>
+<p><code>STATUS CODE 200</code><br>
+<code>Content-type application/json</code>  </p>
+
+<blockquote>
+<p>Response</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code>  <span class="p">{</span>
+    <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"success"</span><span class="p">,</span>
+    <span class="s2">"message"</span><span class="p">:</span> <span class="s2">"Ride offer was successfully created"</span><span class="p">,</span>
+    <span class="s2">"ride"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"QVDFP5ifFN"</span><span class="p">,</span>
+        <span class="s2">"user_id"</span><span class="p">:</span> <span class="s2">"wTJb452Lcd"</span><span class="p">,</span>
+        <span class="s2">"start_from"</span><span class="p">:</span> <span class="s2">"Agege"</span><span class="p">,</span>
+        <span class="s2">"destination"</span><span class="p">:</span> <span class="s2">"Gbagada"</span><span class="p">,</span>
+        <span class="s2">"seat"</span><span class="p">:</span> <span class="s2">"4"</span><span class="p">,</span>
+        <span class="s2">"departure_date"</span><span class="p">:</span> <span class="s2">"30-10-2018"</span><span class="p">,</span>
+        <span class="s2">"departure_time"</span><span class="p">:</span> <span class="s2">"03:20:00PM"</span><span class="p">,</span>
+        <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2018-07-29T15:47:16.554Z"</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2018-07-29T15:47:16.554Z"</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+</code></pre><h2 id='create-a-ride-offer'>Create a ride offer</h2>
+<p>Create a ride offer</p>
+<h3 id='http-request-10'>HTTP Request</h3>
+<p><code>POST /users/rides/</code><br>
+<code>Content-type application/json</code>  </p>
+<h3 id='http-response-10'>HTTP Response</h3>
+<p><code>STATUS CODE 201</code><br>
+<code>Content-type application/json</code>  </p>
+
+<blockquote>
+<p>Request</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code>  <span class="p">{</span>
+    <span class="s2">"startLocation"</span><span class="p">:</span> <span class="s2">"Agege"</span><span class="p">,</span>
+    <span class="s2">"destination"</span><span class="p">:</span> <span class="s2">"Gbagada"</span><span class="p">,</span>
+    <span class="s2">"seats"</span><span class="p">:</span> <span class="s2">"4"</span><span class="p">,</span>
+    <span class="s2">"departureDate"</span><span class="p">:</span> <span class="s2">"30-10-2018"</span><span class="p">,</span>
+    <span class="s2">"departureTime"</span><span class="p">:</span> <span class="s2">"03:20:00PM"</span><span class="p">,</span>
+  <span class="p">}</span>
+</code></pre>
+<blockquote>
+<p>Response</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code>  <span class="p">{</span>
+    <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"success"</span><span class="p">,</span>
+    <span class="s2">"message"</span><span class="p">:</span> <span class="s2">"Ride offer was successfully created"</span><span class="p">,</span>
+    <span class="s2">"ride"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"QVDFP5ifFN"</span><span class="p">,</span>
+        <span class="s2">"user_id"</span><span class="p">:</span> <span class="s2">"wTJb452Lcd"</span><span class="p">,</span>
+        <span class="s2">"start_from"</span><span class="p">:</span> <span class="s2">"Agege"</span><span class="p">,</span>
+        <span class="s2">"destination"</span><span class="p">:</span> <span class="s2">"Gbagada"</span><span class="p">,</span>
+        <span class="s2">"seat"</span><span class="p">:</span> <span class="s2">"4"</span><span class="p">,</span>
+        <span class="s2">"departure_date"</span><span class="p">:</span> <span class="s2">"30-10-2018"</span><span class="p">,</span>
+        <span class="s2">"departure_time"</span><span class="p">:</span> <span class="s2">"03:20:00PM"</span><span class="p">,</span>
+        <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2018-07-29T15:47:16.554Z"</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2018-07-29T15:47:16.554Z"</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+</code></pre><h2 id='delete-a-ride-offer'>Delete a ride offer</h2>
+<p>Delete an existing ride offer</p>
+<h3 id='http-request-11'>HTTP Request</h3>
+<p><code>DELETE /rides/:id</code><br>
+<code>Content-type application/json</code>  </p>
+<h3 id='url-parameters-5'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameters</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Ride Offer id</td>
+<td><code>:id</code> should be provided as the Ride Offer ID</td>
+</tr>
+</tbody></table>
+<h3 id='http-response-11'>HTTP Response</h3>
+<p><code>STATUS CODE 200</code><br>
+<code>Content-type application/json</code>  </p>
+
+<blockquote>
+<p>Response</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code>  <span class="p">{</span>
+    <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"success"</span><span class="p">,</span>
+    <span class="s2">"message"</span><span class="p">:</span> <span class="s2">"Ride Offer was deleted successfully"</span>
+  <span class="p">}</span>
+</code></pre><h2 id='request-for-a-ride-offer'>Request for a ride offer</h2>
+<p>Make request for a ride offer</p>
+<h3 id='http-request-12'>HTTP Request</h3>
+<p><code>POST /rides/:id/requests</code><br>
+<code>Content-type application/json</code>  </p>
+<h3 id='url-parameters-6'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameters</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Ride Offer id</td>
+<td><code>:id</code> should be provided as the Ride Offer ID</td>
+</tr>
+</tbody></table>
+<h3 id='http-response-12'>HTTP Response</h3>
+<p><code>STATUS CODE 201</code><br>
+<code>Content-type application/json</code>  </p>
+
+<blockquote>
+<p>Response</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+    <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"success"</span><span class="p">,</span>
+    <span class="s2">"message"</span><span class="p">:</span> <span class="s2">"Request was successfully made"</span><span class="p">,</span>
+    <span class="s2">"request"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"wkVmJh4dML"</span><span class="p">,</span>
+        <span class="s2">"ride_id"</span><span class="p">:</span> <span class="s2">"xN7Kvv2SAb"</span><span class="p">,</span>
+        <span class="s2">"user_id"</span><span class="p">:</span> <span class="s2">"wTJb452Lcd"</span><span class="p">,</span>
+        <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2018-07-29T17:30:17.126Z"</span><span class="p">,</span>
+        <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"pending"</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2018-07-29T17:30:17.126Z"</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+</code></pre><h2 id='respond-to-a-request-for-a-ride-offer'>Respond to a request for a ride offer</h2>
+<p>Accept or Reject a pending request for a ride offer.<br>
+<code>status</code> should either be accepted or rejected</p>
+<h3 id='http-request-13'>HTTP Request</h3>
+<p><code>PUT /rides/:ride_id/requests/:request_id</code><br>
+<code>Content-type application/json</code>  </p>
+<h3 id='url-parameters-7'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameters</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Ride Offer id</td>
+<td><code>:ride_id</code> should be provided as the Ride Offer ID</td>
+</tr>
+<tr>
+<td>Request id</td>
+<td><code>:request_id</code> should be provided as the Request ID</td>
+</tr>
+</tbody></table>
+<h3 id='http-response-13'>HTTP Response</h3>
+<p><code>STATUS CODE 200</code><br>
+<code>Content-type application/json</code>  </p>
+
+<blockquote>
+<p>Request</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code>  <span class="p">{</span>
+    <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"accepted"</span>
+  <span class="p">}</span>
+</code></pre>
+<blockquote>
+<p>Response</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code>  <span class="p">{</span>
+    <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"success"</span><span class="p">,</span>
+    <span class="s2">"message"</span><span class="p">:</span> <span class="s2">"Request accepted"</span><span class="p">,</span>
+  <span class="p">}</span>
+</code></pre><h1 id='errors'>Errors</h1>
+<p>The Ride My Way API uses the following error codes:</p>
+
+<table><thead>
+<tr>
+<th>Error Codes</th>
+<th>Meaning</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>400</td>
+<td>Bad Request.</td>
+</tr>
+<tr>
+<td>401</td>
+<td>Unauthorized.</td>
+</tr>
+<tr>
+<td>403</td>
+<td>Forbidden.</td>
+</tr>
+<tr>
+<td>404</td>
+<td>Not Found.</td>
+</tr>
+<tr>
+<td>409</td>
+<td>Conflict.</td>
+</tr>
+<tr>
+<td>500</td>
+<td>Internal Server Error.</td>
+</tr>
+</tbody></table>
+
+      </div>
+      <div class="dark-box">
+          <div class="lang-selector">
+                <a href="#" data-language-name="javascript">javascript</a>
+          </div>
+      </div>
+    </div>
+  </body>
+</html>

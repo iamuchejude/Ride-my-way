@@ -28,25 +28,33 @@ the ride leaves, where it is headed e.t.c
 * Express
 * Eslint, Babel, Mocha, Chai  
 
+## Base URL
+https://ride-my-way-andela.herokuapp.com/api/v1
+
 ## API Endpoints
 | Verb     | Endpoint                  | Action                         | Description                   |
 | :------- | :------------------------ | :----------------------------- | :---------------------------- |
 | GET      | /rides                    | Fetch all ride offers          |                               |
-| POST     | /rides                    | Create a ride offer            |                               |
+| POST     | /users/rides              | Create a ride offer            |                               |
 | GET      | /rides/\<id>              | Fetch a single ride offer      | `id` should be ride offer id  |
 | POST     | /rides/\<id>/requests     | Make a request to join a ride  | `id` should be ride offer id  |
 
 ## Setting up locally
 1. Clone this repository to your local machine  
 2. Cd to directory `cd Ride-my-way`
-3. Run `npm install` to install dependencies
-4. Start app with `npm start`
+3. Create `.env` file.
+4. Use the format in `.env.example` file to add configure the API
+5. Run `npm install` to install dependencies
+6. Start app with `npm start`
   
 ## Test
 Run `npm test`
 
 ## Live API
 API is currently live at [https://ride-my-way-andela.herokuapp.com/api/v1](https://ride-my-way-andela.herokuapp.com/api/v1)
+
+## Documentation
+[https://ride-my-way-andela.herokuapp.com/api/v1/docs](https://ride-my-way-andela.herokuapp.com/api/v1/docs)
 
 ## Discovered an issue
 Did you find anything that you think should be fixed or added? Kindly create an issue so they can be resolved as soon as possible

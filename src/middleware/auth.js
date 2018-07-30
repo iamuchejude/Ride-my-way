@@ -5,7 +5,7 @@ env.config();
 
 module.exports = (req, res, next) => {
   if (req.headers.authorization === undefined || req.headers.authorization === null) {
-    return res.status(401).json({
+    return res.status(400).json({
       status: 'error',
       message: 'Login failed! Please login and try again',
     });

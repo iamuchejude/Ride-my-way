@@ -90,7 +90,7 @@ class Auth {
             const query = 'INSERT INTO users(id, name, email, password, photo, updated_at, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id, name, email, phone_number, photo, updated_at, created_at';
 
             db.query(query, userData)
-              .then((secondResult) => {
+              .then((secondResult) => {                
                 const user = { 
                   id: secondResult.rows[0].id,
                   name: secondResult.rows[0].name,
@@ -100,19 +100,23 @@ class Auth {
                   created_at: secondResult.rows[0].created_at,
                   updated_at: secondResult.rows[0].updated_at,
                  };
+
                 const token = jwt.sign({ user }, process.env.JWT_SECRET_TOKEN, { expiresIn: '48h' });
+
+                console.log(user);
 
                 res.status(201).json({
                   status: 'success',
                   message: 'Registration successful!',
-                  user: secondResult.rows[0],
+                  user,
                   token,
                 });
               })
-              .catch(() => {
+              .catch((error) => {
                 res.status(500).json({
                   status: 'error',
                   message: 'Internal server error occured! Please try again later',
+                  error,
                 });
               });
           }

@@ -9,6 +9,7 @@ env.config();
 class Auth {
   static login(req, res) {
     const { email, password } = req.body;
+    console.log(req.body);
     if ((email === undefined || email.trim().length < 1) || (password === undefined || password.trim().length < 1)) {
       res.status(400).json({
         status: 'error',

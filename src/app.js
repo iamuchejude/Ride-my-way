@@ -44,5 +44,3 @@ app.listen(port, () => {
 });
 
 export default app;
-
-console.log(path.resolve(__dirname, '../docs'));

@@ -9,7 +9,6 @@ env.config();
 class Auth {
   static login(req, res) {
     const { email, password } = req.body;
-    console.log(req.body);
     if ((email === undefined || email.trim().length < 1) || (password === undefined || password.trim().length < 1)) {
       res.status(400).json({
         status: 'error',
@@ -90,8 +89,8 @@ class Auth {
             const query = 'INSERT INTO users(id, name, email, password, photo, updated_at, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id, name, email, phone_number, photo, updated_at, created_at';
 
             db.query(query, userData)
-              .then((secondResult) => {                
-                const user = { 
+              .then((secondResult) => {
+                const user = {
                   id: secondResult.rows[0].id,
                   name: secondResult.rows[0].name,
                   email: secondResult.rows[0].email,
@@ -99,7 +98,7 @@ class Auth {
                   photo: secondResult.rows[0].photo,
                   created_at: secondResult.rows[0].created_at,
                   updated_at: secondResult.rows[0].updated_at,
-                 };
+                };
 
                 const token = jwt.sign({ user }, process.env.JWT_SECRET_TOKEN, { expiresIn: '48h' });
 

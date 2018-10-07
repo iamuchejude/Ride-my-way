@@ -25,12 +25,12 @@ describe('Test for auth endpoints for Ride-my-way ride API', () => {
         .set('Content-Type', 'application/x-www-form-urlencoded')
         .send(data)
         .end((err, res) => {
-            expect(err).to.equal(null);
-            expect(res.status).to.equal(201);
-            expect(res.body.status).to.equal('success');
-            expect(res.body.user).to.be.an('object');
-            expect(res.body.user.photo).to.equal('avatar.png');
-            done();
+          expect(err).to.equal(null);
+          expect(res.status).to.equal(201);
+          expect(res.body.status).to.equal('success');
+          expect(res.body.user).to.be.an('object');
+          expect(res.body.user.photo).to.equal('avatar.png');
+          done();
         });
     });
   });

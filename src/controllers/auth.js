@@ -43,7 +43,8 @@ class Auth {
                 if (error) {
                   res.status(500).json({
                     status: 'error',
-                    message: 'Unexpected error occured. Please try again later',
+                    message: 'Unexpected error occurred. Please try again later',
+                    error,
                   });
                 } else {
                   res.status(200).json({
@@ -57,10 +58,11 @@ class Auth {
             }
           }
         })
-        .catch(() => {
+        .catch((error) => {
           res.status(500).json({
             status: 'error',
-            message: 'Internal server error occured! Please try again later',
+            message: 'Internal server error occurred! Please try again later',
+            error,
           });
         });
     }

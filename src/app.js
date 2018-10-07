@@ -16,8 +16,8 @@ const port = process.env.PORT || 8080;
 
 app.use(cors());
 app.use(logger('dev'));
-app.use(bodyParser.json({ type: 'application/*+json' }));
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/assets', express.static(path.resolve(__dirname, '../docs')));
 
 app.all('/api/v1', (req, res) => {

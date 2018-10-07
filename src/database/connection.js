@@ -3,34 +3,32 @@ import env from 'dotenv';
 
 env.config();
 
-let config;
+const config = {};
 
-if (process.env.NODE_ENV === 'Test') {
-  config = {
-    user: process.env.TEST_DATABASE_USER,
-    host: process.env.TEST_DATABASE_HOST,
-    database: process.env.TEST_DATABASE_NAME,
-    password: process.env.TEST_DATABASE_PASSWORD,
-    port: process.env.TEST_DATABASE_PORT,
-  };
-} else if (process.env.NODE_ENV === 'Production') {
-  config = {
-    user: process.env.PROD_DATABASE_USER,
-    host: process.env.PROD_DATABASE_HOST,
-    database: process.env.PROD_DATABASE_NAME,
-    password: process.env.PROD_DATABASE_PASSWORD,
-    port: process.env.PROD_DATABASE_PORT,
-  };
-} else if (process.env.NODE_ENV === 'Development') {
-  config = {
-    user: process.env.DEV_DATABASE_USER,
-    host: process.env.DEV_DATABASE_HOST,
-    database: process.env.DEV_DATABASE_NAME,
-    password: process.env.DEV_DATABASE_PASSWORD,
-    port: process.env.DEV_DATABASE_PORT,
-  };
-} else {
-  console.log('Please specify development environment in .env file');
+switch (process.env.NODE_ENV) {
+  case 'Test':
+    config.user = process.env.TEST_DATABASE_USER;
+    config.host = process.env.TEST_DATABASE_HOST;
+    config.database = process.env.TEST_DATABASE_NAME;
+    config.password = process.env.TEST_DATABASE_PASSWORD;
+    config.port = process.env.TEST_DATABASE_PORT;
+    break;
+  case 'Production':
+    config.user = process.env.PROD_DATABASE_USER;
+    config.host = process.env.PROD_DATABASE_HOST;
+    config.database = process.env.PROD_DATABASE_NAME;
+    config.password = process.env.PROD_DATABASE_PASSWORD;
+    config.port = process.env.PROD_DATABASE_PORT;
+    break;
+  case 'Development':
+    config.user = process.env.DEV_DATABASE_USER;
+    config.host = process.env.DEV_DATABASE_HOST;
+    config.database = process.env.DEV_DATABASE_NAME;
+    config.password = process.env.DEV_DATABASE_PASSWORD;
+    config.port = process.env.DEV_DATABASE_PORT;
+    break;
+  default:
+    throw new Error('Please specify development environment in .env file');
 }
 
 const db = new pg.Pool(config);

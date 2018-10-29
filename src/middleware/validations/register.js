@@ -25,12 +25,12 @@ const validate = (req, res, next) => {
   if (!req.body.email || req.body.email === null || req.body.email === undefined) {
     return res.status(400).json({
       status: 'error',
-      message: 'Please provide a valid Email',
+      message: 'Please provide a valid email address',
     });
   } else if (!validateEmail(req.body.email)) {
     return res.status(400).json({
       status: 'error',
-      message: 'Email is invalid',
+      message: 'Please provide a valid email address',
     });
   }
 
@@ -41,7 +41,7 @@ const validate = (req, res, next) => {
     });
   }
 
-  if(req.body.password.length < 6) {
+  if (req.body.password.length < 6) {
     return res.status(400).json({
       status: 'error',
       message: 'Password is too short. Password must contain at least 6 characters'

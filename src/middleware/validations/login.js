@@ -18,7 +18,7 @@ const validate = (req, res, next) => {
   if (!validateEmail(req.body.email)) {
     return res.status(400).json({
       status: 'error',
-      message: 'Email is invalid',
+      message: 'Please provide a valid email address',
     });
   }
 

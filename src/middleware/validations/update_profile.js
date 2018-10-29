@@ -6,7 +6,7 @@ const validate = (req, res, next) => {
     });
   }
 
-  if(req.body.email !== undefined) {
+  if (req.body.email !== undefined) {
     return res.status(400).json({
       status: 'error',
       message: 'You cannot update your email address',
@@ -19,7 +19,7 @@ const validate = (req, res, next) => {
         status: 'error',
         message: 'Please provide valid Full Names ',
       });
-    } 
+    }
 
     const hasNumberAndSpecialCharacters = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?0-9?]/;
     if (hasNumberAndSpecialCharacters.test(req.body.name)) {

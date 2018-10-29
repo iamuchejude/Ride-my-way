@@ -16,11 +16,11 @@ describe('Test for user endpoints for Ride-my-way ride API', () => {
         .set('Content-Type', 'application/x-www-form-urlencoded')
         .set('Authorization', `Bearer ${token}`)
         .end((err, res) => {
-            expect(err).to.equal(null);
-            expect(res.status).to.equal(200);
-            expect(res.body.status).to.equal('success');
-            expect(res.body.data).to.be.an('array');
-            done();
+          expect(err).to.equal(null);
+          expect(res.status).to.equal(200);
+          expect(res.body.status).to.equal('success');
+          expect(res.body.data).to.be.an('array');
+          done();
         });
     });
   });

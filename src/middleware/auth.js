@@ -4,23 +4,26 @@ import env from 'dotenv';
 env.config();
 
 module.exports = (req, res, next) => {
-  if (req.headers.authorization === undefined || req.headers.authorization === null) {
+  const { authorization } = req.headers;
+  if (!authorization) {
     return res.status(400).json({
       status: 'error',
-      message: 'Login failed! Please login and try again',
+      message: 'Authentication failed! Please login and try again',
+      err: 'error1',
     });
   }
 
-  const token = req.headers.authorization.split(' ')[1].trim();
+  const token = authorization.split(' ')[1].trim();
+
   jwt.verify(token, process.env.JWT_SECRET_TOKEN, (error, decoded) => {
     if (error) {
       return res.status(401).json({
         status: 'error',
-        message: 'Login expired! Please login again to continue',
+        message: 'Authentication failed! Please login again to continue',
+        error,
       });
-    } else {
-      req.authData = decoded;
-      next();
     }
+    req.authData = decoded;
+    next();
   });
 };

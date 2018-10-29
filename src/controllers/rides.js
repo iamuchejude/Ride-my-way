@@ -1,6 +1,7 @@
 import randomstring from 'randomstring';
 import env from 'dotenv';
 import db from '../database/connection';
+import processDate from '../util/process_date';
 
 env.config();
 
@@ -37,18 +38,17 @@ class Rides {
           ride: result.rows[0],
         });
       })
-      .catch(() => {
-        return res.status(500).json({
-          status: 'error',
-          message: 'Internal server error. Please try again later',
-        });
-      });
+      .catch(() => res.status(500).json({
+        status: 'error',
+        message: 'Internal server error. Please try again later',
+      }));
   }
 
   static createRideOffer(req, res) { 
     const {
       startLocation, destination, seats, departureDate, departureTime,
     } = req.body;
+
     const query = 'INSERT INTO ride_offers(id, user_id, start_from, destination, seat, departure_date, departure_time, updated_at, created_at) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *';
     const data = [
       randomstring.generate(10),
@@ -56,8 +56,8 @@ class Rides {
       startLocation,
       destination,
       seats,
-      departureDate,
-      departureTime,
+      processDate(departureDate),
+      processDate(departureTime),
       new Date().toISOString(),
       new Date().toISOString(),
     ];
@@ -89,12 +89,10 @@ class Rides {
           });
         } else {
           db.query('DELETE FROM ride_offers WHERE id=$1', [req.params.id])
-            .then(() => {
-                res.status(200).json({
-                  status: 'success',
-                  message: 'Ride Offer was deleted successfully',
-                });
-            })
+            .then(() => res.status(200).json({
+              status: 'success',
+              message: 'Ride Offer was deleted successfully',
+            }))
             .catch(() => {
               res.status(500).json({
                 status: 'error',

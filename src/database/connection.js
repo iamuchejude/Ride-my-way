@@ -1,5 +1,7 @@
-import pg from 'pg';
+import pg, { Pool } from 'pg';
 import env from 'dotenv';
+
+pg.defaults.ssl = true;
 
 env.config();
 
@@ -31,6 +33,6 @@ switch (process.env.NODE_ENV) {
     throw new Error('Please specify development environment in .env file');
 }
 
-const db = new pg.Pool(config);
+const db = new Pool(config);
 
 module.exports = db;

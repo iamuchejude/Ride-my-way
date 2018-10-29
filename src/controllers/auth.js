@@ -39,6 +39,7 @@ class Auth {
                 created_at: result.rows[0].created_at,
                 updated_at: result.rows[0].updated_at,
               };
+
               jwt.sign({ user }, process.env.JWT_SECRET_TOKEN, { expiresIn: '48h' }, (error, token) => {
                 if (error) {
                   res.status(500).json({
@@ -87,7 +88,7 @@ class Auth {
             const ecryptedPassword = bcrypt.hashSync(password, 8);
             const uid = randomstring.generate(10);
 
-            const userData = [uid, name, email, ecryptedPassword, 'avatar.png', new Date().toISOString(), new Date().toISOString()];
+            const userData = [uid, name, email, ecryptedPassword, null, new Date().toISOString(), new Date().toISOString()];
             const query = 'INSERT INTO users(id, name, email, password, photo, updated_at, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id, name, email, phone_number, photo, updated_at, created_at';
 
             db.query(query, userData)
@@ -104,11 +105,9 @@ class Auth {
 
                 const token = jwt.sign({ user }, process.env.JWT_SECRET_TOKEN, { expiresIn: '48h' });
 
-                console.log(user);
-
                 res.status(201).json({
                   status: 'success',
-                  message: 'Registration successful!',
+                  message: 'Registration successful! You can now login.',
                   user,
                   token,
                 });
@@ -122,10 +121,11 @@ class Auth {
               });
           }
         })
-        .catch(() => {
+        .catch((err) => {
           res.status(500).json({
             status: 'error',
             message: 'Internal server error occured! Please try again later',
+            error: err,
           });
         });
     }

@@ -41,10 +41,10 @@ const validate = (req, res, next) => {
     });
   }
 
-  const date_provided = Date.parse(req.body.departureDate);
-  const current_date = Date.parse(new Date());
+  const dateProvided = Date.parse(req.body.departureDate);
+  const currentDate = Date.parse(new Date());
 
-  if (date_provided < current_date) {
+  if (dateProvided < currentDate) {
     return res.status(400).json({
       status: 'error',
       message: 'Please provide a future date as Date of Departure',

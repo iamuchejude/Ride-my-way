@@ -6,15 +6,12 @@ const validate = (req, res, next) => {
     });
   }
 
-  if (req.body.password.length < 6) {
-    return res.status(400).json({
-      status: 'error',
-      message: 'Password is too short. Password must contain at least 6 characters'
-    });
-  }
+  if (req.body.password.length >= 6) return next();
 
-  next();
-
-}
+  return res.status(400).json({
+    status: 'error',
+    message: 'Password is too short. Password must contain at least 6 characters',
+  });
+};
 
 export default validate;

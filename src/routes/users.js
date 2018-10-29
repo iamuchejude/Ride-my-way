@@ -1,5 +1,4 @@
 import express from 'express';
-import multer from 'multer';
 import Users from '../controllers/users';
 import Rides from '../controllers/rides';
 import checkAuth from '../middleware/auth';

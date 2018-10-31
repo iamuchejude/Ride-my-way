@@ -107,7 +107,7 @@ class Auth {
 
                 res.status(201).json({
                   status: 'success',
-                  message: 'Registration successful! You can now login.',
+                  message: 'Registration successful!',
                   user,
                   token,
                 });

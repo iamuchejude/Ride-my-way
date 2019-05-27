@@ -25,7 +25,6 @@ describe('Test for auth endpoints for Ride-my-way ride API', () => {
         .set('Content-Type', 'application/x-www-form-urlencoded')
         .send(data)
         .end((err, res) => {
-          console.log('======>', res.body);
           expect(err).to.equal(null);
           expect(res.status).to.equal(201);
           expect(res.body.status).to.equal('success');

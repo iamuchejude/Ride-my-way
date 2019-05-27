@@ -1,6 +1,8 @@
 import express from 'express';
+
 import Users from '../controllers/users';
 import Rides from '../controllers/rides';
+
 import checkAuth from '../middleware/auth';
 import createRideValidation from '../middleware/validations/create_ride';
 import rideRequestValidation from '../middleware/validations/request_response';

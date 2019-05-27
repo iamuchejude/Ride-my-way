@@ -1,6 +1,8 @@
 import express from 'express';
-import Rides from '../controllers/rides';
+
 import checkAuth from '../middleware/auth';
+
+import Rides from '../controllers/rides';
 
 const router = express.Router();
 
